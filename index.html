@@ -1078,11 +1078,29 @@ function App() {
   const handleSignOut = useCallback(() => { if(window.confirm('Sign out? Your progress stays saved on this device.')) setUser(null); }, [setUser]);
 
   const handleLog = useCallback((entry) => {
-    setLogs(prev => ({
-      ...prev,
-      [entry.exercise]: [...(prev[entry.exercise]||[]), {date:entry.date,sets:entry.sets}]
-    }));
-  }, [setLogs]);
+    // Save to device (always works offline)
+    setLogs(prev => {
+      const newEntry = { date: entry.date };
+      if (entry.sets) newEntry.sets = entry.sets;
+      if (entry.cardio) { newEntry.cardio = true; if (entry.note) newEntry.note = entry.note; }
+      return { ...prev, [entry.exercise]: [...(prev[entry.exercise]||[]), newEntry] };
+    });
+    // Sync to coach dashboard (best-effort, silent on failure)
+    if (user) {
+      fetch('/.netlify/functions/save-log', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          student: user,
+          exercise: entry.exercise,
+          date: entry.date,
+          sets: entry.sets || null,
+          cardio: !!entry.cardio,
+          note: entry.note || null,
+        }),
+      }).catch(() => {});
+    }
+  }, [setLogs, user]);
 
   if (!user) return <LoginScreen onLogin={handleLogin}/>;
 
