@@ -157,6 +157,37 @@ h1,h2,h3,h4{font-family:'Bebas Neue',sans-serif;letter-spacing:0.05em;}
 .food-card h4{font-size:14px;margin-bottom:4px;color:var(--gold);}
 .food-card p{font-size:11px;color:var(--grey);line-height:1.5;}
 .star{color:var(--gold);}
+
+/* LOGIN */
+.login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;
+  background:linear-gradient(160deg,var(--maroon-d) 0%,var(--navy) 55%);}
+.login-card{width:100%;max-width:400px;background:var(--navy-m);border:1px solid var(--navy-l);
+  border-radius:14px;padding:32px 24px;box-shadow:0 24px 60px rgba(0,0,0,.5);}
+.login-card .school-badge{width:64px;height:64px;font-size:24px;margin:0 auto 14px;}
+.login-card h2{font-size:30px;text-align:center;margin-bottom:2px;}
+.login-card .login-sub{text-align:center;color:var(--gold);font-family:'Barlow Condensed';
+  font-size:12px;letter-spacing:.15em;text-transform:uppercase;margin-bottom:24px;}
+.login-field{margin-bottom:16px;}
+.login-field label{display:block;font-family:'Barlow Condensed';font-size:11px;color:var(--grey);
+  text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
+.login-field input,.login-field select{width:100%;padding:13px 14px;border-radius:8px;
+  border:1px solid var(--navy-l);background:#0D1B2A;color:var(--white);font-size:16px;
+  font-family:'Barlow',sans-serif;outline:none;transition:border-color .15s;}
+.login-field input:focus,.login-field select:focus{border-color:var(--gold);}
+.login-field select option{background:var(--navy);}
+.login-btn{width:100%;margin-top:20px;padding:14px;border:none;border-radius:8px;cursor:pointer;
+  background:linear-gradient(180deg,var(--maroon-l),var(--maroon-d));color:var(--white);
+  font-family:'Bebas Neue';font-size:20px;letter-spacing:.08em;transition:opacity .15s;}
+.login-btn:hover{opacity:.9;}
+.login-hint{text-align:center;font-family:'Barlow Condensed';font-size:11px;color:var(--grey);margin-top:14px;}
+
+/* HEADER USER CHIP */
+.header-user{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:8px;}
+.header-user .user-chip{background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);
+  border-radius:20px;padding:4px 12px;font-family:'Barlow Condensed';font-size:12px;color:var(--gold);}
+.header-user .signout-btn{background:none;border:none;color:var(--grey);font-family:'Barlow Condensed';
+  font-size:11px;cursor:pointer;text-decoration:underline;text-transform:uppercase;letter-spacing:.06em;}
+.header-user .signout-btn:hover{color:var(--white);}
 </style>
 </head>
 <body>
@@ -1001,10 +1032,50 @@ function NutritionTab() {
   );
 }
 
+// ── LOGIN ─────────────────────────────────────────────────────────────────────
+const SQUADS = ['1st XV','2nd XV','U18A','U18B','U16A','U16B','U15','U14','Development'];
+
+function LoginScreen({ onLogin }) {
+  const [name, setName] = React.useState('');
+  const [squad, setSquad] = React.useState(SQUADS[0]);
+  const submit = (e) => {
+    e.preventDefault();
+    const n = name.trim();
+    if (!n) return;
+    onLogin({ name: n, squad });
+  };
+  return (
+    <div className="login-screen">
+      <form className="login-card" onSubmit={submit} autoComplete="on">
+        <div className="school-badge">S</div>
+        <h2>SOLIHULL SCHOOL</h2>
+        <p className="login-sub">Rugby Performance Programme</p>
+        <div className="login-field">
+          <label htmlFor="login-name">Your name</label>
+          <input id="login-name" name="name" type="text" placeholder="e.g. Tom Harper"
+            value={name} onChange={e=>setName(e.target.value)} autoComplete="given-name" required/>
+        </div>
+        <div className="login-field">
+          <label htmlFor="login-squad">Squad</label>
+          <select id="login-squad" name="squad" value={squad} onChange={e=>setSquad(e.target.value)}>
+            {SQUADS.map(s=><option key={s}>{s}</option>)}
+          </select>
+        </div>
+        <button className="login-btn" type="submit">Start Training →</button>
+        <p className="login-hint">Remembered on this device — no password needed.</p>
+      </form>
+    </div>
+  );
+}
+
 // ── APP ───────────────────────────────────────────────────────────────────────
 function App() {
   const [tab, setTab] = useState('training');
+  const [user, setUser] = useLocalStorage('solihull-user-v1', null);
   const [logs, setLogs] = useLocalStorage('solihull-logs-v2', {});
+
+  const handleLogin = useCallback((u) => setUser(u), [setUser]);
+  const handleSignOut = useCallback(() => { if(window.confirm('Sign out? Your progress stays saved on this device.')) setUser(null); }, [setUser]);
 
   const handleLog = useCallback((entry) => {
     setLogs(prev => ({
@@ -1013,12 +1084,18 @@ function App() {
     }));
   }, [setLogs]);
 
+  if (!user) return <LoginScreen onLogin={handleLogin}/>;
+
   return (
     <div>
       <div className="header">
         <div className="school-badge">S</div>
         <h1>SOLIHULL SCHOOL</h1>
         <p>Rugby Performance Programme</p>
+        <div className="header-user">
+          <span className="user-chip">👤 {user.name} · {user.squad}</span>
+          <button className="signout-btn" onClick={handleSignOut}>Sign out</button>
+        </div>
       </div>
       <nav className="nav">
         {[{id:'training',label:'Training'},{id:'dashboard',label:'Dashboard'},{id:'nutrition',label:'Nutrition'}].map(t=>(
