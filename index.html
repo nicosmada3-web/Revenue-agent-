@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Solihull School Rugby Performance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --maroon:#6B1A2B;--maroon-l:#8B2236;--maroon-d:#4A1020;
+  --navy:#0D1B2A;--navy-m:#1A2E45;--navy-l:#243850;
+  --gold:#C9A84C;--gold-l:#E8C86A;--white:#F5F1EB;--grey:#8A9BAE;--green:#2D6A4F;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--navy);color:var(--white);font-family:'Barlow',sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4{font-family:'Bebas Neue',sans-serif;letter-spacing:0.05em;}
+
+/* HEADER */
+.header{background:linear-gradient(135deg,var(--maroon-d) 0%,var(--navy) 60%);padding:28px 20px 20px;text-align:center;border-bottom:1px solid rgba(201,168,76,0.3);}
+.school-badge{width:56px;height:56px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-family:'Bebas Neue';font-size:20px;color:var(--navy);}
+.header h1{font-size:clamp(26px,6vw,44px);}
+.header p{color:var(--gold);font-family:'Barlow Condensed';font-size:13px;letter-spacing:0.15em;text-transform:uppercase;margin-top:3px;}
+
+/* NAV */
+.nav{background:var(--maroon-d);display:flex;overflow-x:auto;border-bottom:2px solid var(--gold);position:sticky;top:0;z-index:100;}
+.nav button{flex-shrink:0;background:none;border:none;color:var(--white);font-family:'Barlow Condensed';font-size:13px;font-weight:600;padding:14px 16px;cursor:pointer;text-transform:uppercase;letter-spacing:0.08em;border-bottom:3px solid transparent;transition:all 0.2s;}
+.nav button.active{color:var(--gold);border-bottom-color:var(--gold);background:rgba(201,168,76,0.08);}
+
+/* LAYOUT */
+.content{padding:20px;max-width:820px;margin:0 auto;}
+.section-title{font-size:30px;color:var(--gold);margin-bottom:4px;}
+.section-sub{color:var(--grey);font-size:13px;margin-bottom:20px;font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:0.1em;}
+
+/* PROGRAMME GRID */
+.prog-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
+@media(max-width:500px){.prog-grid{grid-template-columns:1fr;}}
+.prog-card{background:var(--navy-m);border:1px solid var(--navy-l);border-radius:8px;padding:16px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden;}
+.prog-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gold);}
+.prog-card.sizeStrength::before{background:#8B2236;}.prog-card.strengthPower::before{background:var(--gold);}.prog-card.power::before{background:#E07B39;}.prog-card.conditioning::before{background:#2D6A4F;}
+.prog-card:hover{border-color:var(--gold);transform:translateY(-2px);}
+.prog-card h3{font-size:20px;margin-bottom:3px;}
+.prog-card p{font-size:12px;color:var(--grey);font-family:'Barlow Condensed';text-transform:uppercase;}
+.badge{display:inline-block;margin-top:8px;background:rgba(201,168,76,0.15);color:var(--gold);font-size:11px;padding:3px 8px;border-radius:4px;font-family:'Barlow Condensed';text-transform:uppercase;}
+
+/* PROGRAMME DETAIL */
+.block-selector{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;}
+.block-btn{background:var(--navy-m);border:1px solid var(--navy-l);color:var(--grey);padding:7px 14px;border-radius:6px;cursor:pointer;font-family:'Barlow Condensed';font-size:13px;font-weight:600;text-transform:uppercase;transition:all 0.2s;}
+.block-btn.active{background:var(--gold);color:var(--navy);border-color:var(--gold);}
+.back-btn{background:none;border:1px solid var(--navy-l);color:var(--grey);padding:7px 14px;border-radius:6px;cursor:pointer;font-family:'Barlow Condensed';font-size:13px;margin-bottom:18px;display:inline-flex;align-items:center;gap:5px;transition:all 0.2s;}
+.back-btn:hover{color:var(--white);border-color:var(--white);}
+.info-row{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+.info-chip{background:var(--navy-m);border:1px solid var(--navy-l);border-radius:6px;padding:7px 12px;font-family:'Barlow Condensed';font-size:12px;}
+.info-chip span{color:var(--gold);display:block;font-size:17px;font-family:'Bebas Neue';}
+.warmup-box{background:rgba(201,168,76,0.08);border-left:3px solid var(--gold);padding:10px 12px;border-radius:0 6px 6px 0;margin-bottom:14px;font-size:12px;}
+.warmup-box strong{color:var(--gold);font-family:'Barlow Condensed';text-transform:uppercase;font-size:10px;letter-spacing:0.08em;display:block;margin-bottom:4px;}
+.pap-box{background:rgba(224,123,57,0.1);border-left:3px solid #E07B39;padding:8px 12px;border-radius:0 6px 6px 0;margin-bottom:12px;font-size:11px;color:var(--grey);}
+.pap-box strong{color:#E07B39;display:block;margin-bottom:2px;font-family:'Barlow Condensed';text-transform:uppercase;font-size:10px;}
+
+/* SESSION CARD */
+.session-card{background:var(--navy-m);border:1px solid var(--navy-l);border-radius:8px;margin-bottom:14px;overflow:hidden;}
+.session-header{padding:12px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;}
+.session-header h4{font-size:17px;}
+.session-header .chevron{color:var(--gold);font-size:18px;}
+.session-body{padding:0 16px 16px;}
+.session-focus{font-size:11px;color:var(--gold);font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px;}
+
+/* EXERCISE CARD (replaces table row) */
+.ex-card{border:1px solid var(--navy-l);border-radius:6px;margin-bottom:8px;overflow:hidden;background:rgba(13,27,42,0.5);}
+.ex-card.ex-open{border-color:rgba(201,168,76,0.4);}
+.ex-header{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;padding:10px 12px;cursor:pointer;}
+.ex-main{flex:1;min-width:0;}
+.ex-name{font-weight:600;font-size:14px;}
+.ex-cue{font-size:11px;color:var(--grey);margin-top:2px;line-height:1.4;}
+.ex-meta-row{display:flex;align-items:center;gap:8px;margin-top:5px;flex-wrap:wrap;}
+.ex-sets-badge{background:rgba(201,168,76,0.12);color:var(--gold);font-family:'Barlow Condensed';font-size:12px;padding:2px 7px;border-radius:3px;}
+.ex-rest-badge{color:var(--grey);font-family:'Barlow Condensed';font-size:11px;}
+.yt-btn{display:inline-flex;align-items:center;background:#CC0000;color:white;font-size:10px;padding:2px 6px;border-radius:3px;text-decoration:none;font-family:'Barlow Condensed';}
+.vid-pending{display:inline-flex;align-items:center;gap:3px;background:rgba(201,168,76,0.12);color:var(--gold);border:1px dashed rgba(201,168,76,0.45);font-size:10px;padding:1px 6px;border-radius:3px;font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:0.04em;}
+.ex-rest-badge.hyp{color:var(--gold);}
+.ex-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;}
+.ex-last-pill{background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.25);border-radius:4px;padding:2px 7px;font-family:'Barlow Condensed';font-size:11px;color:var(--gold);white-space:nowrap;}
+.log-toggle-btn{background:var(--maroon);border:none;color:white;font-size:11px;padding:4px 10px;border-radius:4px;cursor:pointer;font-family:'Barlow Condensed';font-weight:600;text-transform:uppercase;white-space:nowrap;}
+.log-toggle-btn:hover{background:var(--maroon-l);}
+.log-toggle-btn.active{background:rgba(201,168,76,0.15);color:var(--gold);border:1px solid rgba(201,168,76,0.3);}
+
+/* INLINE LOG PANEL */
+.log-panel{padding:10px 12px;background:rgba(0,0,0,0.25);border-top:1px solid var(--navy-l);}
+.last-session-ref{background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.18);border-radius:5px;padding:7px 10px;margin-bottom:10px;}
+.last-session-ref .lsr-label{font-family:'Barlow Condensed';font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:0.08em;display:block;margin-bottom:4px;}
+.last-session-ref .lsr-chips{display:flex;gap:5px;flex-wrap:wrap;}
+.lsr-chip{background:var(--navy);border-radius:3px;padding:2px 7px;font-family:'Barlow Condensed';color:var(--gold);font-size:12px;}
+.sets-grid-head{display:grid;grid-template-columns:32px 1fr 1fr 28px;gap:5px;margin-bottom:6px;}
+.sets-grid-head span{font-family:'Barlow Condensed';font-size:10px;color:var(--grey);text-transform:uppercase;letter-spacing:0.07em;text-align:center;}
+.set-row-inline{display:grid;grid-template-columns:32px 1fr 1fr 28px;gap:5px;align-items:center;margin-bottom:5px;}
+.set-num-lbl{font-family:'Barlow Condensed';font-size:12px;color:var(--grey);text-align:center;}
+.set-input{width:100%;background:var(--navy);border:1px solid var(--navy-l);color:var(--white);padding:8px 6px;border-radius:4px;font-size:14px;text-align:center;outline:none;font-family:'Barlow';}
+.set-input:focus{border-color:var(--gold);}
+.set-input::placeholder{color:var(--grey);font-size:11px;}
+.set-del-btn{width:26px;height:26px;background:none;border:1px solid rgba(255,255,255,0.08);border-radius:4px;color:var(--grey);cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;}
+.set-del-btn:hover{border-color:rgba(192,57,43,0.5);color:#f87171;}
+.log-panel-actions{display:flex;gap:7px;margin-top:8px;}
+.btn-add-set{background:none;border:1px dashed var(--navy-l);color:var(--grey);padding:6px 12px;border-radius:4px;cursor:pointer;font-family:'Barlow Condensed';font-size:12px;transition:all 0.15s;}
+.btn-add-set:hover{border-color:var(--gold);color:var(--gold);}
+.btn-save-sets{flex:1;background:var(--green);border:none;color:white;padding:8px 16px;border-radius:4px;cursor:pointer;font-family:'Barlow Condensed';font-size:13px;font-weight:700;text-transform:uppercase;}
+.btn-save-sets:disabled{opacity:0.35;cursor:default;}
+.saved-flash{display:flex;align-items:center;gap:5px;margin-top:7px;padding:6px 10px;background:rgba(45,106,79,0.15);border:1px solid rgba(74,222,128,0.3);border-radius:4px;font-family:'Barlow Condensed';font-size:12px;color:#4ade80;}
+
+/* DASHBOARD */
+.dash-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;}
+@media(max-width:480px){.dash-summary{grid-template-columns:1fr 1fr;}}
+.dash-card{background:var(--navy-m);border:1px solid var(--navy-l);border-radius:8px;padding:14px;text-align:center;}
+.dash-card .big{font-family:'Bebas Neue';font-size:32px;color:var(--gold);line-height:1;}
+.dash-card .lbl{font-family:'Barlow Condensed';font-size:11px;color:var(--grey);text-transform:uppercase;margin-top:3px;}
+.lift-section{margin-bottom:24px;}
+.lift-section h3{font-size:22px;color:var(--white);margin-bottom:12px;border-bottom:1px solid var(--navy-l);padding-bottom:8px;}
+.lift-row{background:var(--navy-m);border:1px solid var(--navy-l);border-radius:8px;padding:14px;margin-bottom:8px;}
+.lift-row-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
+.lift-name{font-size:17px;font-family:'Bebas Neue';letter-spacing:0.05em;}
+.improvement-badge{display:inline-flex;align-items:center;gap:3px;background:rgba(45,106,79,0.2);border:1px solid rgba(45,106,79,0.4);color:#4ade80;border-radius:4px;padding:2px 7px;font-size:11px;font-family:'Barlow Condensed';margin-top:4px;}
+.decline-badge{display:inline-flex;align-items:center;gap:3px;background:rgba(192,57,43,0.15);border:1px solid rgba(192,57,43,0.3);color:#f87171;border-radius:4px;padding:2px 7px;font-size:11px;font-family:'Barlow Condensed';margin-top:4px;}
+.lift-best{text-align:right;}
+.lift-best .val{font-family:'Bebas Neue';font-size:28px;color:var(--gold);line-height:1;}
+.lift-best .sub{font-size:10px;color:var(--grey);font-family:'Barlow Condensed';text-transform:uppercase;}
+.progress-bar-wrap{background:var(--navy);border-radius:4px;height:5px;overflow:hidden;margin-bottom:10px;}
+.progress-bar{height:100%;background:linear-gradient(90deg,var(--maroon),var(--gold));border-radius:4px;transition:width 0.6s ease;}
+/* Bar chart */
+.bar-chart-wrap{margin-bottom:10px;}
+.bar-chart-label{font-family:'Barlow Condensed';font-size:10px;color:var(--grey);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:5px;}
+.bar-chart{display:flex;align-items:flex-end;gap:3px;height:44px;}
+.bar-col{display:flex;flex-direction:column;align-items:center;flex:1;min-width:0;}
+.bar-fill{width:100%;border-radius:2px 2px 0 0;min-height:4px;}
+.bar-fill.pr{background:linear-gradient(0deg,var(--maroon),var(--gold));}
+.bar-fill.normal{background:rgba(201,168,76,0.28);}
+.bar-date-lbl{font-family:'Barlow Condensed';font-size:9px;color:var(--grey);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;}
+.lift-history-row{display:flex;gap:5px;flex-wrap:wrap;}
+.lift-hist-chip{background:var(--navy);border-radius:4px;padding:3px 8px;font-size:11px;font-family:'Barlow Condensed';}
+.lift-hist-chip .v{color:var(--gold);font-size:13px;display:block;}
+.lift-hist-chip .d{color:var(--grey);font-size:10px;}
+.no-data{color:var(--grey);font-size:13px;font-style:italic;text-align:center;padding:40px;}
+
+/* NUTRITION */
+.tab-row{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;}
+.tab-btn{background:var(--navy-m);border:1px solid var(--navy-l);color:var(--grey);padding:7px 14px;border-radius:6px;cursor:pointer;font-family:'Barlow Condensed';font-size:13px;font-weight:600;text-transform:uppercase;transition:all 0.2s;}
+.tab-btn.active{background:var(--maroon);color:var(--white);border-color:var(--maroon-l);}
+.pos-card{background:var(--navy-m);border:1px solid var(--navy-l);border-radius:8px;padding:14px;margin-bottom:10px;}
+.pos-card h4{font-size:18px;color:var(--gold);margin-bottom:6px;}
+.macro-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;}
+.macro-chip{background:var(--navy-l);border-radius:5px;padding:5px 10px;font-size:11px;font-family:'Barlow Condensed';}
+.macro-chip span{color:var(--gold);font-size:15px;font-weight:700;display:block;}
+.timing-card{background:var(--navy-m);border:1px solid var(--navy-l);border-radius:8px;padding:14px;margin-bottom:10px;}
+.timing-card h4{color:var(--gold);font-size:17px;margin-bottom:7px;}
+.timing-card ul{padding-left:16px;font-size:12px;line-height:1.8;}
+.food-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+@media(max-width:480px){.food-grid{grid-template-columns:1fr;}}
+.food-card{background:var(--navy-m);border:1px solid var(--navy-l);border-radius:8px;padding:12px;}
+.food-card h4{font-size:14px;margin-bottom:4px;color:var(--gold);}
+.food-card p{font-size:11px;color:var(--grey);line-height:1.5;}
+.star{color:var(--gold);}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+const { useState, useEffect, useCallback, useRef } = React;
+
+function useLocalStorage(key, init) {
+  const [val, setVal] = useState(() => {
+    try { const s = localStorage.getItem(key); return s ? JSON.parse(s) : init; } catch { return init; }
+  });
+  useEffect(() => { try { localStorage.setItem(key, JSON.stringify(val)); } catch {} }, [key, val]);
+  return [val, setVal];
+}
+
+// ── DATA ──────────────────────────────────────────────────────────────────────
+const KEY_LIFTS = ['Back Squat','Bench Press','Deadlift','Overhead Press','Pull-Up (weighted)','Romanian Deadlift','Trap Bar Deadlift','Push Press'];
+
+// Exercises still awaiting a demo video — shown with a "Video coming soon" marker.
+// Matched as a substring of the exercise name so every block/variant is covered.
+const VIDEO_PENDING = [
+  'dead bug','pallof press','ab wheel','deficit deadlift','ghd back extension',
+  'copenhagen plank','dragon flag','farmer carry','landmine 180','band lat pulldown',
+  'hollow body hold','lateral bound to sprint','landmine anti-rotation','5-10-5'
+];
+function needsVideo(name){
+  const n = (name||'').toLowerCase();
+  // 5-10-5 needs digit boundaries so "Irish Shuttle (5-10-15-...-10-5m)" isn't matched.
+  if(/(^|[^\d])5-10-5([^\d]|$)/.test(n)) return true;
+  return VIDEO_PENDING.some(k => k !== '5-10-5' && n.includes(k));
+}
+
+// Hypertrophy rule: anything in the 8–10 rep range gets 60 seconds max recovery.
+function displayRest(ex){
+  if(ex.cardio) return ex.rest;
+  const repNum = parseInt(String(ex.reps), 10);
+  if(!(repNum >= 8 && repNum <= 10)) return ex.rest;
+  const r = String(ex.rest || '').toLowerCase();
+  const min = r.match(/([\d.]+)\s*min/);
+  const sec = r.match(/([\d.]+)\s*s/);
+  let secs = min ? parseFloat(min[1]) * 60 : (sec ? parseFloat(sec[1]) : null);
+  return (secs != null && secs > 60) ? '60s' : ex.rest;
+}
+
+const PROGRAMMES = {
+  sizeStrength: {
+    id:'sizeStrength', name:'Size & Strength', subtitle:'Off-Season Mass Builder', color:'#8B2236', badge:'Off-Season',
+    info:{sessions:'3 / week',duration:'75 min',focus:'Hypertrophy + Strength base'},
+    blocks:[
+      { name:'Block 1', subtitle:'Foundation — Weeks 1-4',
+        warmup:'5 min rower easy → 2 rounds: 10 banded pull-aparts, 10 hip circles each side, 10 BW squats, 10 shoulder circles',
+        sessions:[
+          { name:'Session A', focus:'Lower Body — Squat + Posterior Chain', exercises:[
+            {name:'Back Squat',sets:'4',reps:'8',rest:'2 min',cue:'Brace hard, knees track toes, full depth',yt:'https://youtu.be/ultWZbUMPL8'},
+            {name:'Romanian Deadlift',sets:'3',reps:'10',rest:'90s',cue:'Push hips back, feel hamstring stretch',yt:'https://youtu.be/JCXUYuzwNrM'},
+            {name:'Leg Press',sets:'3',reps:'12',rest:'90s',cue:'Full range, feet shoulder-width'},
+            {name:'Nordic Hamstring Curl',sets:'3',reps:'6',rest:'2 min',cue:'Control the descent — injury prevention'},
+            {name:'Banded Hip Thrust',sets:'3',reps:'15',rest:'60s',cue:'Drive through heels, squeeze glutes at top'},
+            {name:'Core: Dead Bug',sets:'3',reps:'10 each',rest:'45s',cue:'Lower back stays flat throughout'},
+          ]},
+          { name:'Session B', focus:'Upper Body — Push + Pull', exercises:[
+            {name:'Bench Press',sets:'4',reps:'8',rest:'2 min',cue:'Retract scapula, bar to mid-chest',yt:'https://youtu.be/vcBig73ojpE'},
+            {name:'Bent-Over Row',sets:'4',reps:'8',rest:'2 min',cue:'Hinge 45°, drive elbows back'},
+            {name:'Incline DB Press',sets:'3',reps:'10',rest:'90s',cue:'Full range, slight arch'},
+            {name:'Banded Face Pull',sets:'3',reps:'15',rest:'60s',cue:'External rotation — shoulder health'},
+            {name:'Dips',sets:'3',reps:'10',rest:'90s',cue:'Slight forward lean for chest'},
+            {name:'Banded Pull-Apart',sets:'3',reps:'20',rest:'45s',cue:'Arms straight, squeeze shoulder blades'},
+            {name:'Core: Plank',sets:'3',reps:'45s',rest:'30s',cue:'Body straight head to heel'},
+          ]},
+          { name:'Session C', focus:'Full Body — Compound Strength', exercises:[
+            {name:'Deadlift',sets:'4',reps:'6',rest:'2.5 min',cue:'Hinge from hips, bar close to shins',yt:'https://youtu.be/op9kVnSso6Q'},
+            {name:'Overhead Press',sets:'3',reps:'8',rest:'2 min',cue:'Stack wrists over elbows, press to lockout'},
+            {name:'Pull-Up (or assisted)',sets:'3',reps:'8',rest:'90s',cue:'Full hang, chest to bar'},
+            {name:'DB Split Squat',sets:'3',reps:'10 each',rest:'90s',cue:'Vertical shin, drive through front heel'},
+            {name:'Ski Erg Intervals',sets:'5',reps:'30s on/30s off',rest:'—',cue:'Maximal effort each interval'},
+            {name:'Core: Pallof Press',sets:'3',reps:'12 each',rest:'45s',cue:'Anti-rotation — keep hips square'},
+          ]},
+        ]
+      },
+      { name:'Block 2', subtitle:'Accumulation — Weeks 5-8',
+        warmup:'8 min rower moderate → 2 rounds: 12 pull-aparts, 10 hip circles, 8 BW jump squats, shoulder CARs',
+        sessions:[
+          { name:'Session A', focus:'Lower — Increased Volume', exercises:[
+            {name:'Back Squat',sets:'5',reps:'6',rest:'2.5 min',cue:'Add 5% load from Block 1',yt:'https://youtu.be/ultWZbUMPL8'},
+            {name:'Romanian Deadlift',sets:'4',reps:'8',rest:'90s',cue:'Slow 3-second descent'},
+            {name:'Hack Squat',sets:'3',reps:'12',rest:'90s',cue:'Quad emphasis — full range'},
+            {name:'Nordic Hamstring Curl',sets:'4',reps:'6',rest:'2 min',cue:'Progressing from Block 1'},
+            {name:'Hip Thrust (barbell)',sets:'4',reps:'10',rest:'90s',cue:'Full hip extension at top'},
+            {name:'Core: Ab Wheel',sets:'3',reps:'8',rest:'60s',cue:'Keep lower back neutral'},
+          ]},
+          { name:'Session B', focus:'Upper — Strength Emphasis', exercises:[
+            {name:'Bench Press',sets:'5',reps:'5',rest:'2.5 min',cue:'Add 5% load'},
+            {name:'Pendlay Row',sets:'4',reps:'6',rest:'2 min',cue:'Bar from floor each rep, explosive pull'},
+            {name:'Weighted Pull-Up',sets:'3',reps:'6',rest:'2 min',cue:'Add weight belt if bodyweight too easy'},
+            {name:'DB Lateral Raise',sets:'3',reps:'15',rest:'60s',cue:'Slight forward lean, thumbs neutral'},
+            {name:'Banded Face Pull',sets:'3',reps:'20',rest:'45s',cue:'Never skip'},
+            {name:'Close-Grip Bench',sets:'3',reps:'10',rest:'90s',cue:'Tricep emphasis for scrummaging'},
+            {name:'Core: Hanging Knee Raise',sets:'3',reps:'12',rest:'60s',cue:'Controlled, no swinging'},
+          ]},
+          { name:'Session C', focus:'Full Body — Power Introduction', exercises:[
+            {name:'Trap Bar Deadlift',sets:'4',reps:'5',rest:'2.5 min',cue:'Athletic position — drives quad and hip',yt:'https://youtu.be/ViV26LBfHEM'},
+            {name:'Push Press',sets:'3',reps:'5',rest:'2 min',cue:'Slight leg drive to initiate',yt:'https://youtu.be/iaBVSJm78ko'},
+            {name:'Weighted Chin-Up',sets:'3',reps:'6',rest:'2 min',cue:'Supine grip, chest to bar'},
+            {name:'Assault Bike Intervals',sets:'6',reps:'20s on/40s off',rest:'—',cue:'Sprint effort — arms and legs'},
+            {name:'Banded Squat Jump',sets:'3',reps:'8',rest:'90s',cue:'Introduction to power work'},
+            {name:'Core: Landmine Rotation',sets:'3',reps:'10 each',rest:'45s',cue:'Rotational strength for contact'},
+          ]},
+        ]
+      },
+      { name:'Block 3', subtitle:'Intensification — Weeks 9-12',
+        warmup:'10 min rower → activation: banded glute walks, thoracic rotations, pull-aparts, explosive arm swings',
+        sessions:[
+          { name:'Session A', focus:'Lower — Peak Strength', exercises:[
+            {name:'Back Squat',sets:'5',reps:'3-5',rest:'3 min',cue:'Peak load — push to technical limit'},
+            {name:'Deficit Deadlift',sets:'3',reps:'5',rest:'2.5 min',cue:'2-inch deficit, increased range'},
+            {name:'Walking Lunge',sets:'3',reps:'12 each',rest:'90s',cue:'Rugby movement — long stride'},
+            {name:'GHD Back Extension',sets:'3',reps:'12',rest:'60s',cue:'Control — protect lower back'},
+            {name:'Concept2 Rower',sets:'3',reps:'500m',rest:'2 min',cue:'Rugby power endurance'},
+            {name:'Core: Copenhagen Plank',sets:'3',reps:'30s each',rest:'60s',cue:'Adductor strength — groin prevention'},
+          ]},
+          { name:'Session B', focus:'Upper — Peak Strength', exercises:[
+            {name:'Bench Press',sets:'5',reps:'3',rest:'3 min',cue:'Working to 3RM — spot required'},
+            {name:'Barbell Row',sets:'4',reps:'5',rest:'2.5 min',cue:'Heavy compound pulling'},
+            {name:'Weighted Pull-Up',sets:'4',reps:'5',rest:'2 min',cue:'Max additional load'},
+            {name:'DB Shoulder Press',sets:'3',reps:'8',rest:'90s',cue:'Unilateral stability'},
+            {name:'Band Pull-Apart Circuit',sets:'3',reps:'20 each variation',rest:'45s',cue:'Straight, pronated, W-shape'},
+            {name:'Core: Weighted Sit-Up',sets:'3',reps:'15',rest:'45s',cue:'Add plate to chest'},
+          ]},
+          { name:'Session C', focus:'Full Body — Competition Prep', exercises:[
+            {name:'Back Squat',sets:'3',reps:'3',rest:'2.5 min',cue:'Heavy singles to peak'},
+            {name:'Overhead Press',sets:'3',reps:'5',rest:'2 min',cue:'Strong lockout'},
+            {name:'Farmer Carry',sets:'4',reps:'30m',rest:'90s',cue:'Max load — grip, core, posture'},
+            {name:'Ski Erg',sets:'4',reps:'45s max effort',rest:'2 min',cue:'Simulate scrum demands'},
+            {name:'Banded Sprint Resisted',sets:'6',reps:'15m',rest:'90s',cue:'Acceleration — drive phase'},
+            {name:'Core: Dragon Flag',sets:'3',reps:'6',rest:'60s',cue:'Advanced — control throughout'},
+          ]},
+        ]
+      },
+    ]
+  },
+  strengthPower: {
+    id:'strengthPower', name:'Strength & Power', subtitle:'Pre-Season Transition', color:'#C9A84C', badge:'Pre-Season',
+    info:{sessions:'3 / week',duration:'70 min',focus:'Maximal strength → power transfer'},
+    blocks:[
+      { name:'Block 1', subtitle:'Strength Foundation — Weeks 1-4',
+        warmup:'5 min assault bike → CNS primer: 3x5 box jumps (low box), 10 hip circles, shoulder mobility with band',
+        sessions:[
+          { name:'Session A', focus:'Lower Strength', exercises:[
+            {name:'Back Squat',sets:'5',reps:'5',rest:'2.5 min',cue:'80% 1RM, quality first'},
+            {name:'Trap Bar Deadlift',sets:'4',reps:'5',rest:'2.5 min',cue:'Athletic pull, vertical shins'},
+            {name:'Bulgarian Split Squat',sets:'3',reps:'8 each',rest:'90s',cue:'Front heel drives into ground'},
+            {name:'Nordic Hamstring Curl',sets:'3',reps:'5',rest:'2 min',cue:'Injury prevention — non-negotiable'},
+            {name:'Core: Plank Variations',sets:'3',reps:'45s',rest:'30s',cue:'No sagging hips'},
+          ]},
+          { name:'Session B', focus:'Upper Strength', exercises:[
+            {name:'Bench Press',sets:'5',reps:'5',rest:'2.5 min',cue:'80% — accelerate the bar up'},
+            {name:'Weighted Pull-Up',sets:'4',reps:'5',rest:'2 min',cue:'Full hang to chest'},
+            {name:'Push Press',sets:'3',reps:'5',rest:'2 min',cue:'Leg drive initiates — power through shoulder'},
+            {name:'Banded Face Pull',sets:'3',reps:'20',rest:'45s',cue:'Shoulder health standard'},
+            {name:'Core: Pallof Press',sets:'3',reps:'12 each',rest:'45s',cue:'Anti-rotation stability'},
+          ]},
+          { name:'Session C', focus:'Full Body + Conditioning', exercises:[
+            {name:'Deadlift',sets:'4',reps:'4',rest:'3 min',cue:'Heavy — train the posterior chain'},
+            {name:'Overhead Press',sets:'3',reps:'6',rest:'2 min',cue:'Strict press'},
+            {name:'DB Row',sets:'3',reps:'10 each',rest:'90s',cue:'Full range, chest parallel to floor'},
+            {name:'Concept2 Rower',sets:'4',reps:'250m sprint',rest:'2 min',cue:'Rate 28-32 strokes/min'},
+            {name:'Core: Landmine 180',sets:'3',reps:'10 each',rest:'60s',cue:'Rotational power for contact'},
+          ]},
+        ]
+      },
+      { name:'Block 2', subtitle:'Power Introduction — Weeks 5-8',
+        warmup:'8 min rower → CNS: 4x4 broad jumps, hip flexor stretch, thoracic extensions over foam roller',
+        sessions:[
+          { name:'Session A', focus:'Lower Contrast Training', exercises:[
+            {name:'Back Squat (heavy)',sets:'4',reps:'4',rest:'2 min',cue:'Build to 85-90% 1RM'},
+            {name:'Squat Jump (BW)',sets:'4',reps:'6',rest:'2 min',cue:'CONTRAST PAIR — immediately after. Max height.'},
+            {name:'Romanian Deadlift',sets:'3',reps:'6',rest:'90s',cue:'3s descent, explosive concentric'},
+            {name:'Broad Jump',sets:'3',reps:'5',rest:'90s',cue:'Max distance — land softly'},
+            {name:'Core: Ab Wheel',sets:'3',reps:'10',rest:'60s',cue:'Neutral spine throughout'},
+          ]},
+          { name:'Session B', focus:'Upper Contrast Training', exercises:[
+            {name:'Bench Press (heavy)',sets:'4',reps:'4',rest:'2 min',cue:'85-90% — intent to move fast'},
+            {name:'Med Ball Chest Pass',sets:'4',reps:'6',rest:'2 min',cue:'CONTRAST PAIR — explosive wall throw'},
+            {name:'Weighted Pull-Up',sets:'3',reps:'4',rest:'2 min',cue:'Heavy load'},
+            {name:'Band Lat Pulldown (fast)',sets:'3',reps:'12',rest:'60s',cue:'Speed emphasis'},
+            {name:'Core: Hanging Leg Raise',sets:'3',reps:'12',rest:'60s',cue:'Control — no momentum'},
+          ]},
+          { name:'Session C', focus:'Full Body Power + Field', exercises:[
+            {name:'Trap Bar Jump (40%)',sets:'4',reps:'4',rest:'2.5 min',cue:'Sub-max load — JUMP the weight',yt:'https://youtu.be/ViV26LBfHEM'},
+            {name:'Push Press (heavy)',sets:'3',reps:'4',rest:'2 min',cue:'Maximal load'},
+            {name:'Assault Bike',sets:'5',reps:'30s sprint/90s recovery',rest:'—',cue:'Repeat sprint capacity'},
+            {name:'Banded Sprint',sets:'6',reps:'20m',rest:'90s',cue:'Acceleration focus'},
+            {name:'Core: Rotational Med Ball Slam',sets:'3',reps:'8 each',rest:'60s',cue:'Hip rotation → shoulder → release'},
+          ]},
+        ]
+      },
+      { name:'Block 3', subtitle:'Peak Power — Weeks 9-12',
+        warmup:'10 min general → full CNS: 5 box jumps, 5 broad jumps, 5 med ball slams, sprint drills',
+        sessions:[
+          { name:'Session A', focus:'Max Strength + Plyometrics', exercises:[
+            {name:'Back Squat',sets:'4',reps:'2-3',rest:'3 min',cue:'90-95% — peak strength phase'},
+            {name:'Depth Jump',sets:'4',reps:'5',rest:'2.5 min',cue:'Reactive — minimal ground contact',yt:'https://youtu.be/Lk2n5dq0bSk'},
+            {name:'Trap Bar Deadlift',sets:'3',reps:'3',rest:'3 min',cue:'Heavy — maintain position'},
+            {name:'Banded Jump Squat',sets:'3',reps:'6',rest:'2 min',cue:'Accommodating resistance — max output'},
+            {name:'Core: Dragon Flag',sets:'3',reps:'5',rest:'90s',cue:'Control is everything'},
+          ]},
+          { name:'Session B', focus:'Upper Peak Strength', exercises:[
+            {name:'Bench Press',sets:'4',reps:'2-3',rest:'3 min',cue:'90-95% — spot essential'},
+            {name:'Med Ball Chest Pass',sets:'4',reps:'5',rest:'2.5 min',cue:'Throw as hard as all programme'},
+            {name:'Weighted Pull-Up',sets:'4',reps:'3',rest:'2.5 min',cue:'Peak load'},
+            {name:'DB Neutral Press',sets:'3',reps:'8',rest:'90s',cue:'Shoulder recovery movement'},
+            {name:'Core: Weighted Cable Rotation',sets:'3',reps:'12 each',rest:'60s',cue:'Rugby contact power'},
+          ]},
+          { name:'Session C', focus:'Competition Readiness', exercises:[
+            {name:'Speed Back Squat (60%)',sets:'6',reps:'2',rest:'90s',cue:'Compensatory acceleration — FAST'},
+            {name:'Sprint Intervals',sets:'8',reps:'40m',rest:'2 min',cue:'Match-pace speed'},
+            {name:'Farmer Carry',sets:'3',reps:'40m',rest:'90s',cue:'Loaded carry — game strength'},
+            {name:'Ski Erg Max',sets:'4',reps:'30s',rest:'2 min',cue:'Upper body power endurance'},
+            {name:'Core: Anti-Rotation Circuit',sets:'2',reps:'Full circuit',rest:'90s',cue:'Pallof press, landmine, band rotation'},
+          ]},
+        ]
+      },
+    ]
+  },
+  power: {
+    id:'power', name:'Power', subtitle:'Pre-Season Explosive', color:'#E07B39', badge:'Pre-Season',
+    info:{sessions:'3 / week',duration:'65 min',focus:'Plyometrics, ballistics, PAP contrast'},
+    blocks:[
+      { name:'Block 1', subtitle:'Reactive Foundations — Weeks 1-4',
+        warmup:'10 min: skip/shuffle → 2 rounds: pogo jumps x20, lateral bounds x5 each, arm circles, hip openers',
+        sessions:[
+          { name:'Session A', focus:'Lower Body Plyometrics', pap:'No heavy loading — learn movement quality first.', exercises:[
+            {name:'Box Jump',sets:'4',reps:'5',rest:'2 min',cue:'Step down never jump. Land softly, absorb load.',yt:'https://youtu.be/52loww6dIpk'},
+            {name:'Broad Jump',sets:'4',reps:'5',rest:'2 min',cue:'Max horizontal — swing arms aggressively'},
+            {name:'Pogo Jumps',sets:'3',reps:'20',rest:'90s',cue:'Ankle-only, fast ground contact'},
+            {name:'Lateral Bound',sets:'3',reps:'6 each',rest:'90s',cue:'Stick the landing — single leg stability'},
+            {name:'Squat Jump (BW)',sets:'3',reps:'8',rest:'90s',cue:'Arms drive overhead, land and rebound'},
+            {name:'Core: Hollow Body Hold',sets:'3',reps:'30s',rest:'30s',cue:'Lower back pressed to floor'},
+          ]},
+          { name:'Session B', focus:'Upper Body Ballistics', pap:'Focus on transfer of force — legs through core to upper body.', exercises:[
+            {name:'Med Ball Chest Pass (wall)',sets:'4',reps:'8',rest:'90s',cue:'Full body throw — legs→hips→chest→arms'},
+            {name:'Med Ball Overhead Slam',sets:'4',reps:'6',rest:'90s',cue:'Tall, drive ball down with lat and core'},
+            {name:'Push-Up Clap',sets:'3',reps:'8',rest:'90s',cue:'Explosive off floor, land soft'},
+            {name:'Band Pull-Apart (fast)',sets:'3',reps:'20',rest:'45s',cue:'Speed emphasis — shoulder health'},
+            {name:'Med Ball Rotational Throw',sets:'3',reps:'8 each',rest:'90s',cue:'Hip rotation leads — tackle simulation'},
+            {name:'Core: Dead Bug',sets:'3',reps:'10 each',rest:'45s',cue:'Stability under movement'},
+          ]},
+          { name:'Session C', focus:'Linear Speed + COD', pap:'Speed is a skill. Intent matters.', exercises:[
+            {name:'Sprint Acceleration (10m)',sets:'8',reps:'1',rest:'2 min',cue:'Lean forward, drive knees, pump arms'},
+            {name:'Flying Sprint (20-30m zone)',sets:'4',reps:'1',rest:'3 min',cue:'Max velocity — tall posture, high knee'},
+            {name:'5-10-5 Shuttle',sets:'5',reps:'1',rest:'2 min',cue:'Plant foot, drive opposite direction'},
+            {name:'Resisted Sprint (band)',sets:'6',reps:'15m',rest:'90s',cue:'Forward lean, drive into resistance'},
+            {name:'Reactive T-Drill',sets:'4',reps:'1',rest:'2 min',cue:'Decision + COD — rugby specific'},
+            {name:'Core: Sprint Core Circuit',sets:'2',reps:'30s each',rest:'60s',cue:'Plank, side plank, dead bug'},
+          ]},
+        ]
+      },
+      { name:'Block 2', subtitle:'PAP Contrast Training — Weeks 5-8',
+        warmup:'10 min rower → CNS: 5 box jumps, 5 broad jumps, hip openers, arm swings with band',
+        sessions:[
+          { name:'Session A', focus:'Lower PAP Contrast', pap:'Heavy lift first → 3-4 min rest → explosive movement. Heavy load potentiates nervous system for the plyometric.', exercises:[
+            {name:'Back Squat (80-85%)',sets:'4',reps:'3',rest:'3-4 min',cue:'STRENGTH STIMULUS — slow down, explosive up',yt:'https://youtu.be/ultWZbUMPL8'},
+            {name:'→ Box Jump (CONTRAST)',sets:'4',reps:'5',rest:'2 min',cue:'AFTER squat rest — maximum height',yt:'https://youtu.be/52loww6dIpk'},
+            {name:'Romanian Deadlift (75%)',sets:'3',reps:'4',rest:'3 min',cue:'Hamstring load — preload for jump'},
+            {name:'→ Broad Jump (CONTRAST)',sets:'3',reps:'5',rest:'90s',cue:'Max horizontal — max effort'},
+            {name:'Core: Ab Wheel',sets:'3',reps:'10',rest:'60s',cue:'Power transfer through midline'},
+          ]},
+          { name:'Session B', focus:'Upper PAP Contrast', pap:'Heavy press potentiates nervous system for explosive pushing. 3-4 min transition for optimal PAP effect.', exercises:[
+            {name:'Bench Press (80-85%)',sets:'4',reps:'3',rest:'3-4 min',cue:'Intent to accelerate — move it fast',yt:'https://youtu.be/vcBig73ojpE'},
+            {name:'→ Med Ball Chest Pass (CONTRAST)',sets:'4',reps:'6',rest:'2 min',cue:'EXPLOSIVE — throw as hard as possible'},
+            {name:'Push Press (70%)',sets:'3',reps:'4',rest:'3 min',cue:'Leg drive → lock out overhead',yt:'https://youtu.be/iaBVSJm78ko'},
+            {name:'→ Clap Push-Up (CONTRAST)',sets:'3',reps:'6',rest:'90s',cue:'Maximum force into the floor'},
+            {name:'Core: Rotational Med Ball Slam',sets:'3',reps:'8 each',rest:'60s',cue:'Hip→core→shoulder chain'},
+          ]},
+          { name:'Session C', focus:'Speed + Reactive Agility', pap:'Full recovery between sprints. CNS fatigue kills speed adaptations.', exercises:[
+            {name:'Trap Bar Jump (40%)',sets:'5',reps:'4',rest:'2.5 min',cue:'Sub-max — JUMP the weight',yt:'https://youtu.be/ViV26LBfHEM'},
+            {name:'Sprint (30m)',sets:'6',reps:'1',rest:'3 min',cue:'Full recovery — speed not conditioning'},
+            {name:'Lateral Bound to Sprint',sets:'4',reps:'1',rest:'2.5 min',cue:'3 bounds → explode into sprint'},
+            {name:'Reactive Agility Drill',sets:'5',reps:'1',rest:'2 min',cue:'Partner points direction — reaction training'},
+            {name:'Core: Landmine Anti-Rotation',sets:'3',reps:'10 each',rest:'60s',cue:'Resist rotation — contact prep'},
+          ]},
+        ]
+      },
+      { name:'Block 3', subtitle:'Peak Expression — Weeks 9-12',
+        warmup:'12 min full CNS: rower 5 min → 6 box jumps → 5 broad jumps → 5 med ball slams → A/B skip drills',
+        sessions:[
+          { name:'Session A', focus:'Maximum Power — Lower', pap:'Push to max outputs. Track box jump height and broad jump distance.', exercises:[
+            {name:'Back Squat (90%+)',sets:'3',reps:'2',rest:'3 min',cue:'Peak strength potentiation'},
+            {name:'Depth Jump (40cm)',sets:'4',reps:'5',rest:'3 min',cue:'Reactive strength — minimal ground contact',yt:'https://youtu.be/Lk2n5dq0bSk'},
+            {name:'Banded Squat Jump',sets:'4',reps:'5',rest:'2.5 min',cue:'Accommodating resistance — max output'},
+            {name:'Single Leg Broad Jump',sets:'3',reps:'4 each',rest:'2 min',cue:'Unilateral — plant and drive'},
+            {name:'Core: Dragon Flag',sets:'3',reps:'5',rest:'90s',cue:'Control under fatigue'},
+          ]},
+          { name:'Session B', focus:'Maximum Power — Upper', pap:'Measure med ball throw distance. Power should be visibly improving from Block 1.', exercises:[
+            {name:'Bench Press (90%)',sets:'3',reps:'2',rest:'3 min',cue:'Potentiation stimulus'},
+            {name:'Med Ball Chest Pass (max)',sets:'5',reps:'5',rest:'2.5 min',cue:'Hardest throw of the programme'},
+            {name:'Push Press (85%)',sets:'3',reps:'3',rest:'2.5 min',cue:'Aggressive leg drive, strong lockout'},
+            {name:'Band Pull-Apart (speed)',sets:'3',reps:'25',rest:'45s',cue:'Shoulder health maintenance'},
+            {name:'Core: Weighted Rotation',sets:'3',reps:'8 each',rest:'60s',cue:'Max rotational power'},
+          ]},
+          { name:'Session C', focus:'Maximum Velocity + Game Speed', pap:'Time your sprints. These are your benchmark numbers.', exercises:[
+            {name:'Flying 30m Sprint',sets:'4',reps:'1',rest:'4 min',cue:'Max velocity — full recovery essential'},
+            {name:'10m Acceleration',sets:'6',reps:'1',rest:'2.5 min',cue:'Explosive drive phase'},
+            {name:'Reactive 5-10-5',sets:'5',reps:'1',rest:'2.5 min',cue:'React to signal — game realistic'},
+            {name:'Resisted Sprint to Release',sets:'4',reps:'20m+20m',rest:'3 min',cue:'Resist → release = overspeed effect'},
+            {name:'Core: Speed Endurance Holds',sets:'3',reps:'30s',rest:'30s',cue:'Sprint posture under fatigue'},
+          ]},
+        ]
+      },
+    ]
+  },
+  conditioning: {
+    id:'conditioning', name:'Conditioning', subtitle:'All-Season Engine', color:'#2D6A4F', badge:'All-Season',
+    info:{sessions:'4-5 / week',duration:'45-60 min',focus:'Aerobic base, repeat sprint ability, speed & agility'},
+    blocks:[
+      { name:'Block 1', subtitle:'Aerobic Base — Weeks 1-4',
+        warmup:'5 min easy bike or jog → dynamic: leg swings x10 each, hip circles x10, arm swings, walking lunges x8',
+        sessions:[
+          { name:'Session A', focus:'Gym — Steady State Aerobic', exercises:[
+            {name:'Concept2 Rower',sets:'1',reps:'20 min',rest:'—',cue:'Rate 22-24 strokes/min. HR 140-155bpm. Split target: heavier athletes 2:20-2:30/500m, lighter athletes 2:05-2:15/500m. Log your actual split.',cardio:true},
+            {name:'Assault Bike',sets:'1',reps:'10 min',rest:'—',cue:'Moderate effort — breathe through nose only if possible. If you are mouth-breathing within 2 min you are going too hard. Log RPM or calories.',cardio:true},
+            {name:'Ski Erg',sets:'1',reps:'5 min',rest:'—',cue:'Hips hinged, strong pull from high to low. Rate 22. Upper body and lat endurance. Log total metres.',cardio:true},
+          ]},
+          { name:'Session B', focus:'Gym — Tempo Intervals', exercises:[
+            {name:'Rower 500m Reps',sets:'6',reps:'500m',rest:'90s',cue:'Every rep at the same split — do not go out too hard on rep 1. Heavier athletes target sub-2:10, lighter sub-1:55. Log your split for each rep.',cardio:true},
+            {name:'Ski Erg Intervals',sets:'4',reps:'90s',rest:'60s',cue:'Moderate-hard effort. Rate 24-26. Note your total metres each interval — aim to match or beat it each rep.',cardio:true},
+            {name:'Assault Bike Tempo',sets:'4',reps:'2 min',rest:'1 min',cue:'Sustainable 7/10 effort. Aim for the same calories each rep. Log calories per interval.',cardio:true},
+          ]},
+          { name:'Session C', focus:'Track — Aerobic Foundation Intervals', exercises:[
+            {name:'400m Reps',sets:'8',reps:'400m',rest:'90s walk recovery',cue:'70-75% effort — consistent pace every rep. If rep 7 is 10s slower than rep 1 you went too fast. Heavier athletes target 1:55-2:15, lighter 1:40-1:55. Log every time.',cardio:true},
+            {name:'200m Strides',sets:'6',reps:'200m',rest:'45s walk',cue:'85% — tall posture, relaxed arms and jaw. Not a sprint. Note time for each. All 6 should be within 2s of each other.',cardio:true},
+            {name:'1600m Cool-Down Jog',sets:'1',reps:'1600m',rest:'—',cue:'Conversational pace. Flush the legs. Stay moving — do not sit down.',cardio:true},
+          ]},
+          { name:'Session D', focus:'Field — Agility & Change of Direction', exercises:[
+            {name:'Irish Shuttle (5-10-15-20-15-10-5m)',sets:'6',reps:'1',rest:'90s',cue:'Touch the line at every turn — plant the outside foot hard and drive. Heavier athletes target sub-22s, lighter sub-18s. Log your time every rep.',cardio:true},
+            {name:'T-Drill',sets:'8',reps:'1',rest:'45s',cue:'5m forward to centre cone, 5m left, 10m right, 5m back to centre, 5m back to start. Stay low through all direction changes. Log time for each — target sub-12s heavy, sub-10s light.',cardio:true},
+            {name:'4-Cone Box Drill (5m×5m)',sets:'8',reps:'1',rest:'45s',cue:'Sprint each side of the box, sharp 90° turn at each cone. Go clockwise then anti-clockwise alternating reps. Log time — all 8 reps should be within 1s of each other.',cardio:true},
+            {name:'20m Sprint → 180° Turn → 20m Sprint',sets:'10',reps:'1',rest:'30s',cue:'40m total. The turn is the test — decelerate in 2-3 steps, plant, accelerate immediately. Short rest is deliberate. Log time for each rep.',cardio:true},
+          ]},
+          { name:'Session E', focus:'Field — Acceleration & Speed Baseline', exercises:[
+            {name:'30m Sprint from Walk',sets:'8',reps:'30m',rest:'2 min',cue:'Walk 10 steps, hit the start line and accelerate. First 10m = drive phase — forward lean, powerful knee drive. This is your Block 1 time trial. Log every split. Heavier target sub-5.0s, lighter sub-4.5s.',cardio:true},
+            {name:'Stop-Start Agility (10m)',sets:'10',reps:'10m',rest:'20s',cue:'Sprint 10m, decelerate to a complete stop in 2 steps, hold 1 second, sprint back 10m. The stop is the technical point — do not skip it. Log time for each full rep.',cardio:true},
+            {name:'Broncos Fitness Test',sets:'1',reps:'Full test',rest:'120s between sets',cue:'Benchmark. 20m shuttles in sets. Note your individual set times — you will run this again in Block 3 and compare directly.',cardio:true},
+          ]},
+        ]
+      },
+      { name:'Block 2', subtitle:'Repeat Sprint Ability — Weeks 5-8',
+        warmup:'8 min: rower 4 min easy, bike 4 min → 5 squat jumps, 10 high knees each leg, 6 lateral shuffles each way',
+        sessions:[
+          { name:'Session A', focus:'Gym — Repeat Sprint Machine Work', exercises:[
+            {name:'Assault Bike All-Out Sprints',sets:'10',reps:'10s max / 50s recovery',rest:'—',cue:'True max output every rep. If rep 10 looks the same as rep 1 you held back somewhere. Log calories for each 10s sprint — target 5+ cals per sprint.',cardio:true},
+            {name:'Rower 250m Sprints',sets:'8',reps:'250m',rest:'90s',cue:'These are short — go. Heavier athletes target sub-57s, lighter sub-50s. Log your actual time for every rep.',cardio:true},
+            {name:'Ski Erg Speed Intervals',sets:'6',reps:'20s on / 40s off',rest:'—',cue:'Max output. Rate 30+. Upper body power endurance. Log metres covered per interval — aim to maintain across all 6.',cardio:true},
+          ]},
+          { name:'Session B', focus:'Gym — Mixed Modal Circuit', exercises:[
+            {name:'Circuit (Rower 500m → Bike 2min → Ski Erg 90s)',sets:'4',reps:'Full circuit',rest:'3 min full rest between rounds',cue:'No stopping within a round. Get straight from the rower to the bike to the ski erg. Log total time for each round — target 5:00-6:30 per round.',cardio:true},
+          ]},
+          { name:'Session C', focus:'Track — VO2max Intervals', exercises:[
+            {name:'800m Reps',sets:'4',reps:'800m',rest:'3 min full rest',cue:'90-95% max HR — the hardest track session in this programme. Heavier athletes target sub-3:50, lighter sub-3:15. If you can hold a conversation during this you are not working hard enough. Log every time.',cardio:true},
+            {name:'400m Short-Rest Reps',sets:'3',reps:'400m',rest:'90s — jog only, no walking',cue:'No walking in the rest. 85% effort. The short rest is the point. Heavier athletes target sub-1:50, lighter sub-1:35.',cardio:true},
+            {name:'Flying 200m Sprint',sets:'4',reps:'200m',rest:'3 min full rest',cue:'100m easy build-up then hit the 200m at max speed. Full 3 min recovery between every rep — this is speed work, not conditioning. Log time for each.',cardio:true},
+          ]},
+          { name:'Session D', focus:'Field — Repeat Sprints', exercises:[
+            {name:'40m Repeat Sprints',sets:'12',reps:'40m',rest:'30s',cue:'Log times for sprints 1, 6 and 12. The drop-off between sprint 1 and 12 is your repeat sprint ability score. Under 0.5s drop-off = excellent. Over 1.0s = needs work.',cardio:true},
+            {name:'50m Shuttle (25m and back)',sets:'10',reps:'1',rest:'20s',cue:'Stay low on the turn, touch the line. Short rest is deliberate. Log your time for each.',cardio:true},
+            {name:'4-Direction Agility Block',sets:'5',reps:'5 min',rest:'90s',cue:'Set 4 cones in a cross, 5m from centre. Sprint to one, back to centre, sprint to another — vary the pattern. 75% sustained effort. Log rounds completed.',cardio:true},
+            {name:'300m Shuttle',sets:'3',reps:'1',rest:'3× work time',cue:'50m out and back × 3 = 300m total. Full effort every rep. Rest = 3× your actual work time. These should hurt. Heavier athletes target sub-75s, lighter sub-65s.',cardio:true},
+          ]},
+          { name:'Session E', focus:'Field — Speed Development', exercises:[
+            {name:'60m Build-Up Sprint',sets:'6',reps:'60m',rest:'2.5 min',cue:'First 20m at 70%, middle 20m at 85%, last 20m at 100%. Learn to accelerate into top speed — not just explode and tie up. Log time for the full 60m.',cardio:true},
+            {name:'Lateral Bound to Sprint (10m bounds → 30m sprint)',sets:'6',reps:'1',rest:'2 min',cue:'3 consecutive lateral bounds then immediately sprint 30m. The bounds load the hip — the sprint should feel fast. Log total time from first bound to sprint finish.',cardio:true},
+            {name:'Deceleration to Reacceleration (20m)',sets:'8',reps:'1',rest:'90s',cue:'Sprint 20m at 90%, decelerate fully in 3 steps, immediately sprint back 20m at 100%. The direction change under fatigue is the adaptation. Log time for the full 40m.',cardio:true},
+            {name:'Flying 40m',sets:'4',reps:'40m',rest:'4 min full rest',cue:'20m easy run-in, then max velocity for 40m. Full recovery between every rep. This is your top speed benchmark. Log the 40m time only.',cardio:true},
+          ]},
+        ]
+      },
+      { name:'Block 3', subtitle:'Peak Fitness — Weeks 9-12',
+        warmup:'10 min full: jog 3 min → 6 jump squats → 10 high knees each leg → A-skip 20m × 2 → B-skip 20m × 2 → 5 band pull-aparts',
+        sessions:[
+          { name:'Session A', focus:'Gym — Peak Intensity Intervals', exercises:[
+            {name:'Assault Bike Tabata',sets:'2',reps:'8 rounds × 20s on / 10s off',rest:'3 min between sets',cue:'True max effort every 20s round. If rounds 7 and 8 look the same as rounds 1 and 2 you started too easy. Log average calories and your lowest round.',cardio:true},
+            {name:'Rower Sprint Protocol',sets:'6',reps:'30s max / 30s off',rest:'2 min between rounds',cue:'Rate 34+. Every rep. Heavier athletes target 115m+ per 30s, lighter 130m+. Log metres for each sprint.',cardio:true},
+            {name:'Ski Erg Descending Ladder',sets:'1',reps:'2min → 90s → 60s → 45s → 30s',rest:'Equal rest after each',cue:'Pace should increase as reps get shorter. If your 45s pace is slower than your 2min pace you went off too hard. Log pace (m/min) for each effort.',cardio:true},
+          ]},
+          { name:'Session B', focus:'Track — Lactate Threshold + Sprints', exercises:[
+            {name:'Descending Threshold Ladder',sets:'1',reps:'1km → 800m → 600m',rest:'3 min between each',cue:'Each rep must be faster than the last. 1km = 85%, 800m = 90%, 600m = all out. Heavier athletes target 5:00 / 3:45 / 2:40. Lighter: 4:15 / 3:10 / 2:15. Log all three times.',cardio:true},
+            {name:'Flying 30m Sprint',sets:'8',reps:'30m',rest:'3 min full rest',cue:'30m run-in, then max speed through the 30m zone. Full 3 min rest every time — cutting it short kills the speed adaptation. Log time for each. Compare to Block 1.',cardio:true},
+            {name:'Flying 60m Sprint',sets:'4',reps:'60m',rest:'4 min full rest',cue:'10m build-up, 60m at absolute max. Full recovery between every rep — you need to be fresh to actually hit top speed. Note your time for each.',cardio:true},
+          ]},
+          { name:'Session C', focus:'Field — High Intensity Circuits', exercises:[
+            {name:'Sprint-Jog Circuit',sets:'3',reps:'1 round',rest:'3 min between rounds',cue:'Sprint 100m → jog 100m → sprint 50m → jog 50m → sprint 30m × 3 with 10s between → jog 100m cool-down. One round = approx 3-4 min work. Log your time for each round.',cardio:true},
+            {name:'40s Work / 20s Rest Intervals',sets:'8',reps:'40s work',rest:'20s rest (2 min after round 4)',cue:'8 rounds total. Each 40s: sprint 20m, lateral shuffle back, back-pedal to start. Same sequence every rep. Log completed rounds and how you felt at round 8 vs round 1.',cardio:true},
+            {name:'Broncos Fitness Test (Repeat)',sets:'1',reps:'Full test',rest:'120s between sets',cue:'Direct comparison to Block 1 Session E. Note every set time. Improvement here = 12 weeks of work paid off.',cardio:true},
+          ]},
+          { name:'Session D', focus:'Field — Speed Benchmarks', exercises:[
+            {name:'10m Acceleration Sprint',sets:'6',reps:'10m',rest:'2.5 min',cue:'Standing start, drive phase only. First step power. Log time for every rep. 0.1s improvement over 12 weeks is significant. Heavier athletes target sub-2.0s, lighter sub-1.8s.',cardio:true},
+            {name:'Flying 40m Sprint',sets:'4',reps:'40m',rest:'4 min full rest',cue:'20m build-up, then timed over 40m. Full recovery — this is max velocity, not conditioning. Log the 40m time and compare to Block 1.',cardio:true},
+            {name:'5-10-5 Change of Direction',sets:'8',reps:'1',rest:'90s',cue:'5m right, 10m left, 5m right — all-out, both directions. COD benchmark. Log time for each. Heavier athletes target sub-5.0s, lighter sub-4.3s.',cardio:true},
+          ]},
+          { name:'Session E', focus:'Gym — Recovery + Season Benchmarks', exercises:[
+            {name:'2km Row Time Trial',sets:'1',reps:'2km',rest:'—',cue:'Season aerobic benchmark. Negative split — slightly easier first 1km, faster second. Heavier athletes target sub-7:30, lighter sub-7:00. Log your 1km split and final time.',cardio:true},
+            {name:'Assault Bike Easy',sets:'1',reps:'15 min',rest:'—',cue:'60-70 RPM, very low resistance. HR under 130bpm. Active recovery — flush the legs. Do not skip this.',cardio:true},
+            {name:'Mobility Circuit',sets:'1',reps:'10 min',rest:'—',cue:'Hip flexors (90/90 stretch), quad stretch, thoracic rotation over foam roller, hamstring floss. 45s per position. Do it properly.',cardio:true},
+          ]},
+        ]
+      },
+    ]
+  },
+};
+
+const POSITIONS=[
+  {pos:'Props (1,3)',kcal:'4800-5200',carbs:'6-8g/kg',protein:'2.2g/kg',fat:'1.5g/kg',notes:'Highest collision volume. Prioritise carbs around training.'},
+  {pos:'Hooker (2)',kcal:'4500-5000',carbs:'6-7g/kg',protein:'2.2g/kg',fat:'1.5g/kg',notes:'High work rate at set-piece and around the park.'},
+  {pos:'Locks (4,5)',kcal:'4600-5000',carbs:'6-7g/kg',protein:'2.0g/kg',fat:'1.4g/kg',notes:'Lineout jumping and mauling — need explosive strength and endurance.'},
+  {pos:'Back Row (6,7,8)',kcal:'4200-4800',carbs:'5.5-7g/kg',protein:'2.0g/kg',fat:'1.4g/kg',notes:'Highest distance covered. Blend of power and endurance.'},
+  {pos:'Scrum Half (9)',kcal:'3600-4200',carbs:'5-6g/kg',protein:'1.8g/kg',fat:'1.2g/kg',notes:'Highest sprint distance. Carb timing around game critical.'},
+  {pos:'Fly Half (10)',kcal:'3800-4200',carbs:'5-6g/kg',protein:'1.8g/kg',fat:'1.2g/kg',notes:'Decision-making under fatigue — consistent fuelling essential.'},
+  {pos:'Centres, Wings, Fullback',kcal:'3400-4200',carbs:'5-6.5g/kg',protein:'1.8g/kg',fat:'1.2g/kg',notes:'Speed and power. Pre-game carb load matters most.'},
+];
+const TIMING=[
+  {phase:'Pre-Training (2-3 hrs)',items:['Large meal: rice/pasta + lean protein + veg','Avoid high fat and high fibre (slow digestion)','Hydrate: 500ml water with meal']},
+  {phase:'60 Min Before',items:['Light carb: banana, white toast + jam, rice cakes','Avoid protein-heavy or fatty foods now','300ml water or diluted sports drink']},
+  {phase:'During (60+ min sessions)',items:['25-30g carbs every 45 min (gel, banana, jelly sweets)','200ml water every 20 min','Electrolytes if sweating heavily']},
+  {phase:'Post-Training (30 min window)',items:['3:1 carb:protein ratio — critical window','Chocolate milk is elite for this (research proven)','0.3g/kg protein + 0.6-1g/kg carbs','Rehydrate: 150% of bodyweight lost as sweat']},
+  {phase:'Match Day',items:['Big carb meal evening before: pasta, rice, bread','Match morning: oats/toast 3-4 hrs out','60 min before: banana, energy gel or juice','Half time: gel or banana, electrolyte drink']},
+];
+const FOODS=[
+  {name:'Oats',r:5,desc:'Slow-release carbs. Perfect pre-training. Cheap, proven.'},
+  {name:'Chicken / Turkey',r:5,desc:'Lean protein. Highly bioavailable. Build and repair.'},
+  {name:'Rice (white post-training)',r:5,desc:"Fast-absorbing carbs post-session. Don't overthink it."},
+  {name:'Chocolate Milk',r:5,desc:'Research-backed 3:1 carb:protein. Best cheap recovery drink.'},
+  {name:'Eggs',r:5,desc:'Complete amino acid profile. Versatile. Eat them.'},
+  {name:'Salmon / Oily Fish',r:5,desc:'Omega-3 reduces inflammation after contact. Important for rugby.'},
+  {name:'Sweet Potato',r:4,desc:'Slow carbs + micronutrients. Better than white pre-training.'},
+  {name:'Greek Yoghurt',r:4,desc:'Casein protein — good before bed for overnight recovery.'},
+  {name:'Bananas',r:4,desc:'Fast carbs + potassium. Pre and during training staple.'},
+  {name:'Creatine Monohydrate',r:5,desc:'5g/day. Most evidence-based legal supplement. Safe for 15+. Tell your coach.'},
+];
+
+// ── EXERCISE CARD WITH INLINE LOGGING ────────────────────────────────────────
+function ExerciseCard({ ex, logs, onLog }) {
+  const isCardio = !!ex.cardio;
+  const exLogs = logs[ex.name] || [];
+  const lastLog = exLogs[exLogs.length - 1];
+  const lastTopSet = (!isCardio && lastLog && lastLog.sets)
+    ? lastLog.sets.reduce((a,b)=>(parseFloat(b.weight)||0)>(parseFloat(a.weight)||0)?b:a, lastLog.sets[0])
+    : null;
+
+  const initSets = () => Array(parseInt(ex.sets)||3).fill(null).map(()=>({w:'',r:''}));
+  const [open,  setOpen]  = useState(false);
+  const [sets,  setSets]  = useState(initSets);
+  const [note,  setNote]  = useState('');
+  const [saved, setSaved] = useState(false);
+
+  const toggle = () => { setOpen(o=>!o); setSaved(false); };
+  const update = (i,f,v) => setSets(s=>s.map((x,j)=>j===i?{...x,[f]:v}:x));
+  const addSet = () => setSets(s=>[...s,{w:'',r:''}]);
+  const delSet = (i) => { if(sets.length>1) setSets(s=>s.filter((_,j)=>j!==i)); };
+
+  const canSave = isCardio ? note.trim().length>0 : sets.some(s=>s.w||s.r);
+
+  const doSave = () => {
+    if(!canSave) return;
+    const date = new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'2-digit'});
+    if(isCardio) {
+      onLog({ exercise:ex.name, date, cardio:true, note:note.trim() });
+      setNote('');
+    } else {
+      const valid = sets.filter(s=>s.w||s.r);
+      onLog({ exercise:ex.name, date, sets:valid.map(s=>({weight:s.w,reps:s.r})) });
+      setSets(initSets());
+    }
+    setSaved(true);
+    setTimeout(()=>{ setSaved(false); setOpen(false); }, 1500);
+  };
+
+  return (
+    <div className={`ex-card ${open?'ex-open':''}`}>
+      <div className="ex-header" onClick={toggle}>
+        <div className="ex-main">
+          <div className="ex-name">{ex.name}</div>
+          {ex.cue && <div className="ex-cue">{ex.cue}</div>}
+          <div className="ex-meta-row">
+            <span className="ex-sets-badge">{ex.sets}×{ex.reps}</span>
+            {(() => { const rest = displayRest(ex); const capped = rest !== ex.rest;
+              return rest && rest!=='—' && <span className={`ex-rest-badge ${capped?'hyp':''}`}>Rest: {rest}</span>; })()}
+            {ex.yt && <a href={ex.yt} target="_blank" rel="noopener" className="yt-btn" onClick={e=>e.stopPropagation()}>▶ Demo</a>}
+            {!ex.yt && needsVideo(ex.name) && <span className="vid-pending">🎥 Video coming soon</span>}
+          </div>
+        </div>
+        <div className="ex-right">
+          {!isCardio && lastTopSet && lastTopSet.weight && (
+            <span className="ex-last-pill">{lastTopSet.weight}kg</span>
+          )}
+          {isCardio && lastLog && lastLog.note && (
+            <span className="ex-last-pill" style={{maxWidth:90,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{lastLog.note}</span>
+          )}
+          <button className={`log-toggle-btn ${open?'active':''}`} onClick={e=>{e.stopPropagation();toggle();}}>
+            {open?'Close':'+ Log'}
+          </button>
+        </div>
+      </div>
+
+      {open && (
+        <div className="log-panel">
+          {/* Last session reference */}
+          {lastLog && !isCardio && lastLog.sets && (
+            <div className="last-session-ref">
+              <span className="lsr-label">Last logged · {lastLog.date}</span>
+              <div className="lsr-chips">
+                {lastLog.sets.map((s,i)=>(
+                  <span key={i} className="lsr-chip">
+                    {s.weight?s.weight+'kg':''}{s.weight&&s.reps?' × ':''}{s.reps?s.reps+'r':''}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+          {lastLog && isCardio && lastLog.note && (
+            <div className="last-session-ref">
+              <span className="lsr-label">Last logged · {lastLog.date}</span>
+              <span style={{fontSize:12,color:'var(--white)'}}>{lastLog.note}</span>
+            </div>
+          )}
+
+          {/* Cardio log: just a notes/time field */}
+          {isCardio ? (
+            <div>
+              <div style={{marginBottom:6}}>
+                <span style={{fontFamily:'Barlow Condensed',fontSize:10,color:'var(--grey)',textTransform:'uppercase',letterSpacing:'0.08em'}}>
+                  Log time / pace / rounds completed
+                </span>
+              </div>
+              <input
+                className="set-input" type="text"
+                placeholder={`e.g. "${ex.sets} rounds done, pace 2:10/500m, 8/10 effort"`}
+                value={note}
+                onChange={e=>setNote(e.target.value)}
+                style={{width:'100%',textAlign:'left',fontSize:13,padding:'9px 10px'}}
+              />
+            </div>
+          ) : (
+            <>
+              <div className="sets-grid-head">
+                <span></span><span>kg</span><span>Reps</span><span></span>
+              </div>
+              {sets.map((s,i)=>(
+                <div key={i} className="set-row-inline">
+                  <span className="set-num-lbl">S{i+1}</span>
+                  <input className="set-input" type="number" inputMode="decimal"
+                    placeholder={lastTopSet?.weight||'kg'} value={s.w}
+                    onChange={e=>update(i,'w',e.target.value)}/>
+                  <input className="set-input" type="number" inputMode="numeric"
+                    placeholder={lastTopSet?.reps||'reps'} value={s.r}
+                    onChange={e=>update(i,'r',e.target.value)}/>
+                  <button className="set-del-btn" onClick={()=>delSet(i)}>×</button>
+                </div>
+              ))}
+            </>
+          )}
+
+          <div className="log-panel-actions">
+            {!isCardio && <button className="btn-add-set" onClick={addSet}>+ Set</button>}
+            <button className="btn-save-sets" disabled={!canSave} onClick={doSave}>Save</button>
+          </div>
+          {saved && <div className="saved-flash">✓ Logged for {ex.name}</div>}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function SessionCard({ session, logs, onLog }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="session-card">
+      <div className="session-header" onClick={()=>setOpen(!open)}>
+        <h4>{session.name}</h4>
+        <span className="chevron">{open?'−':'+'}</span>
+      </div>
+      {open && (
+        <div className="session-body">
+          <div className="session-focus">{session.focus}</div>
+          {session.pap && <div className="pap-box"><strong>PAP Note</strong>{session.pap}</div>}
+          {session.exercises.map((ex,i)=>(
+            <ExerciseCard key={i} ex={ex} logs={logs} onLog={onLog}/>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ProgrammeDetail({ prog, onBack, logs, onLog }) {
+  const [blockIdx, setBlockIdx] = useState(0);
+  const block = prog.blocks[blockIdx];
+  return (
+    <div>
+      <button className="back-btn" onClick={onBack}>← Back</button>
+      <h2 className="section-title">{prog.name}</h2>
+      <p className="section-sub">{prog.subtitle}</p>
+      <div className="info-row">
+        <div className="info-chip"><span>{prog.info.sessions}</span>Sessions</div>
+        <div className="info-chip"><span>{prog.info.duration}</span>Duration</div>
+        <div className="info-chip" style={{flex:1}}><span style={{fontSize:'13px'}}>{prog.info.focus}</span></div>
+      </div>
+      <div className="block-selector">
+        {prog.blocks.map((b,i)=>(
+          <button key={i} className={`block-btn ${blockIdx===i?'active':''}`} onClick={()=>setBlockIdx(i)}>{b.name}</button>
+        ))}
+      </div>
+      <div className="warmup-box"><strong>Warm-Up Protocol</strong>{block.warmup}</div>
+      <p className="section-sub">{block.subtitle}</p>
+      {block.sessions.map((s,i)=><SessionCard key={i} session={s} logs={logs} onLog={onLog}/>)}
+    </div>
+  );
+}
+
+function TrainingTab({ logs, onLog }) {
+  const [selected, setSelected] = useState(null);
+  if (selected) return <ProgrammeDetail prog={selected} onBack={()=>setSelected(null)} logs={logs} onLog={onLog}/>;
+  return (
+    <div>
+      <h2 className="section-title">Training Programmes</h2>
+      <p className="section-sub">Select a programme to begin</p>
+      <div className="prog-grid">
+        {Object.values(PROGRAMMES).map(p=>(
+          <div key={p.id} className={`prog-card ${p.id}`} onClick={()=>setSelected(p)}>
+            <h3>{p.name}</h3>
+            <p>{p.subtitle}</p>
+            <span className="badge">{p.badge}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ── DASHBOARD ─────────────────────────────────────────────────────────────────
+function DashboardTab({ logs }) {
+  const allExercises = {};
+  Object.entries(logs).forEach(([n,entries])=>{ if(entries&&entries.length>0) allExercises[n]=entries; });
+
+  const totalSessions = new Set(Object.values(allExercises).flat().map(e=>e.date)).size;
+  const totalSets = Object.values(allExercises).flat().reduce((a,e)=>a+(e.sets?.length||0),0);
+  const totalExercises = Object.keys(allExercises).length;
+
+  const isCardioEntry = (e) => e.cardio === true || !e.sets;
+
+  function getBest(entries) {
+    let b=null;
+    entries.filter(e=>!isCardioEntry(e)).forEach(e=>(e.sets||[]).forEach(s=>{
+      const w=parseFloat(s.weight)||0,r=parseFloat(s.reps)||0;
+      if(!b||w>b.weight||(w===b.weight&&r>b.reps)) b={weight:w,reps:r,date:e.date};
+    }));
+    return b;
+  }
+
+  function getImprovement(entries) {
+    const strengthEntries = entries.filter(e=>!isCardioEntry(e));
+    if(strengthEntries.length<2) return null;
+    const f=strengthEntries[0].sets?.find(s=>s.weight);
+    const l=strengthEntries[strengthEntries.length-1].sets?.find(s=>s.weight);
+    if(!f||!l) return null;
+    return +(parseFloat(l.weight)-parseFloat(f.weight)).toFixed(1);
+  }
+
+  function maxPerSession(entries) {
+    return entries.filter(e=>!isCardioEntry(e)).map(e=>{
+      const top=(e.sets||[]).reduce((a,b)=>(parseFloat(b.weight)||0)>(parseFloat(a.weight)||0)?b:a,e.sets?.[0]||{weight:'0'});
+      return {date:e.date,weight:parseFloat(top.weight)||0,reps:top.reps};
+    });
+  }
+
+  const keyLiftsLogged = KEY_LIFTS.filter(k=>allExercises[k]);
+  const otherLifts = Object.keys(allExercises).filter(k=>!KEY_LIFTS.includes(k));
+
+  if(keyLiftsLogged.length===0 && otherLifts.length===0) {
+    return (
+      <div>
+        <h2 className="section-title">Progress Dashboard</h2>
+        <p className="section-sub">Your performance over time</p>
+        <div className="no-data">No sessions logged yet.<br/>Open any programme, expand a session, tap <strong style={{color:'var(--gold)'}}>+ Log</strong> on an exercise.</div>
+      </div>
+    );
+  }
+
+  const maxW = Math.max(...Object.values(allExercises).flat().flatMap(e=>(e.sets||[]).map(s=>parseFloat(s.weight)||0)),1);
+
+  function renderLift(name) {
+    const entries = allExercises[name];
+    const best = getBest(entries);
+    const imp = getImprovement(entries);
+    const pts = maxPerSession(entries);
+    const localMax = Math.max(...pts.map(p=>p.weight),1);
+    const barWidth = best&&best.weight>0 ? Math.min(100,(best.weight/maxW)*100) : 0;
+    return (
+      <div key={name} className="lift-row">
+        <div className="lift-row-top">
+          <div>
+            <div className="lift-name">{name}</div>
+            {imp!==null&&(
+              imp>=0
+                ? <span className="improvement-badge">↑ +{imp}kg from first session</span>
+                : <span className="decline-badge">↓ {imp}kg from first session</span>
+            )}
+          </div>
+          {best&&(
+            <div className="lift-best">
+              <div className="val">{best.weight>0?best.weight+'kg':best.reps+'r'}</div>
+              <div className="sub">{best.weight>0?`× ${best.reps} reps`:'best set'} · PR</div>
+            </div>
+          )}
+        </div>
+        {best&&best.weight>0&&(
+          <div className="progress-bar-wrap">
+            <div className="progress-bar" style={{width:`${barWidth}%`}}/>
+          </div>
+        )}
+        {pts.length>1&&pts.some(p=>p.weight>0)&&(
+          <div className="bar-chart-wrap">
+            <div className="bar-chart-label">Weight per session</div>
+            <div className="bar-chart">
+              {pts.map((p,i)=>{
+                const isPR = p.weight===localMax&&p.weight>0;
+                const h = p.weight>0 ? Math.max(10,(p.weight/localMax)*100) : 5;
+                return (
+                  <div key={i} className="bar-col" title={`${p.date}: ${p.weight}kg${p.reps?' × '+p.reps+'r':''}`}>
+                    <div className={`bar-fill ${isPR?'pr':'normal'}`} style={{height:h+'%'}}/>
+                    <span className="bar-date-lbl">{p.date.split(' ').slice(0,2).join(' ')}</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+        <div className="lift-history-row">
+          {entries.map((e,i)=>{
+            if(isCardioEntry(e)) return (
+              <div key={i} className="lift-hist-chip">
+                <span className="v" style={{fontSize:11,maxWidth:120,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap',display:'block'}}>{e.note||'Done'}</span>
+                <span className="d">{e.date}</span>
+              </div>
+            );
+            const top=e.sets?.reduce((a,b)=>(parseFloat(b.weight)||0)>(parseFloat(a.weight)||0)?b:a,e.sets[0]);
+            return top?(
+              <div key={i} className="lift-hist-chip">
+                <span className="v">{top.weight?top.weight+'kg':''}{top.weight&&top.reps?' × ':''}{top.reps?top.reps+'r':''}</span>
+                <span className="d">{e.date}</span>
+              </div>
+            ):null;
+          })}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <h2 className="section-title">Progress Dashboard</h2>
+      <p className="section-sub">Your performance over time</p>
+      <div className="dash-summary">
+        <div className="dash-card"><div className="big">{totalSessions}</div><div className="lbl">Days Logged</div></div>
+        <div className="dash-card"><div className="big">{totalSets}</div><div className="lbl">Total Sets</div></div>
+        <div className="dash-card"><div className="big">{totalExercises}</div><div className="lbl">Exercises</div></div>
+      </div>
+      {keyLiftsLogged.length>0&&(
+        <div className="lift-section">
+          <h3>Key Lifts</h3>
+          {keyLiftsLogged.map(renderLift)}
+        </div>
+      )}
+      {otherLifts.length>0&&(
+        <div className="lift-section">
+          <h3>All Exercises</h3>
+          {otherLifts.map(renderLift)}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── NUTRITION ─────────────────────────────────────────────────────────────────
+function NutritionTab() {
+  const [tab,setTab]=useState('position');
+  return (
+    <div>
+      <h2 className="section-title">Nutrition</h2>
+      <p className="section-sub">Fuel for rugby performance</p>
+      <div className="tab-row">
+        {['position','timing','foods'].map(t=>(
+          <button key={t} className={`tab-btn ${tab===t?'active':''}`} onClick={()=>setTab(t)}>
+            {t.charAt(0).toUpperCase()+t.slice(1)}
+          </button>
+        ))}
+      </div>
+      {tab==='position'&&(
+        <div>
+          <p style={{fontSize:'12px',color:'var(--grey)',marginBottom:'14px'}}>Research from ISSN and World Rugby shows 90%+ of rugby players under-fuel on carbs. Targets for 75-85kg players — adjust by bodyweight.</p>
+          {POSITIONS.map((p,i)=>(
+            <div key={i} className="pos-card">
+              <h4>{p.pos}</h4>
+              <p style={{fontSize:'11px',color:'var(--grey)'}}>{p.notes}</p>
+              <div className="macro-row">
+                <div className="macro-chip"><span>{p.kcal}</span>kcal/day</div>
+                <div className="macro-chip"><span>{p.carbs}</span>Carbs</div>
+                <div className="macro-chip"><span>{p.protein}</span>Protein</div>
+                <div className="macro-chip"><span>{p.fat}</span>Fat</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+      {tab==='timing'&&(
+        <div>
+          <p style={{fontSize:'12px',color:'var(--grey)',marginBottom:'14px'}}>When you eat matters as much as what you eat.</p>
+          {TIMING.map((t,i)=>(
+            <div key={i} className="timing-card">
+              <h4>{t.phase}</h4>
+              <ul>{t.items.map((item,j)=><li key={j}>{item}</li>)}</ul>
+            </div>
+          ))}
+        </div>
+      )}
+      {tab==='foods'&&(
+        <div>
+          <p style={{fontSize:'12px',color:'var(--grey)',marginBottom:'14px'}}>Rated by evidence, not trends.</p>
+          <div className="food-grid">
+            {FOODS.map((f,i)=>(
+              <div key={i} className="food-card">
+                <h4>{f.name} <span className="star">{'★'.repeat(f.r)}</span></h4>
+                <p>{f.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── APP ───────────────────────────────────────────────────────────────────────
+function App() {
+  const [tab, setTab] = useState('training');
+  const [logs, setLogs] = useLocalStorage('solihull-logs-v2', {});
+
+  const handleLog = useCallback((entry) => {
+    setLogs(prev => ({
+      ...prev,
+      [entry.exercise]: [...(prev[entry.exercise]||[]), {date:entry.date,sets:entry.sets}]
+    }));
+  }, [setLogs]);
+
+  return (
+    <div>
+      <div className="header">
+        <div className="school-badge">S</div>
+        <h1>SOLIHULL SCHOOL</h1>
+        <p>Rugby Performance Programme</p>
+      </div>
+      <nav className="nav">
+        {[{id:'training',label:'Training'},{id:'dashboard',label:'Dashboard'},{id:'nutrition',label:'Nutrition'}].map(t=>(
+          <button key={t.id} className={tab===t.id?'active':''} onClick={()=>setTab(t.id)}>{t.label}</button>
+        ))}
+      </nav>
+      <div className="content">
+        {tab==='training'&&<TrainingTab logs={logs} onLog={handleLog}/>}
+        {tab==='dashboard'&&<DashboardTab logs={logs}/>}
+        {tab==='nutrition'&&<NutritionTab/>}
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('app')).render(<App/>);
+</script>
+</body>
+</html>
