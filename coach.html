@@ -162,7 +162,7 @@ async function login() {
   document.getElementById('loginBtn').textContent = 'Loading…';
   document.getElementById('loginErr').style.display = 'none';
   try {
-    const res = await fetch(`/.netlify/functions/coach?password=${encodeURIComponent(pw)}`);
+    const res = await fetch(`/.netlify/functions/coach-data?password=${encodeURIComponent(pw)}`);
     if (res.status === 401) {
       document.getElementById('loginErr').style.display = 'block';
       document.getElementById('loginBtn').textContent = 'View Dashboard →';
@@ -204,7 +204,7 @@ document.getElementById('signOutBtn').addEventListener('click', () => {
 document.getElementById('refreshBtn').addEventListener('click', async () => {
   document.getElementById('refreshBtn').textContent = '↻ Loading…';
   try {
-    const res = await fetch(`/.netlify/functions/coach?password=${encodeURIComponent(password)}`);
+    const res = await fetch(`/.netlify/functions/coach-data?password=${encodeURIComponent(password)}`);
     const { students } = await res.json();
     allStudents = students;
     renderGrid();
