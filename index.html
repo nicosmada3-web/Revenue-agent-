@@ -191,6 +191,16 @@ h1,h2,h3,h4{font-family:'Bebas Neue',sans-serif;letter-spacing:0.05em;}
 </style>
 </head>
 <body>
+<!-- Hidden form so Netlify detects it on deploy. Every saved set is POSTed here,
+     giving coaches a central record under Netlify dashboard → Forms → training-log. -->
+<form name="training-log" netlify netlify-honeypot="bot-field" hidden>
+  <input type="text" name="student"/>
+  <input type="text" name="squad"/>
+  <input type="text" name="exercise"/>
+  <input type="text" name="date"/>
+  <input type="text" name="type"/>
+  <input type="text" name="detail"/>
+</form>
 <div id="app"></div>
 <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
@@ -1085,19 +1095,25 @@ function App() {
       if (entry.cardio) { newEntry.cardio = true; if (entry.note) newEntry.note = entry.note; }
       return { ...prev, [entry.exercise]: [...(prev[entry.exercise]||[]), newEntry] };
     });
-    // Sync to coach dashboard (best-effort, silent on failure)
+    // Send to the central coach record via Netlify Forms (no backend/build needed).
+    // Best-effort: device storage above is always the source of truth.
     if (user) {
-      fetch('/.netlify/functions/save-log', {
+      const detail = entry.cardio
+        ? (entry.note || 'completed')
+        : (entry.sets || []).map(s => `${s.weight||'?'}kg × ${s.reps||'?'}`).join(', ');
+      const body = new URLSearchParams({
+        'form-name': 'training-log',
+        student: user.name || '',
+        squad: user.squad || '',
+        exercise: entry.exercise,
+        date: entry.date,
+        type: entry.cardio ? 'cardio' : 'strength',
+        detail,
+      });
+      fetch('/', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          student: user,
-          exercise: entry.exercise,
-          date: entry.date,
-          sets: entry.sets || null,
-          cardio: !!entry.cardio,
-          note: entry.note || null,
-        }),
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body.toString(),
       }).catch(() => {});
     }
   }, [setLogs, user]);
