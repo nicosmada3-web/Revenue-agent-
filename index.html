@@ -37,7 +37,6 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
 
 .container { max-width: 700px; margin: 0 auto; padding: 20px 16px; }
 
-/* KITCHEN HERO */
 .kitchen-hero {
   background: var(--accent);
   color: white;
@@ -94,7 +93,6 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
 .carcass-banner .value { font-size: 18px; font-weight: 700; }
 .carcass-banner .value.por { font-size: 13px; font-style: italic; }
 
-/* SECTION CARD */
 .section-card {
   background: var(--card);
   border: 1px solid var(--border);
@@ -173,7 +171,6 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
 }
 .row-total.zero { color: var(--muted); font-weight: 400; }
 
-/* NOTES */
 .note-row {
   padding: 8px 16px;
   font-size: 12px;
@@ -182,7 +179,6 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
   border-bottom: 1px solid #fde68a;
 }
 
-/* TOTALS */
 .totals-card {
   background: var(--card);
   border: 2px solid var(--accent);
@@ -213,7 +209,6 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
 .grand-total .lbl { font-size: 14px; font-weight: 600; letter-spacing: 0.03em; }
 .grand-total .val { font-size: 24px; font-weight: 700; }
 
-/* ACTIONS */
 .actions { display: flex; gap: 10px; flex-wrap: wrap; }
 .btn {
   flex: 1;
@@ -232,7 +227,6 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
 .btn-amber    { background: #fef3c7; color: #92400e; border: 2px solid #f59e0b; }
 .btn-danger   { background: #fee2e2; color: var(--red); }
 
-/* POR warning */
 .por-warning {
   background: #fef3c7;
   border: 1px solid #f59e0b;
@@ -245,7 +239,6 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
 }
 .por-warning.visible { display: block; }
 
-/* EDIT PRICES MODAL */
 .modal-backdrop {
   display: none;
   position: fixed; inset: 0;
@@ -385,12 +378,10 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
 
 <div class="container">
 
-  <!-- MODIFIED PRICES BADGE -->
   <div class="prices-modified-badge" id="modifiedBadge">
-    ⚠ Custom prices active — some prices differ from the UKSA guideline
+    ⚠ Custom prices active — some prices have been adjusted
   </div>
 
-  <!-- KITCHEN DOORS HERO -->
   <div class="kitchen-hero">
     <h2>Kitchen Doors &amp; Carcass</h2>
     <div class="door-input-row">
@@ -405,14 +396,10 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
     </div>
   </div>
 
-  <!-- KITCHEN EXTRAS -->
   <div class="section-card">
     <div class="section-title">Kitchen Extras</div>
-
     <div class="price-row">
-      <div>
-        <div class="item-name">Open / Wine Rack / Plate Racks / Glazed Inserts</div>
-      </div>
+      <div><div class="item-name">Open / Wine Rack / Plate Racks / Glazed Inserts</div></div>
       <div class="unit-price" id="up_openRack">£95</div>
       <div class="qty-wrap">
         <button class="qty-btn" onclick="change('openRack',-1)">−</button>
@@ -421,7 +408,6 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
         <div class="row-total zero" id="openRackTotal">—</div>
       </div>
     </div>
-
     <div class="note-row">Extra Colour surcharge applies when more than one colour is used.</div>
     <div class="price-row">
       <div>
@@ -436,11 +422,10 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
         <div class="row-total zero" id="extraColourTotal">—</div>
       </div>
     </div>
-
     <div class="price-row">
       <div>
         <div class="item-name">Island (Carcass Only)</div>
-        <div class="item-unit" id="islandUnit">£695 – £995 (mid: £845)</div>
+        <div class="item-unit">£695 – £995 (mid: £845)</div>
       </div>
       <div class="unit-price" id="up_island">£845</div>
       <div class="qty-wrap">
@@ -452,10 +437,8 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
     </div>
   </div>
 
-  <!-- DOORS & FRAMES -->
   <div class="section-card">
     <div class="section-title">Doors &amp; Frames</div>
-
     <div class="price-row">
       <div><div class="item-name">Composite Door</div></div>
       <div class="unit-price" id="up_composite">£295</div>
@@ -466,7 +449,6 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
         <div class="row-total zero" id="compositeTotal">—</div>
       </div>
     </div>
-
     <div class="price-row">
       <div><div class="item-name">uPVC Door</div></div>
       <div class="unit-price" id="up_upvcDoor">£350</div>
@@ -477,7 +459,6 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
         <div class="row-total zero" id="upvcDoorTotal">—</div>
       </div>
     </div>
-
     <div class="price-row">
       <div><div class="item-name">uPVC Door Frame (with door)</div></div>
       <div class="unit-price" id="up_upvcFrameWith">£95</div>
@@ -488,7 +469,6 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
         <div class="row-total zero" id="upvcFrameWithTotal">—</div>
       </div>
     </div>
-
     <div class="price-row">
       <div><div class="item-name">uPVC Door Frame (alone)</div></div>
       <div class="unit-price" id="up_upvcFrameAlone">£195</div>
@@ -499,7 +479,6 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
         <div class="row-total zero" id="upvcFrameAloneTotal">—</div>
       </div>
     </div>
-
     <div class="price-row">
       <div><div class="item-name">French / Patio / Bi-fold Doors (3 panels)</div></div>
       <div class="unit-price" id="up_bifold">£495</div>
@@ -510,7 +489,6 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
         <div class="row-total zero" id="bifoldTotal">—</div>
       </div>
     </div>
-
     <div class="price-row">
       <div><div class="item-name">Extra Bi-fold Panel</div></div>
       <div class="unit-price" id="up_bifoldExtra">£100</div>
@@ -521,7 +499,6 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
         <div class="row-total zero" id="bifoldExtraTotal">—</div>
       </div>
     </div>
-
     <div class="price-row">
       <div><div class="item-name">Garage Door (Single)</div></div>
       <div class="unit-price" id="up_garageSingle">£595</div>
@@ -532,7 +509,6 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
         <div class="row-total zero" id="garageSingleTotal">—</div>
       </div>
     </div>
-
     <div class="price-row">
       <div><div class="item-name">Garage Door (Double)</div></div>
       <div class="unit-price" id="up_garageDouble">£695</div>
@@ -545,10 +521,8 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
     </div>
   </div>
 
-  <!-- WINDOWS -->
   <div class="section-card">
     <div class="section-title">Windows</div>
-
     <div class="price-row">
       <div><div class="item-name">Small Window</div></div>
       <div class="unit-price" id="up_winSmall">£200</div>
@@ -559,7 +533,6 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
         <div class="row-total zero" id="winSmallTotal">—</div>
       </div>
     </div>
-
     <div class="price-row">
       <div><div class="item-name">Medium Window</div></div>
       <div class="unit-price" id="up_winMed">£250</div>
@@ -570,7 +543,6 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
         <div class="row-total zero" id="winMedTotal">—</div>
       </div>
     </div>
-
     <div class="price-row">
       <div><div class="item-name">Large Window</div></div>
       <div class="unit-price" id="up_winLarge">£300</div>
@@ -581,7 +553,6 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
         <div class="row-total zero" id="winLargeTotal">—</div>
       </div>
     </div>
-
     <div class="price-row">
       <div><div class="item-name">Extra Large Window</div></div>
       <div class="unit-price" id="up_winXL">£400</div>
@@ -592,7 +563,6 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
         <div class="row-total zero" id="winXLTotal">—</div>
       </div>
     </div>
-
     <div class="price-row">
       <div><div class="item-name">Bay Window</div></div>
       <div class="unit-price" id="up_winBay">£500</div>
@@ -603,7 +573,6 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
         <div class="row-total zero" id="winBayTotal">—</div>
       </div>
     </div>
-
     <div class="price-row">
       <div><div class="item-name">Sash Window</div></div>
       <div class="unit-price" id="up_winSash">£450</div>
@@ -616,10 +585,8 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
     </div>
   </div>
 
-  <!-- OTHER SERVICES -->
   <div class="section-card">
     <div class="section-title">Other Services</div>
-
     <div class="price-row">
       <div>
         <div class="item-name">Fascia, Soffit &amp; Guttering</div>
@@ -633,7 +600,6 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
         <div class="row-total zero" id="fasciaTotal">—</div>
       </div>
     </div>
-
     <div class="price-row">
       <div>
         <div class="item-name">Conservatory</div>
@@ -647,7 +613,6 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
         <div class="row-total zero" id="conservatoryTotal">—</div>
       </div>
     </div>
-
     <div class="price-row">
       <div>
         <div class="item-name">Porch (incl. Door)</div>
@@ -661,7 +626,6 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
         <div class="row-total zero" id="porchTotal">—</div>
       </div>
     </div>
-
     <div class="price-row">
       <div>
         <div class="item-name">Shopfront</div>
@@ -677,12 +641,10 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
     </div>
   </div>
 
-  <!-- POR WARNING -->
   <div class="por-warning" id="porWarning">
     Note: Carcass price for over 50 doors is <strong>Price on Request</strong>. The grand total below excludes the carcass cost — please contact us for a quote.
   </div>
 
-  <!-- TOTALS -->
   <div class="totals-card">
     <div class="totals-row">
       <span class="lbl">Cabinet Doors / Drawers (<span id="doorCountSummary">0</span>)</span>
@@ -714,7 +676,6 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
     </div>
   </div>
 
-  <!-- ACTIONS -->
   <div class="actions">
     <button class="btn btn-primary"  onclick="window.print()">Print / PDF</button>
     <button class="btn btn-outline"  onclick="copyQuote()">Copy Quote</button>
@@ -724,7 +685,6 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
 
 </div>
 
-<!-- EDIT PRICES MODAL -->
 <div class="modal-backdrop" id="priceModal" onclick="backdropClick(event)">
   <div class="modal-sheet">
     <div class="modal-header">
@@ -735,13 +695,11 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
       <button class="modal-close" onclick="closeModal()">&#x2715;</button>
     </div>
     <div class="modal-body">
-
       <div class="edit-section-title">Kitchen — Per Door</div>
       <div class="edit-row">
         <div class="edit-label">Cabinet Door / Drawer <small>price per door</small></div>
         <div class="price-input-wrap"><span>£</span><input class="price-input" id="ep_doorUnit" type="number" min="0" oninput="applyPrices()"/></div>
       </div>
-
       <div class="edit-section-title">Carcass Tiers</div>
       <div class="edit-row">
         <div class="edit-label">Small <small>up to 20 doors</small></div>
@@ -759,7 +717,6 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
         <div class="edit-label">Extra Large <small>41–50 doors</small></div>
         <div class="price-input-wrap"><span>£</span><input class="price-input" id="ep_carcassXL" type="number" min="0" oninput="applyPrices()"/></div>
       </div>
-
       <div class="edit-section-title">Kitchen Extras</div>
       <div class="edit-row">
         <div class="edit-label">Open / Wine Rack / Plate Racks / Glazed Inserts</div>
@@ -773,7 +730,6 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
         <div class="edit-label">Island (Carcass Only)</div>
         <div class="price-input-wrap"><span>£</span><input class="price-input" id="ep_island" type="number" min="0" oninput="applyPrices()"/></div>
       </div>
-
       <div class="edit-section-title">Doors &amp; Frames</div>
       <div class="edit-row">
         <div class="edit-label">Composite Door</div>
@@ -807,7 +763,6 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
         <div class="edit-label">Garage Door (Double)</div>
         <div class="price-input-wrap"><span>£</span><input class="price-input" id="ep_garageDouble" type="number" min="0" oninput="applyPrices()"/></div>
       </div>
-
       <div class="edit-section-title">Windows</div>
       <div class="edit-row">
         <div class="edit-label">Small Window</div>
@@ -833,7 +788,6 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
         <div class="edit-label">Sash Window</div>
         <div class="price-input-wrap"><span>£</span><input class="price-input" id="ep_winSash" type="number" min="0" oninput="applyPrices()"/></div>
       </div>
-
       <div class="edit-section-title">Other Services</div>
       <div class="edit-row">
         <div class="edit-label">Fascia, Soffit &amp; Guttering <small>per linear metre</small></div>
@@ -851,10 +805,9 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
         <div class="edit-label">Shopfront <small>per side</small></div>
         <div class="price-input-wrap"><span>£</span><input class="price-input" id="ep_shopfront" type="number" min="0" oninput="applyPrices()"/></div>
       </div>
-
     </div>
     <div class="modal-footer">
-      <button class="btn btn-danger"  onclick="resetPrices()">Reset to UKSA Defaults</button>
+      <button class="btn btn-danger"  onclick="resetPrices()">Reset to Default Prices</button>
       <button class="btn btn-primary" onclick="closeModal()">Done</button>
     </div>
   </div>
@@ -1069,7 +1022,7 @@ function applyPrices() {
 }
 
 function resetPrices() {
-  if (!confirm('Reset all prices back to UKSA defaults?')) return;
+  if (!confirm('Reset all prices back to default pricing?')) return;
   PRICES = Object.assign({}, DEFAULTS);
   savePrices();
   Object.keys(DEFAULTS).forEach(k => {
@@ -1084,7 +1037,6 @@ function copyQuote() {
   const doors = getVal('doorCount');
   const carc  = carcassPrice(doors);
   const lines = ['STRATFORD SPRAYING SOLUTIONS', 'Pricing Quote', '='.repeat(32), ''];
-
   const items = [
     ['Cabinet Doors/Drawers', doors, PRICES.doorUnit],
     ['Carcass', 1, carc.price],
@@ -1110,17 +1062,14 @@ function copyQuote() {
     ['Porch (incl. door)', getVal('porch'), PRICES.porch],
     ['Shopfront (per side)', getVal('shopfront'), PRICES.shopfront],
   ];
-
   items.forEach(([name, qty, price]) => {
     if (qty > 0) {
       const total = (name === 'Carcass' && carc.por) ? 'Price on Request' : fmt(qty * price);
       lines.push(`${name.padEnd(30)} x${qty}  ${total}`);
     }
   });
-
   lines.push('');
   lines.push(`TOTAL (excl. VAT): ${document.getElementById('grandTotal').textContent}`);
-
   navigator.clipboard.writeText(lines.join('\n')).then(() => {
     alert('Quote copied to clipboard!');
   });
