@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Stratford Spraying Solutions Price App</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f0f4f8;color:#1a202c;padding-bottom:60px}
+header{background:#1e3a5f;color:#fff;padding:16px 20px;text-align:center}
+header h1{font-size:18px;font-weight:700}
+header p{font-size:11px;opacity:.6;margin-top:2px}
+.wrap{max-width:660px;margin:0 auto;padding:14px}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:14px}
+thead tr{background:#1e3a5f;color:#fff}
+thead th{padding:9px 12px;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;text-align:left}
+thead th:nth-child(2),thead th:nth-child(3),thead th:nth-child(4){text-align:right}
+tbody tr{border-bottom:1px solid #e5eaf0}
+tbody tr:last-child{border-bottom:none}
+tbody tr:nth-child(even){background:#f7fafc}
+tbody tr.section-head td{background:#e8f0fe;color:#1a56db;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:6px 12px;border-bottom:1px solid #c7d7f9}
+td{padding:8px 12px;font-size:13px;vertical-align:middle}
+td:nth-child(2){text-align:right;color:#6b7280;font-size:12px;white-space:nowrap}
+td:nth-child(3){text-align:right}
+td:nth-child(4){text-align:right;font-weight:600;color:#15803d;white-space:nowrap;min-width:72px}
+td.zero{color:#9ca3af;font-weight:400}
+.qw{display:inline-flex;align-items:center;gap:4px;justify-content:flex-end}
+.qbtn{width:28px;height:28px;background:#e8f0fe;border:1px solid #c7d7f9;color:#1a56db;border-radius:6px;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0}
+.qbtn:active{background:#1a56db;color:#fff}
+.qnum{width:40px;text-align:center;font-size:14px;font-weight:600;border:1px solid #d1d9e0;border-radius:6px;padding:3px 2px;background:#fff}
+.grand-row{background:#1a56db;color:#fff}
+.grand-row td{padding:13px 12px;font-size:15px;font-weight:700;border:none}
+.grand-row td:nth-child(4){font-size:20px;color:#fff}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.btn{flex:1;min-width:120px;padding:11px;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer}
+.bp{background:#1a56db;color:#fff}
+.bo{background:#fff;color:#1a56db;border:2px solid #1a56db}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;padding:20px;overflow-y:auto}
+.modal.open{display:flex;align-items:flex-start;justify-content:center}
+.mbox{background:#fff;border-radius:12px;max-width:460px;width:100%;padding:20px}
+.mbox h3{font-size:15px;font-weight:700;margin-bottom:14px;color:#1e3a5f}
+.mrow{display:flex;align-items:center;margin-bottom:8px;gap:8px}
+.mrow label{flex:1;font-size:13px}
+.mrow input{width:80px;text-align:right;border:1px solid #d1d9e0;border-radius:6px;padding:5px 7px;font-size:13px}
+.mbtns{display:flex;gap:8px;margin-top:14px}
+.mbtns button{flex:1;padding:10px;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer}
+#mSave{background:#1a56db;color:#fff}
+#mReset{background:#f0f4f8;color:#1a202c}
+#mClose{background:#fff;color:#b91c1c;border:2px solid #b91c1c}
+</style>
+</head>
+<body>
+<header>
+  <h1>Stratford Spraying Solutions</h1>
+  <p>Price Calculator</p>
+</header>
+<div class="wrap">
+<div class="acts">
+  <button class="btn bo" onclick="clearAll()">Clear All</button>
+  <button class="btn bp" onclick="openEdit()">Edit Prices</button>
+</div>
+
+<table>
+  <thead>
+    <tr><th>Item</th><th>Unit Price</th><th>Qty</th><th>Total</th></tr>
+  </thead>
+  <tbody>
+    <tr class="section-head"><td colspan="4">Kitchen Doors &amp; Carcasses</td></tr>
+    <tr>
+      <td>Cabinet door / drawer front</td>
+      <td id="p_door">£95</td>
+      <td><div class="qw"><button class="qbtn" onclick="chg('door',-1)">&#8722;</button><input class="qnum" type="number" id="door" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('door',1)">+</button></div></td>
+      <td id="t_door" class="zero">—</td>
+    </tr>
+    <tr>
+      <td>Carcass respray (up to 20 units)</td>
+      <td id="p_carc1">£695</td>
+      <td><div class="qw"><button class="qbtn" onclick="chg('carc1',-1)">&#8722;</button><input class="qnum" type="number" id="carc1" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('carc1',1)">+</button></div></td>
+      <td id="t_carc1" class="zero">—</td>
+    </tr>
+    <tr>
+      <td>Carcass respray (21–30 units)</td>
+      <td id="p_carc2">£995</td>
+      <td><div class="qw"><button class="qbtn" onclick="chg('carc2',-1)">&#8722;</button><input class="qnum" type="number" id="carc2" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('carc2',1)">+</button></div></td>
+      <td id="t_carc2" class="zero">—</td>
+    </tr>
+    <tr>
+      <td>Carcass respray (31–40 units)</td>
+      <td id="p_carc3">£1,295</td>
+      <td><div class="qw"><button class="qbtn" onclick="chg('carc3',-1)">&#8722;</button><input class="qnum" type="number" id="carc3" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('carc3',1)">+</button></div></td>
+      <td id="t_carc3" class="zero">—</td>
+    </tr>
+    <tr>
+      <td>Carcass respray (41–50 units)</td>
+      <td id="p_carc4">£1,595</td>
+      <td><div class="qw"><button class="qbtn" onclick="chg('carc4',-1)">&#8722;</button><input class="qnum" type="number" id="carc4" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('carc4',1)">+</button></div></td>
+      <td id="t_carc4" class="zero">—</td>
+    </tr>
+    <tr>
+      <td>Open / wine / plate rack / glazed</td>
+      <td id="p_rack">£95</td>
+      <td><div class="qw"><button class="qbtn" onclick="chg('rack',-1)">&#8722;</button><input class="qnum" type="number" id="rack" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('rack',1)">+</button></div></td>
+      <td id="t_rack" class="zero">—</td>
+    </tr>
+    <tr>
+      <td>Extra colour (per job)</td>
+      <td id="p_colour">£695</td>
+      <td><div class="qw"><button class="qbtn" onclick="chg('colour',-1)">&#8722;</button><input class="qnum" type="number" id="colour" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('colour',1)">+</button></div></td>
+      <td id="t_colour" class="zero">—</td>
+    </tr>
+    <tr>
+      <td>Island</td>
+      <td id="p_island">£845</td>
+      <td><div class="qw"><button class="qbtn" onclick="chg('island',-1)">&#8722;</button><input class="qnum" type="number" id="island" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('island',1)">+</button></div></td>
+      <td id="t_island" class="zero">—</td>
+    </tr>
+
+    <tr class="section-head"><td colspan="4">External Doors</td></tr>
+    <tr>
+      <td>Composite door</td>
+      <td id="p_comp">£295</td>
+      <td><div class="qw"><button class="qbtn" onclick="chg('comp',-1)">&#8722;</button><input class="qnum" type="number" id="comp" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('comp',1)">+</button></div></td>
+      <td id="t_comp" class="zero">—</td>
+    </tr>
+    <tr>
+      <td>uPVC door</td>
+      <td id="p_upvc">£350</td>
+      <td><div class="qw"><button class="qbtn" onclick="chg('upvc',-1)">&#8722;</button><input class="qnum" type="number" id="upvc" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('upvc',1)">+</button></div></td>
+      <td id="t_upvc" class="zero">—</td>
+    </tr>
+    <tr>
+      <td>uPVC frame (with door)</td>
+      <td id="p_frw">£95</td>
+      <td><div class="qw"><button class="qbtn" onclick="chg('frw',-1)">&#8722;</button><input class="qnum" type="number" id="frw" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('frw',1)">+</button></div></td>
+      <td id="t_frw" class="zero">—</td>
+    </tr>
+    <tr>
+      <td>uPVC frame (alone)</td>
+      <td id="p_fra">£195</td>
+      <td><div class="qw"><button class="qbtn" onclick="chg('fra',-1)">&#8722;</button><input class="qnum" type="number" id="fra" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('fra',1)">+</button></div></td>
+      <td id="t_fra" class="zero">—</td>
+    </tr>
+    <tr>
+      <td>Bi-fold / French / Patio (3 panels)</td>
+      <td id="p_bif">£495</td>
+      <td><div class="qw"><button class="qbtn" onclick="chg('bif',-1)">&#8722;</button><input class="qnum" type="number" id="bif" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('bif',1)">+</button></div></td>
+      <td id="t_bif" class="zero">—</td>
+    </tr>
+    <tr>
+      <td>Bi-fold extra panel</td>
+      <td id="p_bife">£100</td>
+      <td><div class="qw"><button class="qbtn" onclick="chg('bife',-1)">&#8722;</button><input class="qnum" type="number" id="bife" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('bife',1)">+</button></div></td>
+      <td id="t_bife" class="zero">—</td>
+    </tr>
+    <tr>
+      <td>Garage door (single)</td>
+      <td id="p_gs">£595</td>
+      <td><div class="qw"><button class="qbtn" onclick="chg('gs',-1)">&#8722;</button><input class="qnum" type="number" id="gs" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('gs',1)">+</button></div></td>
+      <td id="t_gs" class="zero">—</td>
+    </tr>
+    <tr>
+      <td>Garage door (double)</td>
+      <td id="p_gd">£695</td>
+      <td><div class="qw"><button class="qbtn" onclick="chg('gd',-1)">&#8722;</button><input class="qnum" type="number" id="gd" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('gd',1)">+</button></div></td>
+      <td id="t_gd" class="zero">—</td>
+    </tr>
+
+    <tr class="section-head"><td colspan="4">Windows</td></tr>
+    <tr>
+      <td>Window — small</td>
+      <td id="p_ws">£200</td>
+      <td><div class="qw"><button class="qbtn" onclick="chg('ws',-1)">&#8722;</button><input class="qnum" type="number" id="ws" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('ws',1)">+</button></div></td>
+      <td id="t_ws" class="zero">—</td>
+    </tr>
+    <tr>
+      <td>Window — medium</td>
+      <td id="p_wm">£250</td>
+      <td><div class="qw"><button class="qbtn" onclick="chg('wm',-1)">&#8722;</button><input class="qnum" type="number" id="wm" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('wm',1)">+</button></div></td>
+      <td id="t_wm" class="zero">—</td>
+    </tr>
+    <tr>
+      <td>Window — large</td>
+      <td id="p_wl">£300</td>
+      <td><div class="qw"><button class="qbtn" onclick="chg('wl',-1)">&#8722;</button><input class="qnum" type="number" id="wl" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('wl',1)">+</button></div></td>
+      <td id="t_wl" class="zero">—</td>
+    </tr>
+    <tr>
+      <td>Window — XL</td>
+      <td id="p_wxl">£400</td>
+      <td><div class="qw"><button class="qbtn" onclick="chg('wxl',-1)">&#8722;</button><input class="qnum" type="number" id="wxl" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('wxl',1)">+</button></div></td>
+      <td id="t_wxl" class="zero">—</td>
+    </tr>
+    <tr>
+      <td>Bay window</td>
+      <td id="p_wb">£500</td>
+      <td><div class="qw"><button class="qbtn" onclick="chg('wb',-1)">&#8722;</button><input class="qnum" type="number" id="wb" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('wb',1)">+</button></div></td>
+      <td id="t_wb" class="zero">—</td>
+    </tr>
+    <tr>
+      <td>Sash window</td>
+      <td id="p_wsa">£450</td>
+      <td><div class="qw"><button class="qbtn" onclick="chg('wsa',-1)">&#8722;</button><input class="qnum" type="number" id="wsa" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('wsa',1)">+</button></div></td>
+      <td id="t_wsa" class="zero">—</td>
+    </tr>
+
+    <tr class="section-head"><td colspan="4">Other Services</td></tr>
+    <tr>
+      <td>Fascia / soffit / guttering (per metre)</td>
+      <td id="p_fas">£50</td>
+      <td><div class="qw"><button class="qbtn" onclick="chg('fas',-1)">&#8722;</button><input class="qnum" type="number" id="fas" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('fas',1)">+</button></div></td>
+      <td id="t_fas" class="zero">—</td>
+    </tr>
+    <tr>
+      <td>Conservatory</td>
+      <td id="p_con">£2,000</td>
+      <td><div class="qw"><button class="qbtn" onclick="chg('con',-1)">&#8722;</button><input class="qnum" type="number" id="con" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('con',1)">+</button></div></td>
+      <td id="t_con" class="zero">—</td>
+    </tr>
+    <tr>
+      <td>Porch</td>
+      <td id="p_por">£595</td>
+      <td><div class="qw"><button class="qbtn" onclick="chg('por',-1)">&#8722;</button><input class="qnum" type="number" id="por" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('por',1)">+</button></div></td>
+      <td id="t_por" class="zero">—</td>
+    </tr>
+    <tr>
+      <td>Shopfront</td>
+      <td id="p_shop">£1,200</td>
+      <td><div class="qw"><button class="qbtn" onclick="chg('shop',-1)">&#8722;</button><input class="qnum" type="number" id="shop" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('shop',1)">+</button></div></td>
+      <td id="t_shop" class="zero">—</td>
+    </tr>
+
+    <tr class="grand-row">
+      <td colspan="2"><strong>TOTAL</strong></td>
+      <td></td>
+      <td id="grand">£0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="modal" id="modal">
+  <div class="mbox">
+    <h3>Edit Prices</h3>
+    <div id="mfields"></div>
+    <div class="mbtns">
+      <button id="mSave" onclick="saveEdit()">Save</button>
+      <button id="mReset" onclick="resetPrices()">Reset Defaults</button>
+      <button id="mClose" onclick="closeEdit()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var DEF={
+  door:95,carc1:695,carc2:995,carc3:1295,carc4:1595,rack:95,colour:695,island:845,
+  comp:295,upvc:350,frw:95,fra:195,bif:495,bife:100,gs:595,gd:695,
+  ws:200,wm:250,wl:300,wxl:400,wb:500,wsa:450,
+  fas:50,con:2000,por:595,shop:1200
+};
+var LABELS={
+  door:'Cabinet door / drawer',carc1:'Carcass (up to 20)',carc2:'Carcass (21-30)',
+  carc3:'Carcass (31-40)',carc4:'Carcass (41-50)',rack:'Open/rack/glazed',
+  colour:'Extra colour',island:'Island',comp:'Composite door',upvc:'uPVC door',
+  frw:'uPVC frame (with door)',fra:'uPVC frame (alone)',bif:'Bi-fold (3 panels)',
+  bife:'Bi-fold extra panel',gs:'Garage single',gd:'Garage double',
+  ws:'Window small',wm:'Window medium',wl:'Window large',wxl:'Window XL',
+  wb:'Bay window',wsa:'Sash window',fas:'Fascia/soffit/gutter (m)',
+  con:'Conservatory',por:'Porch',shop:'Shopfront'
+};
+var P={};
+function loadPrices(){
+  var saved=localStorage.getItem('sss_prices');
+  if(saved){try{P=JSON.parse(saved);}catch(e){P={};}}
+  for(var k in DEF){if(typeof P[k]==='undefined')P[k]=DEF[k];}
+}
+function savePrices(){localStorage.setItem('sss_prices',JSON.stringify(P));}
+function pound(n){return'£'+n.toLocaleString('en-GB');}
+function gv(id){var v=parseInt(document.getElementById(id).value,10);return(isNaN(v)||v<0)?0:v;}
+function upd(){
+  var total=0;
+  for(var k in DEF){
+    var q=gv(k);
+    var row=q*P[k];
+    total+=row;
+    var el=document.getElementById('t_'+k);
+    if(q===0){el.textContent='—';el.className='zero';}
+    else{el.textContent=pound(row);el.className='';}
+    var pe=document.getElementById('p_'+k);
+    if(pe)pe.textContent=pound(P[k]);
+  }
+  document.getElementById('grand').textContent=pound(total);
+}
+function chg(id,d){
+  var el=document.getElementById(id);
+  el.value=Math.max(0,(parseInt(el.value,10)||0)+d);
+  upd();
+}
+function clearAll(){
+  for(var k in DEF){document.getElementById(k).value=0;}
+  upd();
+}
+function openEdit(){
+  var html='';
+  for(var k in DEF){
+    html+='<div class="mrow"><label>'+LABELS[k]+'</label><input type="number" id="m_'+k+'" value="'+P[k]+'"></div>';
+  }
+  document.getElementById('mfields').innerHTML=html;
+  document.getElementById('modal').className='modal open';
+}
+function closeEdit(){document.getElementById('modal').className='modal';}
+function saveEdit(){
+  for(var k in DEF){
+    var v=parseInt(document.getElementById('m_'+k).value,10);
+    if(!isNaN(v)&&v>=0)P[k]=v;
+  }
+  savePrices();
+  upd();
+  closeEdit();
+}
+function resetPrices(){
+  for(var k in DEF)P[k]=DEF[k];
+  savePrices();
+  upd();
+  closeEdit();
+}
+loadPrices();
+upd();
+</script>
+</body>
+</html>
