@@ -3,304 +3,166 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Stratford Spraying Solutions Price App</title>
+<title>Stratford Spraying Solutions</title>
+<meta name="theme-color" content="#1e3a5f"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="SSS Quotes"/>
+<meta name="mobile-web-app-capable" content="yes"/>
 <style>
-:root{--bg:#f0f4f8;--card:#fff;--border:#d1d9e0;--accent:#1a56db;--al:#e8f0fe;--text:#1a202c;--muted:#6b7280;--green:#15803d;--red:#b91c1c;--head:#1e3a5f;}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);padding:0 0 60px}
-header{background:var(--head);color:#fff;padding:18px 20px;text-align:center}
-header h1{font-size:20px;font-weight:700}
-header p{font-size:11px;opacity:.7;margin-top:3px}
-.wrap{max-width:680px;margin:0 auto;padding:16px}
-.hero{background:var(--accent);color:#fff;border-radius:12px;padding:18px;margin-bottom:16px}
-.hero h2{font-size:13px;text-transform:uppercase;letter-spacing:.08em;opacity:.9;margin-bottom:12px}
-.drow{display:flex;align-items:center;gap:10px;margin-bottom:12px}
-.drow label{font-size:14px;font-weight:600;flex:1}
-.dbtn{width:38px;height:38px;background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.5);color:#fff;border-radius:8px;font-size:24px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:700}
-.dbtn:active{background:rgba(255,255,255,.4)}
-.dinput{width:60px;text-align:center;font-size:22px;font-weight:700;border:none;border-radius:8px;padding:5px;color:var(--text);background:#fff;flex-shrink:0}
-.banner{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:8px;padding:9px 12px;display:flex;justify-content:space-between;align-items:center;font-size:13px}
-.bval{font-size:17px;font-weight:700}
-.card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:14px}
-.ctitle{background:var(--head);color:#fff;padding:9px 14px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
-.row{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:8px;padding:9px 14px;border-bottom:1px solid var(--border)}
-.row:last-child{border-bottom:none}
-.row:nth-child(even){background:#f7fafc}
-.rname{font-size:14px;font-weight:500}
-.runit{font-size:11px;color:var(--muted);margin-top:1px}
-.uprice{font-size:12px;color:var(--muted);text-align:right;min-width:55px}
-.qw{display:flex;align-items:center;gap:5px}
-.qbtn{width:30px;height:30px;background:var(--al);border:1px solid #c7d7f9;color:var(--accent);border-radius:6px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:700}
-.qbtn:active{background:var(--accent);color:#fff}
-.qnum{width:42px;text-align:center;font-size:14px;font-weight:600;border:1px solid var(--border);border-radius:6px;padding:4px 2px;background:#fff;color:var(--text)}
-.rtot{font-size:13px;font-weight:600;color:var(--green);min-width:65px;text-align:right}
-.rtot.z{color:var(--muted);font-weight:400}
-.note{padding:7px 14px;font-size:11px;color:var(--muted);background:#fffbeb;border-bottom:1px solid #fde68a}
-.totcard{background:var(--card);border:2px solid var(--accent);border-radius:12px;overflow:hidden;margin-bottom:16px}
-.trow{display:flex;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--border);font-size:14px}
-.trow:last-child{border-bottom:none}
-.tl{color:var(--muted)}
-.tv{font-weight:600}
-.grand{display:flex;justify-content:space-between;align-items:center;padding:13px 16px;background:var(--head);color:#fff}
-.gl{font-size:13px;font-weight:600}
-.gv{font-size:22px;font-weight:700}
-.acts{display:flex;gap:8px;flex-wrap:wrap}
-.btn{flex:1;min-width:110px;padding:11px 12px;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer}
-.bp{background:var(--accent);color:#fff}
-.bo{background:#fff;color:var(--accent);border:2px solid var(--accent)}
-.ba{background:#fef3c7;color:#92400e;border:2px solid #f59e0b}
-.bd{background:#fee2e2;color:var(--red)}
-.por{display:none;background:#fef3c7;border:1px solid #f59e0b;border-radius:8px;padding:9px 12px;font-size:12px;color:#92400e;margin-bottom:14px}
-.por.on{display:block}
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;align-items:flex-end;justify-content:center}
-.modal.on{display:flex}
-.msheet{background:#fff;width:100%;max-width:680px;max-height:88vh;border-radius:16px 16px 0 0;display:flex;flex-direction:column;overflow:hidden}
-.mhead{background:var(--head);color:#fff;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.mhead h2{font-size:15px;font-weight:700}
-.mclose{background:rgba(255,255,255,.15);border:none;color:#fff;width:30px;height:30px;border-radius:7px;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.mbody{overflow-y:auto;padding:14px;flex:1}
-.esec{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);padding:9px 0 5px;border-bottom:1px solid var(--border);margin-bottom:3px}
-.erow{display:flex;align-items:center;justify-content:space-between;padding:8px 2px;border-bottom:1px solid #f0f4f8;gap:10px}
-.elbl{font-size:12px;flex:1}
-.elbl small{display:block;font-size:10px;color:var(--muted)}
-.pw{display:flex;align-items:center;background:#fff;border:1px solid var(--border);border-radius:7px;overflow:hidden;flex-shrink:0}
-.pw span{background:var(--bg);padding:7px;font-size:13px;color:var(--muted);border-right:1px solid var(--border)}
-.pin{width:75px;border:none;padding:7px 8px;font-size:14px;font-weight:600;color:var(--text);text-align:right;outline:none}
-.mfoot{padding:12px 14px;border-top:1px solid var(--border);display:flex;gap:8px;flex-shrink:0}
-.mfoot .btn{flex:1}
+*{box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;max-width:640px;margin:0 auto;padding:14px 12px 40px;color:#1a202c}
+h1{font-size:17px;color:#1e3a5f;margin:0 0 2px}
+.tip{font-size:12px;color:#777;margin:0 0 12px}
+.meta{display:flex;gap:8px;margin-bottom:12px}
+.meta input{flex:1;border:1px solid #ccc;border-radius:6px;padding:8px;font-size:13px}
+table{width:100%;border-collapse:collapse}
+th{background:#1e3a5f;color:#fff;padding:8px 6px;font-size:11px;text-align:left}
+th:nth-child(2),th:nth-child(3),th:nth-child(4){text-align:right}
+td{padding:6px;border-bottom:1px solid #eee;font-size:13px;vertical-align:middle}
+td:nth-child(2),td:nth-child(3),td:nth-child(4){text-align:right}
+tr.sec td{background:#e8f0fe;color:#1a56db;font-size:10px;font-weight:700;text-transform:uppercase;padding:4px 6px;letter-spacing:.04em}
+input.price{width:64px;text-align:right;border:1px solid #c7d7f9;background:#f5f9ff;border-radius:4px;padding:5px;font-size:13px;color:#1a56db;font-weight:600}
+input.qty{width:56px;text-align:right;border:1px solid #aaa;border-radius:4px;padding:5px;font-size:14px}
+td.sub{font-weight:600;color:#15803d;white-space:nowrap}
+tfoot td{font-weight:700;padding:11px 6px;border-top:2px solid #1e3a5f;font-size:14px}
+tfoot td:last-child{font-size:19px;color:#1e3a5f;white-space:nowrap}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.btn{flex:1;min-width:130px;padding:12px;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer}
+.bp{background:#1a56db;color:#fff}
+.bo{background:#fff;color:#1a56db;border:2px solid #1a56db}
+.bd{background:#fff;color:#b91c1c;border:2px solid #f3c2c2}
+.printhead{display:none}
+@media print{
+  .noprint{display:none!important}
+  body{padding:0;max-width:none}
+  .printhead{display:block;margin-bottom:14px}
+  .ph-title{font-size:20px;font-weight:700;color:#1e3a5f}
+  .ph-sub{font-size:13px;color:#555;margin-bottom:6px}
+  .ph-meta{font-size:12px;color:#333}
+  .ph-meta span{margin-right:18px}
+  th{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  input.price,input.qty{border:none;background:none;color:#000;font-weight:400;padding:0;width:auto;text-align:right;-moz-appearance:textfield;appearance:textfield}
+  input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  tbody tr{display:none}
+  tbody tr.has{display:table-row}
+  tr.sec{display:none!important}
+}
 </style>
 </head>
 <body>
-<header>
-<h1>Stratford Spraying Solutions Price App</h1>
-<p>Transforming a house into your dream home</p>
-</header>
-<div class="wrap">
 
-<div class="hero">
-<h2>Kitchen Doors &amp; Carcass</h2>
-<div class="drow">
-<label>Number of Cabinet Doors / Drawers</label>
-<button class="dbtn" onclick="chg('doorCount',-1)">&#8722;</button>
-<input class="dinput" type="number" id="doorCount" value="0" min="0" oninput="upd()">
-<button class="dbtn" onclick="chg('doorCount',1)">+</button>
-</div>
-<div class="banner">
-<span id="cLbl">Enter number of doors above</span>
-<span class="bval" id="cVal">&#163;0</span>
-</div>
+<div class="printhead">
+  <div class="ph-title">Stratford Spraying Solutions</div>
+  <div class="ph-sub">Quotation (excl. VAT)</div>
+  <div class="ph-meta"><span id="pCust"></span><span id="pDate"></span></div>
 </div>
 
-<div class="card">
-<div class="ctitle">Kitchen Extras</div>
-<div class="row"><div><div class="rname">Open / Wine Rack / Plate Racks / Glazed Inserts</div></div><div class="uprice" id="u_openRack">&#163;95</div><div class="qw"><button class="qbtn" onclick="chg('openRack',-1)">&#8722;</button><input class="qnum" type="number" id="openRack" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('openRack',1)">+</button><div class="rtot z" id="t_openRack">&#8212;</div></div></div>
-<div class="note">Extra Colour surcharge applies when more than one colour is used.</div>
-<div class="row"><div><div class="rname">Extra Colour</div><div class="runit">per kitchen</div></div><div class="uprice" id="u_extraColour">&#163;695</div><div class="qw"><button class="qbtn" onclick="chg('extraColour',-1)">&#8722;</button><input class="qnum" type="number" id="extraColour" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('extraColour',1)">+</button><div class="rtot z" id="t_extraColour">&#8212;</div></div></div>
-<div class="row"><div><div class="rname">Island (Carcass Only)</div></div><div class="uprice" id="u_island">&#163;845</div><div class="qw"><button class="qbtn" onclick="chg('island',-1)">&#8722;</button><input class="qnum" type="number" id="island" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('island',1)">+</button><div class="rtot z" id="t_island">&#8212;</div></div></div>
+<div class="noprint">
+  <h1>Stratford Spraying Solutions &mdash; Price Calculator</h1>
+  <p class="tip">Type a quantity for each item. Tap any blue price to edit it &mdash; totals update live and your prices are saved on this device.</p>
+  <div class="meta">
+    <input id="cust" placeholder="Customer name / job (optional)" oninput="upd()"/>
+    <input id="qdate" type="date" oninput="upd()"/>
+  </div>
 </div>
 
-<div class="card">
-<div class="ctitle">Doors &amp; Frames</div>
-<div class="row"><div><div class="rname">Composite Door</div></div><div class="uprice" id="u_composite">&#163;295</div><div class="qw"><button class="qbtn" onclick="chg('composite',-1)">&#8722;</button><input class="qnum" type="number" id="composite" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('composite',1)">+</button><div class="rtot z" id="t_composite">&#8212;</div></div></div>
-<div class="row"><div><div class="rname">uPVC Door</div></div><div class="uprice" id="u_upvcDoor">&#163;350</div><div class="qw"><button class="qbtn" onclick="chg('upvcDoor',-1)">&#8722;</button><input class="qnum" type="number" id="upvcDoor" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('upvcDoor',1)">+</button><div class="rtot z" id="t_upvcDoor">&#8212;</div></div></div>
-<div class="row"><div><div class="rname">uPVC Frame (with door)</div></div><div class="uprice" id="u_upvcFrameWith">&#163;95</div><div class="qw"><button class="qbtn" onclick="chg('upvcFrameWith',-1)">&#8722;</button><input class="qnum" type="number" id="upvcFrameWith" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('upvcFrameWith',1)">+</button><div class="rtot z" id="t_upvcFrameWith">&#8212;</div></div></div>
-<div class="row"><div><div class="rname">uPVC Frame (alone)</div></div><div class="uprice" id="u_upvcFrameAlone">&#163;195</div><div class="qw"><button class="qbtn" onclick="chg('upvcFrameAlone',-1)">&#8722;</button><input class="qnum" type="number" id="upvcFrameAlone" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('upvcFrameAlone',1)">+</button><div class="rtot z" id="t_upvcFrameAlone">&#8212;</div></div></div>
-<div class="row"><div><div class="rname">Bi-fold / French / Patio (3 panels)</div></div><div class="uprice" id="u_bifold">&#163;495</div><div class="qw"><button class="qbtn" onclick="chg('bifold',-1)">&#8722;</button><input class="qnum" type="number" id="bifold" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('bifold',1)">+</button><div class="rtot z" id="t_bifold">&#8212;</div></div></div>
-<div class="row"><div><div class="rname">Extra Bi-fold Panel</div></div><div class="uprice" id="u_bifoldExtra">&#163;100</div><div class="qw"><button class="qbtn" onclick="chg('bifoldExtra',-1)">&#8722;</button><input class="qnum" type="number" id="bifoldExtra" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('bifoldExtra',1)">+</button><div class="rtot z" id="t_bifoldExtra">&#8212;</div></div></div>
-<div class="row"><div><div class="rname">Garage Door (Single)</div></div><div class="uprice" id="u_garageSingle">&#163;595</div><div class="qw"><button class="qbtn" onclick="chg('garageSingle',-1)">&#8722;</button><input class="qnum" type="number" id="garageSingle" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('garageSingle',1)">+</button><div class="rtot z" id="t_garageSingle">&#8212;</div></div></div>
-<div class="row"><div><div class="rname">Garage Door (Double)</div></div><div class="uprice" id="u_garageDouble">&#163;695</div><div class="qw"><button class="qbtn" onclick="chg('garageDouble',-1)">&#8722;</button><input class="qnum" type="number" id="garageDouble" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('garageDouble',1)">+</button><div class="rtot z" id="t_garageDouble">&#8212;</div></div></div>
-</div>
+<table>
+<thead><tr><th>Item</th><th>Price (&#163;)</th><th>Qty</th><th>Subtotal</th></tr></thead>
+<tbody>
+<tr class="sec"><td colspan="4">Kitchen Doors &amp; Carcasses</td></tr>
+<tr><td>Cabinet door / drawer front</td><td><input class="price" data-key="cabDoor" value="95" oninput="upd()"></td><td><input class="qty" type="number" value="0" min="0" oninput="upd()"></td><td class="sub">&mdash;</td></tr>
+<tr><td>Carcass (up to 20 units)</td><td><input class="price" data-key="carc1" value="695" oninput="upd()"></td><td><input class="qty" type="number" value="0" min="0" oninput="upd()"></td><td class="sub">&mdash;</td></tr>
+<tr><td>Carcass (21&ndash;30 units)</td><td><input class="price" data-key="carc2" value="995" oninput="upd()"></td><td><input class="qty" type="number" value="0" min="0" oninput="upd()"></td><td class="sub">&mdash;</td></tr>
+<tr><td>Carcass (31&ndash;40 units)</td><td><input class="price" data-key="carc3" value="1295" oninput="upd()"></td><td><input class="qty" type="number" value="0" min="0" oninput="upd()"></td><td class="sub">&mdash;</td></tr>
+<tr><td>Carcass (41&ndash;50 units)</td><td><input class="price" data-key="carc4" value="1595" oninput="upd()"></td><td><input class="qty" type="number" value="0" min="0" oninput="upd()"></td><td class="sub">&mdash;</td></tr>
+<tr><td>Open / wine / plate rack / glazed</td><td><input class="price" data-key="rack" value="95" oninput="upd()"></td><td><input class="qty" type="number" value="0" min="0" oninput="upd()"></td><td class="sub">&mdash;</td></tr>
+<tr><td>Extra colour (per job)</td><td><input class="price" data-key="colour" value="695" oninput="upd()"></td><td><input class="qty" type="number" value="0" min="0" oninput="upd()"></td><td class="sub">&mdash;</td></tr>
+<tr><td>Island</td><td><input class="price" data-key="island" value="845" oninput="upd()"></td><td><input class="qty" type="number" value="0" min="0" oninput="upd()"></td><td class="sub">&mdash;</td></tr>
 
-<div class="card">
-<div class="ctitle">Windows</div>
-<div class="row"><div><div class="rname">Small Window</div></div><div class="uprice" id="u_winSmall">&#163;200</div><div class="qw"><button class="qbtn" onclick="chg('winSmall',-1)">&#8722;</button><input class="qnum" type="number" id="winSmall" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('winSmall',1)">+</button><div class="rtot z" id="t_winSmall">&#8212;</div></div></div>
-<div class="row"><div><div class="rname">Medium Window</div></div><div class="uprice" id="u_winMed">&#163;250</div><div class="qw"><button class="qbtn" onclick="chg('winMed',-1)">&#8722;</button><input class="qnum" type="number" id="winMed" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('winMed',1)">+</button><div class="rtot z" id="t_winMed">&#8212;</div></div></div>
-<div class="row"><div><div class="rname">Large Window</div></div><div class="uprice" id="u_winLarge">&#163;300</div><div class="qw"><button class="qbtn" onclick="chg('winLarge',-1)">&#8722;</button><input class="qnum" type="number" id="winLarge" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('winLarge',1)">+</button><div class="rtot z" id="t_winLarge">&#8212;</div></div></div>
-<div class="row"><div><div class="rname">Extra Large Window</div></div><div class="uprice" id="u_winXL">&#163;400</div><div class="qw"><button class="qbtn" onclick="chg('winXL',-1)">&#8722;</button><input class="qnum" type="number" id="winXL" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('winXL',1)">+</button><div class="rtot z" id="t_winXL">&#8212;</div></div></div>
-<div class="row"><div><div class="rname">Bay Window</div></div><div class="uprice" id="u_winBay">&#163;500</div><div class="qw"><button class="qbtn" onclick="chg('winBay',-1)">&#8722;</button><input class="qnum" type="number" id="winBay" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('winBay',1)">+</button><div class="rtot z" id="t_winBay">&#8212;</div></div></div>
-<div class="row"><div><div class="rname">Sash Window</div></div><div class="uprice" id="u_winSash">&#163;450</div><div class="qw"><button class="qbtn" onclick="chg('winSash',-1)">&#8722;</button><input class="qnum" type="number" id="winSash" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('winSash',1)">+</button><div class="rtot z" id="t_winSash">&#8212;</div></div></div>
-</div>
+<tr class="sec"><td colspan="4">External Doors</td></tr>
+<tr><td>Composite door</td><td><input class="price" data-key="comp" value="295" oninput="upd()"></td><td><input class="qty" type="number" value="0" min="0" oninput="upd()"></td><td class="sub">&mdash;</td></tr>
+<tr><td>uPVC door</td><td><input class="price" data-key="upvc" value="350" oninput="upd()"></td><td><input class="qty" type="number" value="0" min="0" oninput="upd()"></td><td class="sub">&mdash;</td></tr>
+<tr><td>uPVC frame (with door)</td><td><input class="price" data-key="frw" value="95" oninput="upd()"></td><td><input class="qty" type="number" value="0" min="0" oninput="upd()"></td><td class="sub">&mdash;</td></tr>
+<tr><td>uPVC frame (alone)</td><td><input class="price" data-key="fra" value="195" oninput="upd()"></td><td><input class="qty" type="number" value="0" min="0" oninput="upd()"></td><td class="sub">&mdash;</td></tr>
+<tr><td>Bi-fold / French / Patio (3 panels)</td><td><input class="price" data-key="bif" value="495" oninput="upd()"></td><td><input class="qty" type="number" value="0" min="0" oninput="upd()"></td><td class="sub">&mdash;</td></tr>
+<tr><td>Bi-fold extra panel</td><td><input class="price" data-key="bife" value="100" oninput="upd()"></td><td><input class="qty" type="number" value="0" min="0" oninput="upd()"></td><td class="sub">&mdash;</td></tr>
+<tr><td>Garage door (single)</td><td><input class="price" data-key="gs" value="595" oninput="upd()"></td><td><input class="qty" type="number" value="0" min="0" oninput="upd()"></td><td class="sub">&mdash;</td></tr>
+<tr><td>Garage door (double)</td><td><input class="price" data-key="gd" value="695" oninput="upd()"></td><td><input class="qty" type="number" value="0" min="0" oninput="upd()"></td><td class="sub">&mdash;</td></tr>
 
-<div class="card">
-<div class="ctitle">Other Services</div>
-<div class="row"><div><div class="rname">Fascia, Soffit &amp; Guttering</div><div class="runit">per linear metre</div></div><div class="uprice" id="u_fascia">&#163;50/m</div><div class="qw"><button class="qbtn" onclick="chg('fascia',-1)">&#8722;</button><input class="qnum" type="number" id="fascia" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('fascia',1)">+</button><div class="rtot z" id="t_fascia">&#8212;</div></div></div>
-<div class="row"><div><div class="rname">Conservatory</div><div class="runit">from</div></div><div class="uprice" id="u_conservatory">&#163;2,000</div><div class="qw"><button class="qbtn" onclick="chg('conservatory',-1)">&#8722;</button><input class="qnum" type="number" id="conservatory" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('conservatory',1)">+</button><div class="rtot z" id="t_conservatory">&#8212;</div></div></div>
-<div class="row"><div><div class="rname">Porch (incl. Door)</div><div class="runit">from</div></div><div class="uprice" id="u_porch">&#163;595</div><div class="qw"><button class="qbtn" onclick="chg('porch',-1)">&#8722;</button><input class="qnum" type="number" id="porch" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('porch',1)">+</button><div class="rtot z" id="t_porch">&#8212;</div></div></div>
-<div class="row"><div><div class="rname">Shopfront</div><div class="runit">per side</div></div><div class="uprice" id="u_shopfront">&#163;1,200</div><div class="qw"><button class="qbtn" onclick="chg('shopfront',-1)">&#8722;</button><input class="qnum" type="number" id="shopfront" value="0" min="0" oninput="upd()"><button class="qbtn" onclick="chg('shopfront',1)">+</button><div class="rtot z" id="t_shopfront">&#8212;</div></div></div>
-</div>
+<tr class="sec"><td colspan="4">Windows</td></tr>
+<tr><td>Window &ndash; small</td><td><input class="price" data-key="ws" value="200" oninput="upd()"></td><td><input class="qty" type="number" value="0" min="0" oninput="upd()"></td><td class="sub">&mdash;</td></tr>
+<tr><td>Window &ndash; medium</td><td><input class="price" data-key="wm" value="250" oninput="upd()"></td><td><input class="qty" type="number" value="0" min="0" oninput="upd()"></td><td class="sub">&mdash;</td></tr>
+<tr><td>Window &ndash; large</td><td><input class="price" data-key="wl" value="300" oninput="upd()"></td><td><input class="qty" type="number" value="0" min="0" oninput="upd()"></td><td class="sub">&mdash;</td></tr>
+<tr><td>Window &ndash; XL</td><td><input class="price" data-key="wxl" value="400" oninput="upd()"></td><td><input class="qty" type="number" value="0" min="0" oninput="upd()"></td><td class="sub">&mdash;</td></tr>
+<tr><td>Bay window</td><td><input class="price" data-key="wb" value="500" oninput="upd()"></td><td><input class="qty" type="number" value="0" min="0" oninput="upd()"></td><td class="sub">&mdash;</td></tr>
+<tr><td>Sash window</td><td><input class="price" data-key="wsa" value="450" oninput="upd()"></td><td><input class="qty" type="number" value="0" min="0" oninput="upd()"></td><td class="sub">&mdash;</td></tr>
 
-<div class="por" id="porBanner">Carcass for 50+ doors is <strong>Price on Request</strong> &#8212; please contact us.</div>
+<tr class="sec"><td colspan="4">Other Services</td></tr>
+<tr><td>Fascia / soffit / guttering (per metre)</td><td><input class="price" data-key="fas" value="50" oninput="upd()"></td><td><input class="qty" type="number" value="0" min="0" oninput="upd()"></td><td class="sub">&mdash;</td></tr>
+<tr><td>Conservatory</td><td><input class="price" data-key="con" value="2000" oninput="upd()"></td><td><input class="qty" type="number" value="0" min="0" oninput="upd()"></td><td class="sub">&mdash;</td></tr>
+<tr><td>Porch</td><td><input class="price" data-key="por" value="595" oninput="upd()"></td><td><input class="qty" type="number" value="0" min="0" oninput="upd()"></td><td class="sub">&mdash;</td></tr>
+<tr><td>Shopfront</td><td><input class="price" data-key="shop" value="1200" oninput="upd()"></td><td><input class="qty" type="number" value="0" min="0" oninput="upd()"></td><td class="sub">&mdash;</td></tr>
+</tbody>
+<tfoot>
+<tr><td colspan="3"><strong>TOTAL</strong></td><td id="grand">&#163;0</td></tr>
+</tfoot>
+</table>
 
-<div class="totcard">
-<div class="trow"><span class="tl">Doors (<span id="dSum">0</span> x &#163;95 each)</span><span class="tv" id="T_doors">&#163;0</span></div>
-<div class="trow"><span class="tl">Carcass</span><span class="tv" id="T_carc">&#163;0</span></div>
-<div class="trow"><span class="tl">Kitchen Extras</span><span class="tv" id="T_kex">&#163;0</span></div>
-<div class="trow"><span class="tl">Doors &amp; Frames</span><span class="tv" id="T_df">&#163;0</span></div>
-<div class="trow"><span class="tl">Windows</span><span class="tv" id="T_win">&#163;0</span></div>
-<div class="trow"><span class="tl">Other Services</span><span class="tv" id="T_other">&#163;0</span></div>
-<div class="grand"><span class="gl">TOTAL (excl. VAT)</span><span class="gv" id="T_grand">&#163;0</span></div>
-</div>
-
-<div class="acts">
-<button class="btn bp" onclick="window.print()">Print</button>
-<button class="btn bo" onclick="copyQ()">Copy Quote</button>
-<button class="btn ba" onclick="openEdit()">Edit Prices</button>
-<button class="btn bd" onclick="resetAll()">Reset</button>
-</div>
-
-</div>
-
-<div class="modal" id="modal" onclick="if(event.target===this)closeEdit()">
-<div class="msheet">
-<div class="mhead"><h2>Edit Prices</h2><button class="mclose" onclick="closeEdit()">&#10005;</button></div>
-<div class="mbody">
-<div class="esec">Per Door</div>
-<div class="erow"><div class="elbl">Cabinet Door / Drawer</div><div class="pw"><span>&#163;</span><input class="pin" id="e_doorUnit" type="number" min="0" oninput="applyP()"></div></div>
-<div class="esec">Carcass Tiers</div>
-<div class="erow"><div class="elbl">Small <small>up to 20 doors</small></div><div class="pw"><span>&#163;</span><input class="pin" id="e_carcassSmall" type="number" min="0" oninput="applyP()"></div></div>
-<div class="erow"><div class="elbl">Medium <small>21-30 doors</small></div><div class="pw"><span>&#163;</span><input class="pin" id="e_carcassMed" type="number" min="0" oninput="applyP()"></div></div>
-<div class="erow"><div class="elbl">Large <small>31-40 doors</small></div><div class="pw"><span>&#163;</span><input class="pin" id="e_carcassLarge" type="number" min="0" oninput="applyP()"></div></div>
-<div class="erow"><div class="elbl">Extra Large <small>41-50 doors</small></div><div class="pw"><span>&#163;</span><input class="pin" id="e_carcassXL" type="number" min="0" oninput="applyP()"></div></div>
-<div class="esec">Kitchen Extras</div>
-<div class="erow"><div class="elbl">Open/Wine/Plate Rack</div><div class="pw"><span>&#163;</span><input class="pin" id="e_openRack" type="number" min="0" oninput="applyP()"></div></div>
-<div class="erow"><div class="elbl">Extra Colour</div><div class="pw"><span>&#163;</span><input class="pin" id="e_extraColour" type="number" min="0" oninput="applyP()"></div></div>
-<div class="erow"><div class="elbl">Island</div><div class="pw"><span>&#163;</span><input class="pin" id="e_island" type="number" min="0" oninput="applyP()"></div></div>
-<div class="esec">Doors &amp; Frames</div>
-<div class="erow"><div class="elbl">Composite Door</div><div class="pw"><span>&#163;</span><input class="pin" id="e_composite" type="number" min="0" oninput="applyP()"></div></div>
-<div class="erow"><div class="elbl">uPVC Door</div><div class="pw"><span>&#163;</span><input class="pin" id="e_upvcDoor" type="number" min="0" oninput="applyP()"></div></div>
-<div class="erow"><div class="elbl">uPVC Frame (with door)</div><div class="pw"><span>&#163;</span><input class="pin" id="e_upvcFrameWith" type="number" min="0" oninput="applyP()"></div></div>
-<div class="erow"><div class="elbl">uPVC Frame (alone)</div><div class="pw"><span>&#163;</span><input class="pin" id="e_upvcFrameAlone" type="number" min="0" oninput="applyP()"></div></div>
-<div class="erow"><div class="elbl">Bi-fold (3 panels)</div><div class="pw"><span>&#163;</span><input class="pin" id="e_bifold" type="number" min="0" oninput="applyP()"></div></div>
-<div class="erow"><div class="elbl">Extra Bi-fold Panel</div><div class="pw"><span>&#163;</span><input class="pin" id="e_bifoldExtra" type="number" min="0" oninput="applyP()"></div></div>
-<div class="erow"><div class="elbl">Garage (Single)</div><div class="pw"><span>&#163;</span><input class="pin" id="e_garageSingle" type="number" min="0" oninput="applyP()"></div></div>
-<div class="erow"><div class="elbl">Garage (Double)</div><div class="pw"><span>&#163;</span><input class="pin" id="e_garageDouble" type="number" min="0" oninput="applyP()"></div></div>
-<div class="esec">Windows</div>
-<div class="erow"><div class="elbl">Small</div><div class="pw"><span>&#163;</span><input class="pin" id="e_winSmall" type="number" min="0" oninput="applyP()"></div></div>
-<div class="erow"><div class="elbl">Medium</div><div class="pw"><span>&#163;</span><input class="pin" id="e_winMed" type="number" min="0" oninput="applyP()"></div></div>
-<div class="erow"><div class="elbl">Large</div><div class="pw"><span>&#163;</span><input class="pin" id="e_winLarge" type="number" min="0" oninput="applyP()"></div></div>
-<div class="erow"><div class="elbl">Extra Large</div><div class="pw"><span>&#163;</span><input class="pin" id="e_winXL" type="number" min="0" oninput="applyP()"></div></div>
-<div class="erow"><div class="elbl">Bay</div><div class="pw"><span>&#163;</span><input class="pin" id="e_winBay" type="number" min="0" oninput="applyP()"></div></div>
-<div class="erow"><div class="elbl">Sash</div><div class="pw"><span>&#163;</span><input class="pin" id="e_winSash" type="number" min="0" oninput="applyP()"></div></div>
-<div class="esec">Other</div>
-<div class="erow"><div class="elbl">Fascia/Soffit/Guttering (per m)</div><div class="pw"><span>&#163;</span><input class="pin" id="e_fascia" type="number" min="0" oninput="applyP()"></div></div>
-<div class="erow"><div class="elbl">Conservatory</div><div class="pw"><span>&#163;</span><input class="pin" id="e_conservatory" type="number" min="0" oninput="applyP()"></div></div>
-<div class="erow"><div class="elbl">Porch</div><div class="pw"><span>&#163;</span><input class="pin" id="e_porch" type="number" min="0" oninput="applyP()"></div></div>
-<div class="erow"><div class="elbl">Shopfront</div><div class="pw"><span>&#163;</span><input class="pin" id="e_shopfront" type="number" min="0" oninput="applyP()"></div></div>
-</div>
-<div class="mfoot">
-<button class="btn bd" onclick="resetP()">Reset Prices</button>
-<button class="btn bp" onclick="closeEdit()">Done</button>
-</div>
-</div>
+<div class="acts noprint">
+  <button class="btn bp" onclick="doPDF()">Save as PDF Quote</button>
+  <button class="btn bo" onclick="clearQty()">Clear Quantities</button>
+  <button class="btn bd" onclick="resetPrices()">Reset Prices</button>
 </div>
 
 <script>
-var D={doorUnit:95,carcassSmall:695,carcassMed:995,carcassLarge:1295,carcassXL:1595,openRack:95,extraColour:695,island:845,composite:295,upvcDoor:350,upvcFrameWith:95,upvcFrameAlone:195,bifold:495,bifoldExtra:100,garageSingle:595,garageDouble:695,winSmall:200,winMed:250,winLarge:300,winXL:400,winBay:500,winSash:450,fascia:50,conservatory:2000,porch:595,shopfront:1200};
-var P={};
-for(var k in D) P[k]=D[k];
-try{var sv=localStorage.getItem('sss3');if(sv){var pv=JSON.parse(sv);for(var k in pv)if(k in D)P[k]=pv[k];}}catch(e){}
-function save(){try{localStorage.setItem('sss3',JSON.stringify(P));}catch(e){}}
-function pound(n){return '£'+n.toLocaleString('en-GB');}
-function gv(id){var v=parseInt(document.getElementById(id).value,10);return(isNaN(v)||v<0)?0:v;}
-function setT(id,qty,price){
-  var el=document.getElementById('t_'+id);
-  if(qty===0){el.textContent='—';el.className='rtot z';}
-  else{el.textContent=pound(qty*price);el.className='rtot';}
-  return qty*price;
+function money(n){return '£'+n.toLocaleString('en-GB');}
+function load(){
+  var s={};
+  try{s=JSON.parse(localStorage.getItem('sssPrices')||'{}');}catch(e){}
+  var pr=document.querySelectorAll('input.price');
+  for(var i=0;i<pr.length;i++){var k=pr[i].getAttribute('data-key');if(s[k]!=null)pr[i].value=s[k];}
+  var d=document.getElementById('qdate');
+  if(!d.value){var t=new Date();d.value=t.getFullYear()+'-'+('0'+(t.getMonth()+1)).slice(-2)+'-'+('0'+t.getDate()).slice(-2);}
 }
-function getCarc(n){
-  if(n===0)return{lbl:'',price:0,por:false};
-  if(n<=20)return{lbl:'Small carcass (up to 20 doors)',price:P.carcassSmall,por:false};
-  if(n<=30)return{lbl:'Medium carcass (21–30 doors)',price:P.carcassMed,por:false};
-  if(n<=40)return{lbl:'Large carcass (31–40 doors)',price:P.carcassLarge,por:false};
-  if(n<=50)return{lbl:'Extra Large carcass (41–50 doors)',price:P.carcassXL,por:false};
-  return{lbl:'Over 50 doors — Price on Request',price:0,por:true};
+function savePrices(){
+  var s={},pr=document.querySelectorAll('input.price');
+  for(var i=0;i<pr.length;i++){s[pr[i].getAttribute('data-key')]=pr[i].value;}
+  try{localStorage.setItem('sssPrices',JSON.stringify(s));}catch(e){}
 }
 function upd(){
-  var doors=gv('doorCount');
-  var c=getCarc(doors);
-  var kitchenTotal=doors*P.doorUnit+c.price;
-  document.getElementById('cLbl').textContent=doors===0?'Enter number of doors above':doors+' doors + carcass ('+c.lbl+')';
-  var cv=document.getElementById('cVal');
-  if(c.por){cv.textContent='POR';}else{cv.textContent=pound(kitchenTotal);}
-  document.getElementById('porBanner').className='por'+(c.por?' on':'');
-  var r1=setT('openRack',gv('openRack'),P.openRack);
-  var r2=setT('extraColour',gv('extraColour'),P.extraColour);
-  var r3=setT('island',gv('island'),P.island);
-  var r4=setT('composite',gv('composite'),P.composite);
-  var r5=setT('upvcDoor',gv('upvcDoor'),P.upvcDoor);
-  var r6=setT('upvcFrameWith',gv('upvcFrameWith'),P.upvcFrameWith);
-  var r7=setT('upvcFrameAlone',gv('upvcFrameAlone'),P.upvcFrameAlone);
-  var r8=setT('bifold',gv('bifold'),P.bifold);
-  var r9=setT('bifoldExtra',gv('bifoldExtra'),P.bifoldExtra);
-  var r10=setT('garageSingle',gv('garageSingle'),P.garageSingle);
-  var r11=setT('garageDouble',gv('garageDouble'),P.garageDouble);
-  var r12=setT('winSmall',gv('winSmall'),P.winSmall);
-  var r13=setT('winMed',gv('winMed'),P.winMed);
-  var r14=setT('winLarge',gv('winLarge'),P.winLarge);
-  var r15=setT('winXL',gv('winXL'),P.winXL);
-  var r16=setT('winBay',gv('winBay'),P.winBay);
-  var r17=setT('winSash',gv('winSash'),P.winSash);
-  var r18=setT('fascia',gv('fascia'),P.fascia);
-  var r19=setT('conservatory',gv('conservatory'),P.conservatory);
-  var r20=setT('porch',gv('porch'),P.porch);
-  var r21=setT('shopfront',gv('shopfront'),P.shopfront);
-  var dl=doors*P.doorUnit;
-  var cl=c.price;
-  var kex=r1+r2+r3;
-  var df=r4+r5+r6+r7+r8+r9+r10+r11;
-  var win=r12+r13+r14+r15+r16+r17;
-  var oth=r18+r19+r20+r21;
-  var grand=dl+cl+kex+df+win+oth;
-  document.getElementById('dSum').textContent=doors;
-  document.getElementById('T_doors').textContent=pound(dl);
-  document.getElementById('T_carc').textContent=c.por?'TBC':pound(cl);
-  document.getElementById('T_kex').textContent=pound(kex);
-  document.getElementById('T_df').textContent=pound(df);
-  document.getElementById('T_win').textContent=pound(win);
-  document.getElementById('T_other').textContent=pound(oth);
-  document.getElementById('T_grand').textContent=c.por?pound(grand)+' +TBC':pound(grand);
+  var rows=document.querySelectorAll('tbody tr:not(.sec)'),total=0;
+  for(var i=0;i<rows.length;i++){
+    var pe=rows[i].querySelector('.price'),qe=rows[i].querySelector('.qty');
+    if(!pe||!qe)continue;
+    var p=parseFloat(pe.value)||0,q=parseFloat(qe.value)||0,v=p*q;
+    total+=v;
+    rows[i].querySelector('.sub').textContent=q>0?money(v):'—';
+    if(q>0)rows[i].className='has';else rows[i].className='';
+  }
+  document.getElementById('grand').textContent=money(total);
+  savePrices();
 }
-function chg(id,d){
-  var el=document.getElementById(id);
-  el.value=Math.max(0,(parseInt(el.value,10)||0)+d);
+function clearQty(){
+  var q=document.querySelectorAll('input.qty');
+  for(var i=0;i<q.length;i++)q[i].value=0;
   upd();
 }
-function openEdit(){
-  for(var k in D){var el=document.getElementById('e_'+k);if(el)el.value=P[k];}
-  document.getElementById('modal').className='modal on';
+function resetPrices(){
+  if(!confirm('Reset all prices back to the defaults?'))return;
+  try{localStorage.removeItem('sssPrices');}catch(e){}
+  location.reload();
 }
-function closeEdit(){document.getElementById('modal').className='modal';}
-function applyP(){
-  for(var k in D){var el=document.getElementById('e_'+k);if(el){var v=parseFloat(el.value);if(!isNaN(v)&&v>=0)P[k]=v;}}
-  save();upd();
+function doPDF(){
+  var cust=document.getElementById('cust').value;
+  var dval=document.getElementById('qdate').value;
+  var dtxt=dval;
+  if(dval){var p=dval.split('-');dtxt=p[2]+'/'+p[1]+'/'+p[0];}
+  document.getElementById('pCust').textContent=cust?('Customer: '+cust):'';
+  document.getElementById('pDate').textContent=dtxt?('Date: '+dtxt):'';
+  window.print();
 }
-function resetP(){
-  if(!confirm('Reset all prices to defaults?'))return;
-  for(var k in D)P[k]=D[k];
-  save();
-  for(var k in D){var el=document.getElementById('e_'+k);if(el)el.value=P[k];}
-  upd();
-}
-function resetAll(){
-  if(!confirm('Reset all quantities to zero?'))return;
-  var ids=['doorCount','openRack','extraColour','island','composite','upvcDoor','upvcFrameWith','upvcFrameAlone','bifold','bifoldExtra','garageSingle','garageDouble','winSmall','winMed','winLarge','winXL','winBay','winSash','fascia','conservatory','porch','shopfront'];
-  for(var i=0;i<ids.length;i++)document.getElementById(ids[i]).value=0;
-  upd();
-}
-function copyQ(){
-  var doors=gv('doorCount');
-  var c=getCarc(doors);
-  var lines=['STRATFORD SPRAYING SOLUTIONS','Pricing Quote','================================',''];
-  if(doors>0)lines.push('Doors x'+doors+' = '+pound(doors*P.doorUnit));
-  if(c.price>0)lines.push('Carcass = '+pound(c.price));
-  else if(c.por)lines.push('Carcass = Price on Request');
-  var items=[['openRack','Open/Wine Rack'],['extraColour','Extra Colour'],['island','Island'],['composite','Composite Door'],['upvcDoor','uPVC Door'],['upvcFrameWith','uPVC Frame (with)'],['upvcFrameAlone','uPVC Frame (alone)'],['bifold','Bi-fold'],['bifoldExtra','Bi-fold Extra'],['garageSingle','Garage (Single)'],['garageDouble','Garage (Double)'],['winSmall','Small Window'],['winMed','Medium Window'],['winLarge','Large Window'],['winXL','XL Window'],['winBay','Bay Window'],['winSash','Sash Window'],['fascia','Fascia/Soffit (m)'],['conservatory','Conservatory'],['porch','Porch'],['shopfront','Shopfront']];
-  for(var i=0;i<items.length;i++){var qty=gv(items[i][0]);if(qty>0)lines.push(items[i][1]+' x'+qty+' = '+pound(qty*P[items[i][0]]));}  
-  lines.push('');
-  lines.push('TOTAL: '+document.getElementById('T_grand').textContent);
-  navigator.clipboard.writeText(lines.join('\n')).then(function(){alert('Copied!');});
-}
+load();
 upd();
 </script>
 </body>
