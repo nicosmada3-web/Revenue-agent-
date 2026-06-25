@@ -14,7 +14,6 @@
   --text: #1a202c;
   --muted: #6b7280;
   --green: #15803d;
-  --green-bg: #dcfce7;
   --red: #b91c1c;
   --section-head: #1e3a5f;
   --row-alt: #f7fafc;
@@ -173,13 +172,6 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
   text-align: right;
 }
 .row-total.zero { color: var(--muted); font-weight: 400; }
-.por-badge {
-  font-size: 11px;
-  color: var(--red);
-  font-style: italic;
-  min-width: 70px;
-  text-align: right;
-}
 
 /* NOTES */
 .note-row {
@@ -225,7 +217,7 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
 .actions { display: flex; gap: 10px; flex-wrap: wrap; }
 .btn {
   flex: 1;
-  min-width: 130px;
+  min-width: 120px;
   padding: 12px 16px;
   border: none;
   border-radius: 8px;
@@ -235,9 +227,10 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
   transition: opacity 0.15s;
 }
 .btn:hover { opacity: 0.88; }
-.btn-primary { background: var(--accent); color: white; }
-.btn-outline { background: white; color: var(--accent); border: 2px solid var(--accent); }
-.btn-danger { background: #fee2e2; color: var(--red); }
+.btn-primary  { background: var(--accent); color: white; }
+.btn-outline  { background: white; color: var(--accent); border: 2px solid var(--accent); }
+.btn-amber    { background: #fef3c7; color: #92400e; border: 2px solid #f59e0b; }
+.btn-danger   { background: #fee2e2; color: var(--red); }
 
 /* POR warning */
 .por-warning {
@@ -252,9 +245,128 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
 }
 .por-warning.visible { display: block; }
 
+/* ── EDIT PRICES MODAL ── */
+.modal-backdrop {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 200;
+  align-items: flex-end;
+  justify-content: center;
+}
+.modal-backdrop.open { display: flex; }
+.modal-sheet {
+  background: white;
+  width: 100%;
+  max-width: 700px;
+  max-height: 88vh;
+  border-radius: 16px 16px 0 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 -4px 32px rgba(0,0,0,0.2);
+}
+.modal-header {
+  background: var(--section-head);
+  color: white;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+.modal-header h2 { font-size: 16px; font-weight: 700; }
+.modal-header p  { font-size: 11px; opacity: 0.7; margin-top: 2px; }
+.modal-close {
+  background: rgba(255,255,255,0.15);
+  border: none;
+  color: white;
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+.modal-body {
+  overflow-y: auto;
+  padding: 16px;
+  flex: 1;
+}
+.edit-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding: 10px 0 6px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 4px;
+}
+.edit-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 4px;
+  border-bottom: 1px solid #f0f4f8;
+  gap: 12px;
+}
+.edit-row:last-child { border-bottom: none; }
+.edit-label { font-size: 13px; flex: 1; }
+.edit-label small { display: block; font-size: 11px; color: var(--muted); }
+.price-input-wrap {
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.price-input-wrap:focus-within { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(26,86,219,0.15); }
+.price-input-wrap span {
+  background: var(--bg);
+  padding: 8px 8px 8px 10px;
+  font-size: 14px;
+  color: var(--muted);
+  border-right: 1px solid var(--border);
+}
+.price-input {
+  width: 80px;
+  border: none;
+  padding: 8px 10px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  text-align: right;
+  outline: none;
+}
+.modal-footer {
+  padding: 14px 16px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+  background: white;
+}
+.modal-footer .btn { flex: 1; }
+.prices-modified-badge {
+  display: none;
+  background: #fef3c7;
+  border: 1px solid #f59e0b;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 11px;
+  color: #92400e;
+  font-weight: 600;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+.prices-modified-badge.visible { display: flex; }
+
 @media print {
   header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  .actions, .door-qty-btn, .qty-btn { display: none !important; }
+  .actions, .door-qty-btn, .qty-btn, .modal-backdrop { display: none !important; }
   body { background: white; }
   .section-card, .totals-card, .kitchen-hero { box-shadow: none; }
   .kitchen-hero { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
@@ -272,6 +384,11 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
 </header>
 
 <div class="container">
+
+  <!-- MODIFIED PRICES BADGE -->
+  <div class="prices-modified-badge" id="modifiedBadge">
+    ⚠ Custom prices active — some prices differ from the UKSA guideline
+  </div>
 
   <!-- KITCHEN DOORS HERO -->
   <div class="kitchen-hero">
@@ -295,9 +412,8 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
     <div class="price-row">
       <div>
         <div class="item-name">Open / Wine Rack / Plate Racks / Glazed Inserts</div>
-        <div class="item-unit">£95 each</div>
       </div>
-      <div class="unit-price">£95</div>
+      <div class="unit-price" id="up_openRack">£95</div>
       <div class="qty-wrap">
         <button class="qty-btn" onclick="change('openRack',-1)">−</button>
         <input class="qty-num" type="number" id="openRack" value="0" min="0" oninput="update()"/>
@@ -312,7 +428,7 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
         <div class="item-name">Additional Cost for Extra Colour</div>
         <div class="item-unit">per kitchen</div>
       </div>
-      <div class="unit-price">£695</div>
+      <div class="unit-price" id="up_extraColour">£695</div>
       <div class="qty-wrap">
         <button class="qty-btn" onclick="change('extraColour',-1)">−</button>
         <input class="qty-num" type="number" id="extraColour" value="0" min="0" oninput="update()"/>
@@ -324,9 +440,9 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
     <div class="price-row">
       <div>
         <div class="item-name">Island (Carcass Only)</div>
-        <div class="item-unit">£695 – £995 (mid: £845)</div>
+        <div class="item-unit" id="islandUnit">£695 – £995 (mid: £845)</div>
       </div>
-      <div class="unit-price">£845</div>
+      <div class="unit-price" id="up_island">£845</div>
       <div class="qty-wrap">
         <button class="qty-btn" onclick="change('island',-1)">−</button>
         <input class="qty-num" type="number" id="island" value="0" min="0" oninput="update()"/>
@@ -342,7 +458,7 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
 
     <div class="price-row">
       <div><div class="item-name">Composite Door</div></div>
-      <div class="unit-price">£295</div>
+      <div class="unit-price" id="up_composite">£295</div>
       <div class="qty-wrap">
         <button class="qty-btn" onclick="change('composite',-1)">−</button>
         <input class="qty-num" type="number" id="composite" value="0" min="0" oninput="update()"/>
@@ -353,7 +469,7 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
 
     <div class="price-row">
       <div><div class="item-name">uPVC Door</div></div>
-      <div class="unit-price">£350</div>
+      <div class="unit-price" id="up_upvcDoor">£350</div>
       <div class="qty-wrap">
         <button class="qty-btn" onclick="change('upvcDoor',-1)">−</button>
         <input class="qty-num" type="number" id="upvcDoor" value="0" min="0" oninput="update()"/>
@@ -364,7 +480,7 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
 
     <div class="price-row">
       <div><div class="item-name">uPVC Door Frame (with door)</div></div>
-      <div class="unit-price">£95</div>
+      <div class="unit-price" id="up_upvcFrameWith">£95</div>
       <div class="qty-wrap">
         <button class="qty-btn" onclick="change('upvcFrameWith',-1)">−</button>
         <input class="qty-num" type="number" id="upvcFrameWith" value="0" min="0" oninput="update()"/>
@@ -375,7 +491,7 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
 
     <div class="price-row">
       <div><div class="item-name">uPVC Door Frame (alone)</div></div>
-      <div class="unit-price">£195</div>
+      <div class="unit-price" id="up_upvcFrameAlone">£195</div>
       <div class="qty-wrap">
         <button class="qty-btn" onclick="change('upvcFrameAlone',-1)">−</button>
         <input class="qty-num" type="number" id="upvcFrameAlone" value="0" min="0" oninput="update()"/>
@@ -386,7 +502,7 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
 
     <div class="price-row">
       <div><div class="item-name">French / Patio / Bi-fold Doors (3 panels)</div></div>
-      <div class="unit-price">£495</div>
+      <div class="unit-price" id="up_bifold">£495</div>
       <div class="qty-wrap">
         <button class="qty-btn" onclick="change('bifold',-1)">−</button>
         <input class="qty-num" type="number" id="bifold" value="0" min="0" oninput="update()"/>
@@ -397,7 +513,7 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
 
     <div class="price-row">
       <div><div class="item-name">Extra Bi-fold Panel</div></div>
-      <div class="unit-price">£100</div>
+      <div class="unit-price" id="up_bifoldExtra">£100</div>
       <div class="qty-wrap">
         <button class="qty-btn" onclick="change('bifoldExtra',-1)">−</button>
         <input class="qty-num" type="number" id="bifoldExtra" value="0" min="0" oninput="update()"/>
@@ -408,7 +524,7 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
 
     <div class="price-row">
       <div><div class="item-name">Garage Door (Single)</div></div>
-      <div class="unit-price">£595</div>
+      <div class="unit-price" id="up_garageSingle">£595</div>
       <div class="qty-wrap">
         <button class="qty-btn" onclick="change('garageSingle',-1)">−</button>
         <input class="qty-num" type="number" id="garageSingle" value="0" min="0" oninput="update()"/>
@@ -419,7 +535,7 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
 
     <div class="price-row">
       <div><div class="item-name">Garage Door (Double)</div></div>
-      <div class="unit-price">£695</div>
+      <div class="unit-price" id="up_garageDouble">£695</div>
       <div class="qty-wrap">
         <button class="qty-btn" onclick="change('garageDouble',-1)">−</button>
         <input class="qty-num" type="number" id="garageDouble" value="0" min="0" oninput="update()"/>
@@ -435,7 +551,7 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
 
     <div class="price-row">
       <div><div class="item-name">Small Window</div></div>
-      <div class="unit-price">£200</div>
+      <div class="unit-price" id="up_winSmall">£200</div>
       <div class="qty-wrap">
         <button class="qty-btn" onclick="change('winSmall',-1)">−</button>
         <input class="qty-num" type="number" id="winSmall" value="0" min="0" oninput="update()"/>
@@ -446,7 +562,7 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
 
     <div class="price-row">
       <div><div class="item-name">Medium Window</div></div>
-      <div class="unit-price">£250</div>
+      <div class="unit-price" id="up_winMed">£250</div>
       <div class="qty-wrap">
         <button class="qty-btn" onclick="change('winMed',-1)">−</button>
         <input class="qty-num" type="number" id="winMed" value="0" min="0" oninput="update()"/>
@@ -457,7 +573,7 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
 
     <div class="price-row">
       <div><div class="item-name">Large Window</div></div>
-      <div class="unit-price">£300</div>
+      <div class="unit-price" id="up_winLarge">£300</div>
       <div class="qty-wrap">
         <button class="qty-btn" onclick="change('winLarge',-1)">−</button>
         <input class="qty-num" type="number" id="winLarge" value="0" min="0" oninput="update()"/>
@@ -468,7 +584,7 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
 
     <div class="price-row">
       <div><div class="item-name">Extra Large Window</div></div>
-      <div class="unit-price">£400</div>
+      <div class="unit-price" id="up_winXL">£400</div>
       <div class="qty-wrap">
         <button class="qty-btn" onclick="change('winXL',-1)">−</button>
         <input class="qty-num" type="number" id="winXL" value="0" min="0" oninput="update()"/>
@@ -479,7 +595,7 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
 
     <div class="price-row">
       <div><div class="item-name">Bay Window</div></div>
-      <div class="unit-price">£500</div>
+      <div class="unit-price" id="up_winBay">£500</div>
       <div class="qty-wrap">
         <button class="qty-btn" onclick="change('winBay',-1)">−</button>
         <input class="qty-num" type="number" id="winBay" value="0" min="0" oninput="update()"/>
@@ -490,7 +606,7 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
 
     <div class="price-row">
       <div><div class="item-name">Sash Window</div></div>
-      <div class="unit-price">£450</div>
+      <div class="unit-price" id="up_winSash">£450</div>
       <div class="qty-wrap">
         <button class="qty-btn" onclick="change('winSash',-1)">−</button>
         <input class="qty-num" type="number" id="winSash" value="0" min="0" oninput="update()"/>
@@ -509,7 +625,7 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
         <div class="item-name">Fascia, Soffit &amp; Guttering</div>
         <div class="item-unit">per linear metre</div>
       </div>
-      <div class="unit-price">£50/m</div>
+      <div class="unit-price" id="up_fascia">£50/m</div>
       <div class="qty-wrap">
         <button class="qty-btn" onclick="change('fascia',-1)">−</button>
         <input class="qty-num" type="number" id="fascia" value="0" min="0" oninput="update()"/>
@@ -523,7 +639,7 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
         <div class="item-name">Conservatory</div>
         <div class="item-unit">from</div>
       </div>
-      <div class="unit-price">£2,000</div>
+      <div class="unit-price" id="up_conservatory">£2,000</div>
       <div class="qty-wrap">
         <button class="qty-btn" onclick="change('conservatory',-1)">−</button>
         <input class="qty-num" type="number" id="conservatory" value="0" min="0" oninput="update()"/>
@@ -537,7 +653,7 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
         <div class="item-name">Porch (incl. Door)</div>
         <div class="item-unit">from</div>
       </div>
-      <div class="unit-price">£595</div>
+      <div class="unit-price" id="up_porch">£595</div>
       <div class="qty-wrap">
         <button class="qty-btn" onclick="change('porch',-1)">−</button>
         <input class="qty-num" type="number" id="porch" value="0" min="0" oninput="update()"/>
@@ -551,7 +667,7 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
         <div class="item-name">Shopfront</div>
         <div class="item-unit">per side</div>
       </div>
-      <div class="unit-price">£1,200</div>
+      <div class="unit-price" id="up_shopfront">£1,200</div>
       <div class="qty-wrap">
         <button class="qty-btn" onclick="change('shopfront',-1)">−</button>
         <input class="qty-num" type="number" id="shopfront" value="0" min="0" oninput="update()"/>
@@ -600,16 +716,157 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
 
   <!-- ACTIONS -->
   <div class="actions">
-    <button class="btn btn-primary" onclick="window.print()">Print / Save PDF</button>
-    <button class="btn btn-outline" onclick="copyQuote()">Copy Quote</button>
-    <button class="btn btn-danger" onclick="resetAll()">Reset All</button>
+    <button class="btn btn-primary"  onclick="window.print()">Print / PDF</button>
+    <button class="btn btn-outline"  onclick="copyQuote()">Copy Quote</button>
+    <button class="btn btn-amber"    onclick="openPriceEditor()">Edit Prices</button>
+    <button class="btn btn-danger"   onclick="resetAll()">Reset</button>
   </div>
 
 </div>
 
+<!-- EDIT PRICES MODAL -->
+<div class="modal-backdrop" id="priceModal" onclick="backdropClick(event)">
+  <div class="modal-sheet">
+    <div class="modal-header">
+      <div>
+        <h2>Edit Prices</h2>
+        <p>Changes are saved automatically and persist between sessions</p>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <div class="edit-section-title">Kitchen — Per Door</div>
+      <div class="edit-row">
+        <div class="edit-label">Cabinet Door / Drawer <small>price per door</small></div>
+        <div class="price-input-wrap"><span>£</span><input class="price-input" id="ep_doorUnit" type="number" min="0" oninput="applyPrices()"/></div>
+      </div>
+
+      <div class="edit-section-title">Carcass Tiers</div>
+      <div class="edit-row">
+        <div class="edit-label">Small <small>up to 20 doors</small></div>
+        <div class="price-input-wrap"><span>£</span><input class="price-input" id="ep_carcassSmall" type="number" min="0" oninput="applyPrices()"/></div>
+      </div>
+      <div class="edit-row">
+        <div class="edit-label">Medium <small>21–30 doors</small></div>
+        <div class="price-input-wrap"><span>£</span><input class="price-input" id="ep_carcassMed" type="number" min="0" oninput="applyPrices()"/></div>
+      </div>
+      <div class="edit-row">
+        <div class="edit-label">Large <small>31–40 doors</small></div>
+        <div class="price-input-wrap"><span>£</span><input class="price-input" id="ep_carcassLarge" type="number" min="0" oninput="applyPrices()"/></div>
+      </div>
+      <div class="edit-row">
+        <div class="edit-label">Extra Large <small>41–50 doors</small></div>
+        <div class="price-input-wrap"><span>£</span><input class="price-input" id="ep_carcassXL" type="number" min="0" oninput="applyPrices()"/></div>
+      </div>
+
+      <div class="edit-section-title">Kitchen Extras</div>
+      <div class="edit-row">
+        <div class="edit-label">Open / Wine Rack / Plate Racks / Glazed Inserts</div>
+        <div class="price-input-wrap"><span>£</span><input class="price-input" id="ep_openRack" type="number" min="0" oninput="applyPrices()"/></div>
+      </div>
+      <div class="edit-row">
+        <div class="edit-label">Extra Colour Surcharge</div>
+        <div class="price-input-wrap"><span>£</span><input class="price-input" id="ep_extraColour" type="number" min="0" oninput="applyPrices()"/></div>
+      </div>
+      <div class="edit-row">
+        <div class="edit-label">Island (Carcass Only)</div>
+        <div class="price-input-wrap"><span>£</span><input class="price-input" id="ep_island" type="number" min="0" oninput="applyPrices()"/></div>
+      </div>
+
+      <div class="edit-section-title">Doors &amp; Frames</div>
+      <div class="edit-row">
+        <div class="edit-label">Composite Door</div>
+        <div class="price-input-wrap"><span>£</span><input class="price-input" id="ep_composite" type="number" min="0" oninput="applyPrices()"/></div>
+      </div>
+      <div class="edit-row">
+        <div class="edit-label">uPVC Door</div>
+        <div class="price-input-wrap"><span>£</span><input class="price-input" id="ep_upvcDoor" type="number" min="0" oninput="applyPrices()"/></div>
+      </div>
+      <div class="edit-row">
+        <div class="edit-label">uPVC Door Frame (with door)</div>
+        <div class="price-input-wrap"><span>£</span><input class="price-input" id="ep_upvcFrameWith" type="number" min="0" oninput="applyPrices()"/></div>
+      </div>
+      <div class="edit-row">
+        <div class="edit-label">uPVC Door Frame (alone)</div>
+        <div class="price-input-wrap"><span>£</span><input class="price-input" id="ep_upvcFrameAlone" type="number" min="0" oninput="applyPrices()"/></div>
+      </div>
+      <div class="edit-row">
+        <div class="edit-label">French / Patio / Bi-fold (3 panels)</div>
+        <div class="price-input-wrap"><span>£</span><input class="price-input" id="ep_bifold" type="number" min="0" oninput="applyPrices()"/></div>
+      </div>
+      <div class="edit-row">
+        <div class="edit-label">Extra Bi-fold Panel</div>
+        <div class="price-input-wrap"><span>£</span><input class="price-input" id="ep_bifoldExtra" type="number" min="0" oninput="applyPrices()"/></div>
+      </div>
+      <div class="edit-row">
+        <div class="edit-label">Garage Door (Single)</div>
+        <div class="price-input-wrap"><span>£</span><input class="price-input" id="ep_garageSingle" type="number" min="0" oninput="applyPrices()"/></div>
+      </div>
+      <div class="edit-row">
+        <div class="edit-label">Garage Door (Double)</div>
+        <div class="price-input-wrap"><span>£</span><input class="price-input" id="ep_garageDouble" type="number" min="0" oninput="applyPrices()"/></div>
+      </div>
+
+      <div class="edit-section-title">Windows</div>
+      <div class="edit-row">
+        <div class="edit-label">Small Window</div>
+        <div class="price-input-wrap"><span>£</span><input class="price-input" id="ep_winSmall" type="number" min="0" oninput="applyPrices()"/></div>
+      </div>
+      <div class="edit-row">
+        <div class="edit-label">Medium Window</div>
+        <div class="price-input-wrap"><span>£</span><input class="price-input" id="ep_winMed" type="number" min="0" oninput="applyPrices()"/></div>
+      </div>
+      <div class="edit-row">
+        <div class="edit-label">Large Window</div>
+        <div class="price-input-wrap"><span>£</span><input class="price-input" id="ep_winLarge" type="number" min="0" oninput="applyPrices()"/></div>
+      </div>
+      <div class="edit-row">
+        <div class="edit-label">Extra Large Window</div>
+        <div class="price-input-wrap"><span>£</span><input class="price-input" id="ep_winXL" type="number" min="0" oninput="applyPrices()"/></div>
+      </div>
+      <div class="edit-row">
+        <div class="edit-label">Bay Window</div>
+        <div class="price-input-wrap"><span>£</span><input class="price-input" id="ep_winBay" type="number" min="0" oninput="applyPrices()"/></div>
+      </div>
+      <div class="edit-row">
+        <div class="edit-label">Sash Window</div>
+        <div class="price-input-wrap"><span>£</span><input class="price-input" id="ep_winSash" type="number" min="0" oninput="applyPrices()"/></div>
+      </div>
+
+      <div class="edit-section-title">Other Services</div>
+      <div class="edit-row">
+        <div class="edit-label">Fascia, Soffit &amp; Guttering <small>per linear metre</small></div>
+        <div class="price-input-wrap"><span>£</span><input class="price-input" id="ep_fascia" type="number" min="0" oninput="applyPrices()"/></div>
+      </div>
+      <div class="edit-row">
+        <div class="edit-label">Conservatory</div>
+        <div class="price-input-wrap"><span>£</span><input class="price-input" id="ep_conservatory" type="number" min="0" oninput="applyPrices()"/></div>
+      </div>
+      <div class="edit-row">
+        <div class="edit-label">Porch (incl. Door)</div>
+        <div class="price-input-wrap"><span>£</span><input class="price-input" id="ep_porch" type="number" min="0" oninput="applyPrices()"/></div>
+      </div>
+      <div class="edit-row">
+        <div class="edit-label">Shopfront <small>per side</small></div>
+        <div class="price-input-wrap"><span>£</span><input class="price-input" id="ep_shopfront" type="number" min="0" oninput="applyPrices()"/></div>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-danger"  onclick="resetPrices()">Reset to UKSA Defaults</button>
+      <button class="btn btn-primary" onclick="closeModal()">Done</button>
+    </div>
+  </div>
+</div>
+
 <script>
-const PRICES = {
+const DEFAULTS = {
   doorUnit:       95,
+  carcassSmall:  695,
+  carcassMed:    995,
+  carcassLarge: 1295,
+  carcassXL:    1595,
   openRack:       95,
   extraColour:   695,
   island:        845,
@@ -633,12 +890,27 @@ const PRICES = {
   shopfront:    1200,
 };
 
+// Load saved prices from localStorage, falling back to defaults
+let PRICES = Object.assign({}, DEFAULTS);
+try {
+  const saved = localStorage.getItem('sss_prices');
+  if (saved) PRICES = Object.assign({}, DEFAULTS, JSON.parse(saved));
+} catch(e) {}
+
+function savePrices() {
+  try { localStorage.setItem('sss_prices', JSON.stringify(PRICES)); } catch(e) {}
+}
+
+function isModified() {
+  return Object.keys(DEFAULTS).some(k => PRICES[k] !== DEFAULTS[k]);
+}
+
 function carcassPrice(n) {
-  if (n === 0)  return { label: 'No doors entered',              price: 0,    por: false };
-  if (n <= 20)  return { label: 'Small carcass (<20 doors)',      price: 695,  por: false };
-  if (n <= 30)  return { label: 'Medium carcass (21–30 doors)',   price: 995,  por: false };
-  if (n <= 40)  return { label: 'Large carcass (31–40 doors)',    price: 1295, por: false };
-  if (n <= 50)  return { label: 'Extra Large carcass (41–50)',    price: 1595, por: false };
+  if (n === 0)  return { label: 'No doors entered',            price: 0,               por: false };
+  if (n <= 20)  return { label: 'Small carcass (<20 doors)',   price: PRICES.carcassSmall,  por: false };
+  if (n <= 30)  return { label: 'Medium carcass (21–30)',      price: PRICES.carcassMed,    por: false };
+  if (n <= 40)  return { label: 'Large carcass (31–40)',       price: PRICES.carcassLarge,  por: false };
+  if (n <= 50)  return { label: 'Extra Large carcass (41–50)', price: PRICES.carcassXL,     por: false };
   return { label: 'Over 50 doors — Price on Request', price: 0, por: true };
 }
 
@@ -652,21 +924,47 @@ function getVal(id) {
 
 function setRowTotal(id, qty, price) {
   const el = document.getElementById(id + 'Total');
-  if (qty === 0) {
-    el.textContent = '—';
-    el.className = 'row-total zero';
-  } else {
-    el.textContent = fmt(qty * price);
-    el.className = 'row-total';
-  }
+  if (qty === 0) { el.textContent = '—'; el.className = 'row-total zero'; }
+  else           { el.textContent = fmt(qty * price); el.className = 'row-total'; }
   return qty * price;
 }
 
+function refreshUnitPriceLabels() {
+  const map = {
+    up_openRack:       fmt(PRICES.openRack),
+    up_extraColour:    fmt(PRICES.extraColour),
+    up_island:         fmt(PRICES.island),
+    up_composite:      fmt(PRICES.composite),
+    up_upvcDoor:       fmt(PRICES.upvcDoor),
+    up_upvcFrameWith:  fmt(PRICES.upvcFrameWith),
+    up_upvcFrameAlone: fmt(PRICES.upvcFrameAlone),
+    up_bifold:         fmt(PRICES.bifold),
+    up_bifoldExtra:    fmt(PRICES.bifoldExtra),
+    up_garageSingle:   fmt(PRICES.garageSingle),
+    up_garageDouble:   fmt(PRICES.garageDouble),
+    up_winSmall:       fmt(PRICES.winSmall),
+    up_winMed:         fmt(PRICES.winMed),
+    up_winLarge:       fmt(PRICES.winLarge),
+    up_winXL:          fmt(PRICES.winXL),
+    up_winBay:         fmt(PRICES.winBay),
+    up_winSash:        fmt(PRICES.winSash),
+    up_fascia:         fmt(PRICES.fascia) + '/m',
+    up_conservatory:   fmt(PRICES.conservatory),
+    up_porch:          fmt(PRICES.porch),
+    up_shopfront:      fmt(PRICES.shopfront),
+  };
+  Object.entries(map).forEach(([id, val]) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val;
+  });
+  document.getElementById('modifiedBadge').className =
+    'prices-modified-badge' + (isModified() ? ' visible' : '');
+}
+
 function update() {
-  const doors = getVal('doorCount');
+  const doors   = getVal('doorCount');
   const carcass = carcassPrice(doors);
 
-  // Update hero banner
   document.getElementById('carcassLabel').textContent = carcass.label;
   const carcassValEl = document.getElementById('carcassValue');
   if (carcass.por) {
@@ -677,52 +975,46 @@ function update() {
     carcassValEl.className = 'value';
   }
 
-  // POR warning
   document.getElementById('porWarning').className = 'por-warning' + (carcass.por ? ' visible' : '');
 
-  // Row totals
-  const openRack      = setRowTotal('openRack',       getVal('openRack'),       PRICES.openRack);
-  const extraColour   = setRowTotal('extraColour',    getVal('extraColour'),    PRICES.extraColour);
-  const island        = setRowTotal('island',         getVal('island'),         PRICES.island);
-  const composite     = setRowTotal('composite',      getVal('composite'),      PRICES.composite);
-  const upvcDoor      = setRowTotal('upvcDoor',       getVal('upvcDoor'),       PRICES.upvcDoor);
-  const upvcFrameWith = setRowTotal('upvcFrameWith',  getVal('upvcFrameWith'),  PRICES.upvcFrameWith);
-  const upvcFrameAlone= setRowTotal('upvcFrameAlone', getVal('upvcFrameAlone'), PRICES.upvcFrameAlone);
-  const bifold        = setRowTotal('bifold',         getVal('bifold'),         PRICES.bifold);
-  const bifoldExtra   = setRowTotal('bifoldExtra',    getVal('bifoldExtra'),    PRICES.bifoldExtra);
-  const garageSingle  = setRowTotal('garageSingle',   getVal('garageSingle'),   PRICES.garageSingle);
-  const garageDouble  = setRowTotal('garageDouble',   getVal('garageDouble'),   PRICES.garageDouble);
-  const winSmall      = setRowTotal('winSmall',       getVal('winSmall'),       PRICES.winSmall);
-  const winMed        = setRowTotal('winMed',         getVal('winMed'),         PRICES.winMed);
-  const winLarge      = setRowTotal('winLarge',       getVal('winLarge'),       PRICES.winLarge);
-  const winXL         = setRowTotal('winXL',          getVal('winXL'),          PRICES.winXL);
-  const winBay        = setRowTotal('winBay',         getVal('winBay'),         PRICES.winBay);
-  const winSash       = setRowTotal('winSash',        getVal('winSash'),        PRICES.winSash);
-  const fascia        = setRowTotal('fascia',         getVal('fascia'),         PRICES.fascia);
-  const conservatory  = setRowTotal('conservatory',   getVal('conservatory'),   PRICES.conservatory);
-  const porch         = setRowTotal('porch',          getVal('porch'),          PRICES.porch);
-  const shopfront     = setRowTotal('shopfront',      getVal('shopfront'),      PRICES.shopfront);
+  const openRack       = setRowTotal('openRack',       getVal('openRack'),       PRICES.openRack);
+  const extraColour    = setRowTotal('extraColour',    getVal('extraColour'),    PRICES.extraColour);
+  const island         = setRowTotal('island',         getVal('island'),         PRICES.island);
+  const composite      = setRowTotal('composite',      getVal('composite'),      PRICES.composite);
+  const upvcDoor       = setRowTotal('upvcDoor',       getVal('upvcDoor'),       PRICES.upvcDoor);
+  const upvcFrameWith  = setRowTotal('upvcFrameWith',  getVal('upvcFrameWith'),  PRICES.upvcFrameWith);
+  const upvcFrameAlone = setRowTotal('upvcFrameAlone', getVal('upvcFrameAlone'), PRICES.upvcFrameAlone);
+  const bifold         = setRowTotal('bifold',         getVal('bifold'),         PRICES.bifold);
+  const bifoldExtra    = setRowTotal('bifoldExtra',    getVal('bifoldExtra'),    PRICES.bifoldExtra);
+  const garageSingle   = setRowTotal('garageSingle',   getVal('garageSingle'),   PRICES.garageSingle);
+  const garageDouble   = setRowTotal('garageDouble',   getVal('garageDouble'),   PRICES.garageDouble);
+  const winSmall       = setRowTotal('winSmall',       getVal('winSmall'),       PRICES.winSmall);
+  const winMed         = setRowTotal('winMed',         getVal('winMed'),         PRICES.winMed);
+  const winLarge       = setRowTotal('winLarge',       getVal('winLarge'),       PRICES.winLarge);
+  const winXL          = setRowTotal('winXL',          getVal('winXL'),          PRICES.winXL);
+  const winBay         = setRowTotal('winBay',         getVal('winBay'),         PRICES.winBay);
+  const winSash        = setRowTotal('winSash',        getVal('winSash'),        PRICES.winSash);
+  const fascia         = setRowTotal('fascia',         getVal('fascia'),         PRICES.fascia);
+  const conservatory   = setRowTotal('conservatory',   getVal('conservatory'),   PRICES.conservatory);
+  const porch          = setRowTotal('porch',          getVal('porch'),          PRICES.porch);
+  const shopfront      = setRowTotal('shopfront',      getVal('shopfront'),      PRICES.shopfront);
 
-  // Section subtotals
-  const doorsLine     = doors * PRICES.doorUnit;
-  const carcassLine   = carcass.price;
+  const doorsLine    = doors * PRICES.doorUnit;
+  const carcassLine  = carcass.price;
   const kitchenExtras = openRack + extraColour + island;
-  const doorsFrames   = composite + upvcDoor + upvcFrameWith + upvcFrameAlone + bifold + bifoldExtra + garageSingle + garageDouble;
-  const windows       = winSmall + winMed + winLarge + winXL + winBay + winSash;
-  const other         = fascia + conservatory + porch + shopfront;
-  const grand         = doorsLine + carcassLine + kitchenExtras + doorsFrames + windows + other;
+  const doorsFrames  = composite + upvcDoor + upvcFrameWith + upvcFrameAlone + bifold + bifoldExtra + garageSingle + garageDouble;
+  const windows      = winSmall + winMed + winLarge + winXL + winBay + winSash;
+  const other        = fascia + conservatory + porch + shopfront;
+  const grand        = doorsLine + carcassLine + kitchenExtras + doorsFrames + windows + other;
 
-  // Summary
-  document.getElementById('doorCountSummary').textContent = doors;
-  document.getElementById('doorsLineTotal').textContent   = fmt(doorsLine);
-  document.getElementById('carcassLineTotal').textContent = carcass.por ? 'TBC' : fmt(carcassLine);
-  document.getElementById('kitchenExtrasTotal').textContent = fmt(kitchenExtras);
-  document.getElementById('doorsFramesTotal').textContent   = fmt(doorsFrames);
-  document.getElementById('windowsTotal').textContent       = fmt(windows);
-  document.getElementById('otherTotal').textContent         = fmt(other);
-  document.getElementById('grandTotal').textContent         = carcass.por
-    ? fmt(grand) + ' + TBC carcass'
-    : fmt(grand);
+  document.getElementById('doorCountSummary').textContent    = doors;
+  document.getElementById('doorsLineTotal').textContent      = fmt(doorsLine);
+  document.getElementById('carcassLineTotal').textContent    = carcass.por ? 'TBC' : fmt(carcassLine);
+  document.getElementById('kitchenExtrasTotal').textContent  = fmt(kitchenExtras);
+  document.getElementById('doorsFramesTotal').textContent    = fmt(doorsFrames);
+  document.getElementById('windowsTotal').textContent        = fmt(windows);
+  document.getElementById('otherTotal').textContent          = fmt(other);
+  document.getElementById('grandTotal').textContent          = carcass.por ? fmt(grand) + ' + TBC carcass' : fmt(grand);
 }
 
 function change(id, delta) {
@@ -748,10 +1040,54 @@ function resetAll() {
   update();
 }
 
+// ── PRICE EDITOR ──
+function openPriceEditor() {
+  // Populate editor inputs from current PRICES
+  Object.keys(DEFAULTS).forEach(k => {
+    const el = document.getElementById('ep_' + k);
+    if (el) el.value = PRICES[k];
+  });
+  document.getElementById('priceModal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('priceModal').classList.remove('open');
+}
+
+function backdropClick(e) {
+  if (e.target === document.getElementById('priceModal')) closeModal();
+}
+
+function applyPrices() {
+  Object.keys(DEFAULTS).forEach(k => {
+    const el = document.getElementById('ep_' + k);
+    if (el) {
+      const v = parseFloat(el.value);
+      if (!isNaN(v) && v >= 0) PRICES[k] = v;
+    }
+  });
+  savePrices();
+  refreshUnitPriceLabels();
+  update();
+}
+
+function resetPrices() {
+  if (!confirm('Reset all prices back to UKSA defaults?')) return;
+  PRICES = Object.assign({}, DEFAULTS);
+  savePrices();
+  // Repopulate editor inputs
+  Object.keys(DEFAULTS).forEach(k => {
+    const el = document.getElementById('ep_' + k);
+    if (el) el.value = PRICES[k];
+  });
+  refreshUnitPriceLabels();
+  update();
+}
+
 function copyQuote() {
-  const doors  = getVal('doorCount');
-  const carc   = carcassPrice(doors);
-  const lines  = ['UKSA PRICING QUOTE', '==================', ''];
+  const doors = getVal('doorCount');
+  const carc  = carcassPrice(doors);
+  const lines = ['STRATFORD SPRAYING SOLUTIONS', 'Pricing Quote', '='.repeat(32), ''];
 
   const items = [
     ['Cabinet Doors/Drawers', doors, PRICES.doorUnit],
@@ -781,7 +1117,7 @@ function copyQuote() {
 
   items.forEach(([name, qty, price]) => {
     if (qty > 0) {
-      const total = name === 'Carcass' && carc.por ? 'Price on Request' : fmt(qty * price);
+      const total = (name === 'Carcass' && carc.por) ? 'Price on Request' : fmt(qty * price);
       lines.push(`${name.padEnd(30)} x${qty}  ${total}`);
     }
   });
@@ -795,6 +1131,7 @@ function copyQuote() {
 }
 
 // Init
+refreshUnitPriceLabels();
 update();
 </script>
 </body>
