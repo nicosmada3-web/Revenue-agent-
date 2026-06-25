@@ -387,7 +387,7 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
 
   <!-- MODIFIED PRICES BADGE -->
   <div class="prices-modified-badge" id="modifiedBadge">
-    ⚠ Custom prices active — some prices differ from the UKSA guideline
+    ⚠ Custom prices active — some prices have been adjusted
   </div>
 
   <!-- KITCHEN DOORS HERO -->
@@ -854,7 +854,7 @@ header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
 
     </div>
     <div class="modal-footer">
-      <button class="btn btn-danger"  onclick="resetPrices()">Reset to UKSA Defaults</button>
+      <button class="btn btn-danger"  onclick="resetPrices()">Reset to Default Prices</button>
       <button class="btn btn-primary" onclick="closeModal()">Done</button>
     </div>
   </div>
@@ -1072,7 +1072,7 @@ function applyPrices() {
 }
 
 function resetPrices() {
-  if (!confirm('Reset all prices back to UKSA defaults?')) return;
+  if (!confirm('Reset all prices back to default pricing?')) return;
   PRICES = Object.assign({}, DEFAULTS);
   savePrices();
   // Repopulate editor inputs
