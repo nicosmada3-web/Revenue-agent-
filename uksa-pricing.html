@@ -5,64 +5,62 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Stratford Spraying Solutions</title>
 <style>
-body{font-family:sans-serif;max-width:600px;margin:20px auto;padding:0 12px;background:#fff}
-h1{font-size:18px;color:#1e3a5f;margin-bottom:4px}
-p{font-size:12px;color:#888;margin-bottom:16px}
+body{font-family:sans-serif;max-width:640px;margin:20px auto;padding:0 12px}
+h1{font-size:17px;color:#1e3a5f;margin-bottom:16px}
 table{width:100%;border-collapse:collapse}
-th{background:#1e3a5f;color:#fff;padding:8px;text-align:left;font-size:12px}
+th{background:#1e3a5f;color:#fff;padding:8px 6px;font-size:11px;text-align:left}
 th:nth-child(2),th:nth-child(3),th:nth-child(4){text-align:right}
-td{padding:7px 8px;border-bottom:1px solid #eee;font-size:13px}
-td:nth-child(2){text-align:right;color:#666}
-td:nth-child(3){text-align:right}
-td:nth-child(4){text-align:right;font-weight:600;color:#15803d}
-tr.sec td{background:#f0f4f8;font-size:11px;font-weight:700;color:#1e3a5f;text-transform:uppercase;letter-spacing:.05em}
-input{width:55px;text-align:right;border:1px solid #ccc;border-radius:4px;padding:3px 5px;font-size:13px}
-tfoot td{font-weight:700;font-size:15px;padding:10px 8px;border-top:2px solid #1e3a5f}
-tfoot td:nth-child(4){color:#1e3a5f;font-size:18px}
+td{padding:6px;border-bottom:1px solid #eee;font-size:13px;vertical-align:middle}
+td:nth-child(2),td:nth-child(3),td:nth-child(4){text-align:right}
+tr.sec td{background:#e8f0fe;color:#1a56db;font-size:10px;font-weight:700;text-transform:uppercase;padding:4px 6px}
+input.price{width:60px;text-align:right;border:1px solid #aaa;border-radius:3px;padding:2px 4px;font-size:13px;color:#333}
+input.qty{width:55px;text-align:right;border:1px solid #aaa;border-radius:3px;padding:2px 4px;font-size:13px}
+td.sub{font-weight:600;color:#15803d}
+tfoot td{font-weight:700;padding:10px 6px;border-top:2px solid #1e3a5f;font-size:14px}
+tfoot td:last-child{font-size:18px;color:#1e3a5f}
 </style>
 </head>
 <body>
-<h1>Stratford Spraying Solutions</h1>
-<p>Enter quantities — totals update automatically</p>
+<h1>Stratford Spraying Solutions &mdash; Price Calculator</h1>
 <table>
-<thead><tr><th>Item</th><th>Price</th><th>Qty</th><th>Total</th></tr></thead>
+<thead><tr><th>Item</th><th>Price (£)</th><th>Qty</th><th>Subtotal</th></tr></thead>
 <tbody>
 <tr class="sec"><td colspan="4">Kitchen Doors &amp; Carcasses</td></tr>
-<tr><td>Cabinet door / drawer front</td><td>£95</td><td><input type="number" value="0" min="0" oninput="upd()" data-price="95"></td><td>—</td></tr>
-<tr><td>Carcass (up to 20 units)</td><td>£695</td><td><input type="number" value="0" min="0" oninput="upd()" data-price="695"></td><td>—</td></tr>
-<tr><td>Carcass (21–30 units)</td><td>£995</td><td><input type="number" value="0" min="0" oninput="upd()" data-price="995"></td><td>—</td></tr>
-<tr><td>Carcass (31–40 units)</td><td>£1,295</td><td><input type="number" value="0" min="0" oninput="upd()" data-price="1295"></td><td>—</td></tr>
-<tr><td>Carcass (41–50 units)</td><td>£1,595</td><td><input type="number" value="0" min="0" oninput="upd()" data-price="1595"></td><td>—</td></tr>
-<tr><td>Open / wine / plate rack / glazed</td><td>£95</td><td><input type="number" value="0" min="0" oninput="upd()" data-price="95"></td><td>—</td></tr>
-<tr><td>Extra colour (per job)</td><td>£695</td><td><input type="number" value="0" min="0" oninput="upd()" data-price="695"></td><td>—</td></tr>
-<tr><td>Island</td><td>£845</td><td><input type="number" value="0" min="0" oninput="upd()" data-price="845"></td><td>—</td></tr>
+<tr><td>Cabinet door / drawer front</td><td><input class="price" value="95" oninput="upd()"></td><td><input class="qty" value="0" min="0" oninput="upd()"></td><td class="sub">—</td></tr>
+<tr><td>Carcass (up to 20 units)</td><td><input class="price" value="695" oninput="upd()"></td><td><input class="qty" value="0" min="0" oninput="upd()"></td><td class="sub">—</td></tr>
+<tr><td>Carcass (21–30 units)</td><td><input class="price" value="995" oninput="upd()"></td><td><input class="qty" value="0" min="0" oninput="upd()"></td><td class="sub">—</td></tr>
+<tr><td>Carcass (31–40 units)</td><td><input class="price" value="1295" oninput="upd()"></td><td><input class="qty" value="0" min="0" oninput="upd()"></td><td class="sub">—</td></tr>
+<tr><td>Carcass (41–50 units)</td><td><input class="price" value="1595" oninput="upd()"></td><td><input class="qty" value="0" min="0" oninput="upd()"></td><td class="sub">—</td></tr>
+<tr><td>Open / wine / plate rack / glazed</td><td><input class="price" value="95" oninput="upd()"></td><td><input class="qty" value="0" min="0" oninput="upd()"></td><td class="sub">—</td></tr>
+<tr><td>Extra colour (per job)</td><td><input class="price" value="695" oninput="upd()"></td><td><input class="qty" value="0" min="0" oninput="upd()"></td><td class="sub">—</td></tr>
+<tr><td>Island</td><td><input class="price" value="845" oninput="upd()"></td><td><input class="qty" value="0" min="0" oninput="upd()"></td><td class="sub">—</td></tr>
 
 <tr class="sec"><td colspan="4">External Doors</td></tr>
-<tr><td>Composite door</td><td>£295</td><td><input type="number" value="0" min="0" oninput="upd()" data-price="295"></td><td>—</td></tr>
-<tr><td>uPVC door</td><td>£350</td><td><input type="number" value="0" min="0" oninput="upd()" data-price="350"></td><td>—</td></tr>
-<tr><td>uPVC frame (with door)</td><td>£95</td><td><input type="number" value="0" min="0" oninput="upd()" data-price="95"></td><td>—</td></tr>
-<tr><td>uPVC frame (alone)</td><td>£195</td><td><input type="number" value="0" min="0" oninput="upd()" data-price="195"></td><td>—</td></tr>
-<tr><td>Bi-fold / French / Patio (3 panels)</td><td>£495</td><td><input type="number" value="0" min="0" oninput="upd()" data-price="495"></td><td>—</td></tr>
-<tr><td>Bi-fold extra panel</td><td>£100</td><td><input type="number" value="0" min="0" oninput="upd()" data-price="100"></td><td>—</td></tr>
-<tr><td>Garage door (single)</td><td>£595</td><td><input type="number" value="0" min="0" oninput="upd()" data-price="595"></td><td>—</td></tr>
-<tr><td>Garage door (double)</td><td>£695</td><td><input type="number" value="0" min="0" oninput="upd()" data-price="695"></td><td>—</td></tr>
+<tr><td>Composite door</td><td><input class="price" value="295" oninput="upd()"></td><td><input class="qty" value="0" min="0" oninput="upd()"></td><td class="sub">—</td></tr>
+<tr><td>uPVC door</td><td><input class="price" value="350" oninput="upd()"></td><td><input class="qty" value="0" min="0" oninput="upd()"></td><td class="sub">—</td></tr>
+<tr><td>uPVC frame (with door)</td><td><input class="price" value="95" oninput="upd()"></td><td><input class="qty" value="0" min="0" oninput="upd()"></td><td class="sub">—</td></tr>
+<tr><td>uPVC frame (alone)</td><td><input class="price" value="195" oninput="upd()"></td><td><input class="qty" value="0" min="0" oninput="upd()"></td><td class="sub">—</td></tr>
+<tr><td>Bi-fold / French / Patio (3 panels)</td><td><input class="price" value="495" oninput="upd()"></td><td><input class="qty" value="0" min="0" oninput="upd()"></td><td class="sub">—</td></tr>
+<tr><td>Bi-fold extra panel</td><td><input class="price" value="100" oninput="upd()"></td><td><input class="qty" value="0" min="0" oninput="upd()"></td><td class="sub">—</td></tr>
+<tr><td>Garage door (single)</td><td><input class="price" value="595" oninput="upd()"></td><td><input class="qty" value="0" min="0" oninput="upd()"></td><td class="sub">—</td></tr>
+<tr><td>Garage door (double)</td><td><input class="price" value="695" oninput="upd()"></td><td><input class="qty" value="0" min="0" oninput="upd()"></td><td class="sub">—</td></tr>
 
 <tr class="sec"><td colspan="4">Windows</td></tr>
-<tr><td>Window — small</td><td>£200</td><td><input type="number" value="0" min="0" oninput="upd()" data-price="200"></td><td>—</td></tr>
-<tr><td>Window — medium</td><td>£250</td><td><input type="number" value="0" min="0" oninput="upd()" data-price="250"></td><td>—</td></tr>
-<tr><td>Window — large</td><td>£300</td><td><input type="number" value="0" min="0" oninput="upd()" data-price="300"></td><td>—</td></tr>
-<tr><td>Window — XL</td><td>£400</td><td><input type="number" value="0" min="0" oninput="upd()" data-price="400"></td><td>—</td></tr>
-<tr><td>Bay window</td><td>£500</td><td><input type="number" value="0" min="0" oninput="upd()" data-price="500"></td><td>—</td></tr>
-<tr><td>Sash window</td><td>£450</td><td><input type="number" value="0" min="0" oninput="upd()" data-price="450"></td><td>—</td></tr>
+<tr><td>Window – small</td><td><input class="price" value="200" oninput="upd()"></td><td><input class="qty" value="0" min="0" oninput="upd()"></td><td class="sub">—</td></tr>
+<tr><td>Window – medium</td><td><input class="price" value="250" oninput="upd()"></td><td><input class="qty" value="0" min="0" oninput="upd()"></td><td class="sub">—</td></tr>
+<tr><td>Window – large</td><td><input class="price" value="300" oninput="upd()"></td><td><input class="qty" value="0" min="0" oninput="upd()"></td><td class="sub">—</td></tr>
+<tr><td>Window – XL</td><td><input class="price" value="400" oninput="upd()"></td><td><input class="qty" value="0" min="0" oninput="upd()"></td><td class="sub">—</td></tr>
+<tr><td>Bay window</td><td><input class="price" value="500" oninput="upd()"></td><td><input class="qty" value="0" min="0" oninput="upd()"></td><td class="sub">—</td></tr>
+<tr><td>Sash window</td><td><input class="price" value="450" oninput="upd()"></td><td><input class="qty" value="0" min="0" oninput="upd()"></td><td class="sub">—</td></tr>
 
 <tr class="sec"><td colspan="4">Other Services</td></tr>
-<tr><td>Fascia / soffit / guttering (per metre)</td><td>£50</td><td><input type="number" value="0" min="0" oninput="upd()" data-price="50"></td><td>—</td></tr>
-<tr><td>Conservatory</td><td>£2,000</td><td><input type="number" value="0" min="0" oninput="upd()" data-price="2000"></td><td>—</td></tr>
-<tr><td>Porch</td><td>£595</td><td><input type="number" value="0" min="0" oninput="upd()" data-price="595"></td><td>—</td></tr>
-<tr><td>Shopfront</td><td>£1,200</td><td><input type="number" value="0" min="0" oninput="upd()" data-price="1200"></td><td>—</td></tr>
+<tr><td>Fascia / soffit / guttering (per metre)</td><td><input class="price" value="50" oninput="upd()"></td><td><input class="qty" value="0" min="0" oninput="upd()"></td><td class="sub">—</td></tr>
+<tr><td>Conservatory</td><td><input class="price" value="2000" oninput="upd()"></td><td><input class="qty" value="0" min="0" oninput="upd()"></td><td class="sub">—</td></tr>
+<tr><td>Porch</td><td><input class="price" value="595" oninput="upd()"></td><td><input class="qty" value="0" min="0" oninput="upd()"></td><td class="sub">—</td></tr>
+<tr><td>Shopfront</td><td><input class="price" value="1200" oninput="upd()"></td><td><input class="qty" value="0" min="0" oninput="upd()"></td><td class="sub">—</td></tr>
 </tbody>
 <tfoot>
-<tr><td colspan="3">TOTAL</td><td id="grand">£0</td></tr>
+<tr><td colspan="3"><strong>TOTAL</strong></td><td id="grand">£0</td></tr>
 </tfoot>
 </table>
 <script>
@@ -70,13 +68,11 @@ function upd(){
   var rows=document.querySelectorAll('tbody tr:not(.sec)');
   var total=0;
   for(var i=0;i<rows.length;i++){
-    var inp=rows[i].querySelector('input');
-    var td=rows[i].cells[3];
-    if(!inp)continue;
-    var q=parseFloat(inp.value)||0;
-    var p=parseFloat(inp.dataset.price)||0;
-    var v=q*p;
+    var p=parseFloat(rows[i].querySelector('.price').value)||0;
+    var q=parseFloat(rows[i].querySelector('.qty').value)||0;
+    var v=p*q;
     total+=v;
+    var td=rows[i].querySelector('.sub');
     td.textContent=q>0?'£'+v.toLocaleString('en-GB'):'—';
   }
   document.getElementById('grand').textContent='£'+total.toLocaleString('en-GB');
