@@ -86,7 +86,7 @@ header p{font-size:11px;opacity:.7;margin-top:3px}
 <button class="dbtn" onclick="chg('doorCount',1)">+</button>
 </div>
 <div class="banner">
-<span id="cLbl">No doors entered</span>
+<span id="cLbl">Enter number of doors above</span>
 <span class="bval" id="cVal">&#163;0</span>
 </div>
 </div>
@@ -132,7 +132,7 @@ header p{font-size:11px;opacity:.7;margin-top:3px}
 <div class="por" id="porBanner">Carcass for 50+ doors is <strong>Price on Request</strong> &#8212; please contact us.</div>
 
 <div class="totcard">
-<div class="trow"><span class="tl">Doors (<span id="dSum">0</span>)</span><span class="tv" id="T_doors">&#163;0</span></div>
+<div class="trow"><span class="tl">Doors (<span id="dSum">0</span> x &#163;95 each)</span><span class="tv" id="T_doors">&#163;0</span></div>
 <div class="trow"><span class="tl">Carcass</span><span class="tv" id="T_carc">&#163;0</span></div>
 <div class="trow"><span class="tl">Kitchen Extras</span><span class="tv" id="T_kex">&#163;0</span></div>
 <div class="trow"><span class="tl">Doors &amp; Frames</span><span class="tv" id="T_df">&#163;0</span></div>
@@ -209,19 +209,20 @@ function setT(id,qty,price){
   return qty*price;
 }
 function getCarc(n){
-  if(n===0)return{lbl:'No doors entered',price:0,por:false};
-  if(n<=20)return{lbl:'Small carcass (up to 20)',price:P.carcassSmall,por:false};
-  if(n<=30)return{lbl:'Medium carcass (21-30)',price:P.carcassMed,por:false};
-  if(n<=40)return{lbl:'Large carcass (31-40)',price:P.carcassLarge,por:false};
-  if(n<=50)return{lbl:'Extra Large carcass (41-50)',price:P.carcassXL,por:false};
-  return{lbl:'Over 50 doors - Price on Request',price:0,por:true};
+  if(n===0)return{lbl:'',price:0,por:false};
+  if(n<=20)return{lbl:'Small carcass (up to 20 doors)',price:P.carcassSmall,por:false};
+  if(n<=30)return{lbl:'Medium carcass (21–30 doors)',price:P.carcassMed,por:false};
+  if(n<=40)return{lbl:'Large carcass (31–40 doors)',price:P.carcassLarge,por:false};
+  if(n<=50)return{lbl:'Extra Large carcass (41–50 doors)',price:P.carcassXL,por:false};
+  return{lbl:'Over 50 doors — Price on Request',price:0,por:true};
 }
 function upd(){
   var doors=gv('doorCount');
   var c=getCarc(doors);
-  document.getElementById('cLbl').textContent=c.lbl;
+  var kitchenTotal=doors*P.doorUnit+c.price;
+  document.getElementById('cLbl').textContent=doors===0?'Enter number of doors above':doors+' doors + carcass ('+c.lbl+')';
   var cv=document.getElementById('cVal');
-  if(c.por){cv.textContent='POR';}else{cv.textContent=c.price===0?pound(0):pound(c.price);}
+  if(c.por){cv.textContent='POR';}else{cv.textContent=pound(kitchenTotal);}
   document.getElementById('porBanner').className='por'+(c.por?' on':'');
   var r1=setT('openRack',gv('openRack'),P.openRack);
   var r2=setT('extraColour',gv('extraColour'),P.extraColour);
