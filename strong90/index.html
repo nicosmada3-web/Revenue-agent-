@@ -272,6 +272,10 @@ body{
 }
 .gc-cell:not(.empty):hover .cell-pen{opacity:1;}
 .cell-pen:hover{background:rgba(0,0,0,0.7)!important;}
+/* Touch devices have no hover — always show pencil */
+@media(hover:none){
+  .gc-cell:not(.empty) .cell-pen{opacity:0.7;}
+}
 
 /* Note popover */
 #notePop{
@@ -402,7 +406,7 @@ body{
 <!-- FOOTER -->
 <div class="footer">
   <div class="finsight" id="insight">Plan your week. Claim your time.</div>
-  <div class="finsight" style="color:var(--tx3)">Hover a block → click ✎ to label it</div>
+  <div class="finsight" style="color:var(--tx3)">Tap ✎ on a block to label it</div>
   <div class="ftagline">168 hours. No excuses.</div>
 </div>
 
