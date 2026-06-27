@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    { "source": "/back2strong/strong90", "destination": "/back2strong/strong90/index.html" },
+    { "source": "/solihull",             "destination": "/solihull/index.html" },
+    { "source": "/solihull/coach",       "destination": "/solihull/coach/index.html" },
+    { "source": "/experimental/uksa",    "destination": "/experimental/uksa/index.html" }
+  ]
+}
