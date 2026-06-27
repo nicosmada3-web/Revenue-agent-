@@ -8,21 +8,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 :root{
-  --bg:#05060E;
-  --s1:#090B15;
-  --s2:#0E111D;
-  --s3:#141828;
-  --s4:#1A1F34;
-  --bdr:rgba(255,255,255,0.06);
-  --bdr2:rgba(255,255,255,0.13);
-  --acc:#FF4D00;
-  --acc-g:rgba(255,77,0,0.28);
-  --acc2:rgba(255,77,0,0.14);
+  --bg:#0D0E17;
+  --s1:#131521;
+  --s2:#181A2A;
+  --s3:#1E2135;
+  --s4:#252843;
+  --bdr:rgba(255,255,255,0.07);
+  --bdr2:rgba(255,255,255,0.14);
+  --acc:#E07328;
+  --acc-g:rgba(224,115,40,0.30);
+  --acc2:rgba(224,115,40,0.15);
   --grn:#00E87A;
   --grn-g:rgba(0,232,122,0.22);
-  --tx:#EEF1FA;
-  --tx2:#7A8699;
-  --tx3:#38435A;
+  --tx:#E2E5F0;
+  --tx2:#858898;
+  --tx3:#454860;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html,body{height:100%;}
@@ -45,7 +45,7 @@ body{
 /* left accent stripe */
 .hdr::before{
   content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
-  background:linear-gradient(180deg,#FF8050,var(--acc));
+  background:linear-gradient(180deg,#F09050,var(--acc));
 }
 /* bottom fade line */
 .hdr::after{
@@ -55,14 +55,14 @@ body{
 .hdr-glow{
   position:absolute;left:-80px;top:-80px;
   width:280px;height:280px;
-  background:radial-gradient(circle,rgba(255,77,0,0.08) 0%,transparent 65%);
+  background:radial-gradient(circle,rgba(224,115,40,0.08) 0%,transparent 65%);
   pointer-events:none;
 }
 
 /* logo mark badge */
 .logo-mark{
   width:38px;height:38px;flex-shrink:0;
-  background:linear-gradient(135deg,#FF6B35,var(--acc),#CC2200);
+  background:linear-gradient(135deg,#F09050,var(--acc),#A84010);
   border-radius:9px;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   font-family:'Bebas Neue',cursive;color:#fff;line-height:1;
@@ -74,7 +74,7 @@ body{
 .brand-text{display:flex;flex-direction:column;line-height:1;}
 .logo{
   font-family:'Bebas Neue',cursive;font-size:1.5rem;letter-spacing:.08em;
-  background:linear-gradient(135deg,#FF8050 0%,#FF4D00 55%,#CC2200 100%);
+  background:linear-gradient(135deg,#F09050 0%,#E07328 55%,#A84010 100%);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
   filter:drop-shadow(0 0 10px rgba(255,77,0,0.4));
 }
@@ -131,7 +131,7 @@ body{
 
 /* ── PROGRESS BAR ── */
 .pb-wrap{height:2px;background:rgba(255,77,0,0.06);flex-shrink:0;}
-.pb{height:100%;background:linear-gradient(90deg,#FF8050,var(--acc));width:0%;transition:width .5s;box-shadow:0 0 6px rgba(255,77,0,0.7);}
+.pb{height:100%;background:linear-gradient(90deg,#F09050,var(--acc));width:0%;transition:width .5s;box-shadow:0 0 6px rgba(224,115,40,0.7);}
 
 /* ── APP BODY ── */
 .app{display:flex;flex:1;overflow:hidden;}
