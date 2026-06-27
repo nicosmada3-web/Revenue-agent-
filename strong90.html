@@ -258,6 +258,20 @@ body{
   text-shadow:0 1px 3px rgba(0,0,0,0.55);
   font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:.02em;
 }
+/* Pencil icon — appears on hover of painted cells */
+.cell-pen{
+  position:absolute;top:2px;right:2px;
+  width:15px;height:15px;
+  background:rgba(0,0,0,0.45);
+  border-radius:3px;border:none;
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;color:rgba(255,255,255,0.9);
+  opacity:0;transition:opacity .15s;
+  cursor:pointer;pointer-events:auto;line-height:1;
+  padding:0;
+}
+.gc-cell:not(.empty):hover .cell-pen{opacity:1;}
+.cell-pen:hover{background:rgba(0,0,0,0.7)!important;}
 
 /* Note popover */
 #notePop{
@@ -388,6 +402,7 @@ body{
 <!-- FOOTER -->
 <div class="footer">
   <div class="finsight" id="insight">Plan your week. Claim your time.</div>
+  <div class="finsight" style="color:var(--tx3)">Hover a block → click ✎ to label it</div>
   <div class="ftagline">168 hours. No excuses.</div>
 </div>
 
@@ -540,6 +555,16 @@ function renderGrid(){
         cell.appendChild(nl);
       }
 
+      /* pencil edit button (painted cells only) */
+      if(catId){
+        const pen=document.createElement('button');
+        pen.className='cell-pen';pen.title='Label this block';pen.textContent='✎';
+        pen.addEventListener('mousedown',e=>{e.stopPropagation();e.preventDefault();});
+        pen.addEventListener('click',e=>{e.stopPropagation();openNote(cell,dStr,key);});
+        pen.addEventListener('touchstart',e=>{e.stopPropagation();e.preventDefault();openNote(cell,dStr,key);},{passive:false});
+        cell.appendChild(pen);
+      }
+
       /* mouse paint */
       cell.addEventListener('mousedown',e=>{
         e.preventDefault();
@@ -548,13 +573,6 @@ function renderGrid(){
         paint(cell);
       });
       cell.addEventListener('mouseover',()=>{if(painting)paint(cell);});
-
-      /* double-click → note editor (painted cells only) */
-      cell.addEventListener('dblclick',e=>{
-        e.stopPropagation();
-        if(!data[dStr]?.[key])return;
-        openNote(cell,dStr,key);
-      });
 
       /* touch paint */
       cell.addEventListener('touchstart',e=>{
