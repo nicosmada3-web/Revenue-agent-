@@ -191,16 +191,6 @@ h1,h2,h3,h4{font-family:'Bebas Neue',sans-serif;letter-spacing:0.05em;}
 </style>
 </head>
 <body>
-<!-- Hidden form so Netlify detects it on deploy. Every saved set is POSTed here,
-     giving coaches a central record under Netlify dashboard → Forms → training-log. -->
-<form name="training-log" netlify netlify-honeypot="bot-field" hidden>
-  <input type="text" name="student"/>
-  <input type="text" name="squad"/>
-  <input type="text" name="exercise"/>
-  <input type="text" name="date"/>
-  <input type="text" name="type"/>
-  <input type="text" name="detail"/>
-</form>
 <div id="app"></div>
 <script>
 /**
@@ -2801,25 +2791,20 @@ function App() {
         [entry.exercise]: [...(prev[entry.exercise] || []), newEntry]
       };
     });
-    // Send to the central coach record via Netlify Forms (no backend/build needed).
-    // Best-effort: device storage above is always the source of truth.
+    // Best-effort POST to coach record. Device storage is always source of truth.
     if (user) {
       const detail = entry.cardio ? entry.note || 'completed' : (entry.sets || []).map(s => `${s.weight || '?'}kg × ${s.reps || '?'}`).join(', ');
-      const body = new URLSearchParams({
-        'form-name': 'training-log',
-        student: user.name || '',
-        squad: user.squad || '',
-        exercise: entry.exercise,
-        date: entry.date,
-        type: entry.cardio ? 'cardio' : 'strength',
-        detail
-      });
-      fetch('/', {
+      fetch('/api/training-log', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: body.toString()
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          student: user.name || '',
+          squad: user.squad || '',
+          exercise: entry.exercise,
+          date: entry.date,
+          type: entry.cardio ? 'cardio' : 'strength',
+          detail
+        })
       }).catch(() => {});
     }
   }, [setLogs, user]);
