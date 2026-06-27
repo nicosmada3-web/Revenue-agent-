@@ -8,18 +8,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 :root{
-  --bg:#0A0C12;
-  --s1:#111420;
-  --s2:#181C2C;
-  --s3:#1F2438;
+  --bg:#07090F;
+  --s1:#0E1119;
+  --s2:#151A27;
+  --s3:#1C2235;
   --bdr:rgba(255,255,255,0.07);
-  --bdr2:rgba(255,255,255,0.12);
+  --bdr2:rgba(255,255,255,0.15);
   --acc:#FF4500;
-  --acc2:rgba(255,69,0,0.18);
+  --acc2:rgba(255,69,0,0.2);
   --acc3:rgba(255,69,0,0.08);
   --tx:#EEF0F5;
   --tx2:#9CA3AF;
-  --tx3:#5B6470;
+  --tx3:#4B5563;
   --green:#22C55E;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -33,16 +33,24 @@ body{
 
 /* ── HEADER ── */
 .hdr{
-  background:linear-gradient(180deg,#130800 0%,var(--s1) 100%);
-  border-bottom:1px solid var(--bdr);
+  background:linear-gradient(135deg,#1A0600 0%,#0E0B18 60%,var(--s1) 100%);
+  border-bottom:1px solid rgba(255,69,0,0.2);
   padding:13px 18px;
   display:flex;align-items:center;gap:14px;flex-wrap:wrap;
   flex-shrink:0;
+  position:relative;
+}
+.hdr::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,var(--acc) 0%,transparent 60%);
 }
 .brand{display:flex;align-items:baseline;gap:10px;}
 .logo{
-  font-family:'Bebas Neue',cursive;font-size:2rem;
-  color:var(--acc);letter-spacing:0.08em;line-height:1;
+  font-family:'Bebas Neue',cursive;font-size:2.2rem;
+  background:linear-gradient(135deg,#FF6B35 0%,#FF4500 50%,#CC3300 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  letter-spacing:0.08em;line-height:1;
+  filter:drop-shadow(0 0 12px rgba(255,69,0,0.4));
 }
 .logo-sub{
   font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;
@@ -72,25 +80,29 @@ body{
 .chip strong{color:var(--acc);font-weight:600;}
 
 /* ── STATS BAR ── */
-.stats{display:flex;border-bottom:1px solid var(--bdr);flex-shrink:0;}
+.stats{display:flex;border-bottom:1px solid var(--bdr);flex-shrink:0;background:var(--s1);}
 .stat{
-  flex:1;padding:9px 14px;border-right:1px solid var(--bdr);
-  text-align:center;
+  flex:1;padding:10px 14px;border-right:1px solid var(--bdr);
+  text-align:center;position:relative;transition:background .15s;
 }
 .stat:last-child{border-right:none;}
+.stat:hover{background:var(--s2);}
 .sv{
-  font-family:'Bebas Neue',cursive;font-size:1.55rem;
+  font-family:'Bebas Neue',cursive;font-size:1.6rem;
   line-height:1;letter-spacing:.05em;
 }
-.sv.hi{color:var(--acc);}
+.sv.hi{
+  color:var(--acc);
+  text-shadow:0 0 20px rgba(255,69,0,0.5);
+}
 .sl{
-  font-size:.62rem;color:var(--tx3);
-  text-transform:uppercase;letter-spacing:.1em;margin-top:1px;
+  font-size:.6rem;color:var(--tx3);
+  text-transform:uppercase;letter-spacing:.1em;margin-top:2px;
 }
 
 /* ── PROGRESS BAR ── */
-.pb-wrap{height:3px;background:var(--s2);flex-shrink:0;}
-.pb{height:100%;background:var(--acc);width:0%;transition:width .3s;}
+.pb-wrap{height:3px;background:rgba(255,69,0,0.1);flex-shrink:0;}
+.pb{height:100%;background:linear-gradient(90deg,#FF6B35,#FF4500);width:0%;transition:width .5s;box-shadow:0 0 8px rgba(255,69,0,0.6);}
 
 /* ── APP BODY ── */
 .app{display:flex;flex:1;overflow:hidden;}
@@ -173,26 +185,81 @@ body{
 
 /* Grid cells */
 .gc-cell{
-  height:22px;
-  border-bottom:1px solid rgba(255,255,255,.025);
+  height:24px;
+  border-bottom:1px solid rgba(255,255,255,.02);
   border-right:1px solid rgba(255,255,255,.03);
   cursor:crosshair;
   position:relative;
-  transition:filter .08s;
+  transition:filter .08s,opacity .08s;
 }
-.gc-cell.hs{border-bottom-color:rgba(255,255,255,.07);}
-.gc-cell:hover{filter:brightness(1.3);}
-.gc-cell.empty:hover{background:rgba(255,255,255,.07)!important;}
+.gc-cell.hs{border-bottom-color:rgba(255,255,255,.06);}
+.gc-cell:hover{filter:brightness(1.25);opacity:0.9;}
+.gc-cell.empty:hover{background:rgba(255,255,255,.05)!important;}
+.gc-cell:not(.empty){
+  background-image:linear-gradient(180deg,rgba(255,255,255,0.06) 0%,transparent 100%);
+}
 /* Current-time indicator */
 .now-line{
   position:absolute;left:0;right:0;height:2px;
   background:var(--acc);z-index:5;pointer-events:none;
   box-shadow:0 0 6px var(--acc);
 }
+/* Note label inside a painted cell */
+.cell-note{
+  position:absolute;bottom:1px;left:3px;right:3px;
+  font-size:9px;line-height:1;
+  color:rgba(255,255,255,0.92);
+  overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
+  pointer-events:none;
+  text-shadow:0 1px 2px rgba(0,0,0,0.5);
+}
+/* Note editor popover */
+#notePop{
+  position:fixed;z-index:500;
+  background:var(--s3);
+  border:1px solid var(--bdr2);
+  border-radius:8px;
+  box-shadow:0 8px 32px rgba(0,0,0,0.6);
+  padding:10px 12px 10px;
+  width:220px;
+  display:none;
+}
+.np-head{
+  font-size:.65rem;color:var(--tx3);
+  text-transform:uppercase;letter-spacing:.12em;
+  margin-bottom:6px;
+}
+.np-cat{
+  display:inline-block;width:8px;height:8px;
+  border-radius:2px;margin-right:5px;vertical-align:middle;
+}
+#noteIn{
+  width:100%;background:var(--s2);
+  border:1px solid var(--bdr);border-radius:5px;
+  color:var(--tx);font-size:.82rem;font-family:'Barlow',sans-serif;
+  padding:6px 8px;outline:none;box-sizing:border-box;
+  transition:border-color .15s;
+}
+#noteIn:focus{border-color:var(--acc);}
+#noteIn::placeholder{color:var(--tx3);}
+.np-actions{
+  display:flex;gap:6px;margin-top:8px;
+}
+.np-btn{
+  flex:1;padding:5px;border-radius:5px;
+  font-size:.72rem;font-family:'Barlow',sans-serif;
+  font-weight:600;cursor:pointer;border:none;
+  transition:all .12s;
+}
+.np-save{background:var(--acc);color:#fff;}
+.np-save:hover{filter:brightness(1.15);}
+.np-clear{background:var(--s2);border:1px solid var(--bdr);color:var(--tx3);}
+.np-clear:hover{border-color:#DC2626;color:#DC2626;}
 
 /* ── FOOTER ── */
 .footer{
-  border-top:1px solid var(--bdr);background:var(--s1);
+  border-top:1px solid rgba(255,69,0,0.15);
+  background:linear-gradient(90deg,#0E1119 0%,#130800 100%);
   padding:9px 18px;display:flex;align-items:center;
   gap:18px;flex-shrink:0;flex-wrap:wrap;
 }
@@ -200,7 +267,9 @@ body{
 .finsight strong{color:var(--tx);}
 .ftagline{
   margin-left:auto;font-family:'Bebas Neue',cursive;
-  font-size:1.05rem;letter-spacing:.09em;color:var(--acc);
+  font-size:1.1rem;letter-spacing:.1em;
+  color:var(--acc);
+  text-shadow:0 0 16px rgba(255,69,0,0.4);
 }
 
 /* ── MOBILE ── */
@@ -269,6 +338,16 @@ body{
 
 </div>
 
+<!-- NOTE POPOVER -->
+<div id="notePop">
+  <div class="np-head"><span class="np-cat" id="npDot"></span><span id="npLabel">Note</span> · <span id="npTime"></span></div>
+  <input id="noteIn" maxlength="60" placeholder="What are you doing here?"/>
+  <div class="np-actions">
+    <button class="np-btn np-save" id="npSave">Save</button>
+    <button class="np-btn np-clear" id="npClear">Clear</button>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <div class="footer">
   <div class="finsight" id="insight">Plan your week. Claim your time.</div>
@@ -301,8 +380,17 @@ let wOff=0;
 let data={};
 
 /* ── PERSISTENCE ── */
-function load(){try{const s=localStorage.getItem('s90v2');if(s)data=JSON.parse(s);}catch(e){}}
-function save(){try{localStorage.setItem('s90v2',JSON.stringify(data));}catch(e){}}
+let notes={};
+function load(){
+  try{const s=localStorage.getItem('s90v2');if(s)data=JSON.parse(s);}catch(e){}
+  try{const n=localStorage.getItem('s90notes');if(n)notes=JSON.parse(n);}catch(e){}
+}
+function save(){
+  try{localStorage.setItem('s90v2',JSON.stringify(data));}catch(e){}
+}
+function saveNotes(){
+  try{localStorage.setItem('s90notes',JSON.stringify(notes));}catch(e){}
+}
 
 /* ── DATES ── */
 function wDates(off){
@@ -395,6 +483,7 @@ function renderGrid(){
       cell.style.background=cat?`${cat.color}BB`:'';
       cell.dataset.d=dStr;
       cell.dataset.k=key;
+      cell.dataset.si=s;
 
       /* current-time line */
       if(dStr===todayStr&&wOff===0&&s===nowSlot){
@@ -405,6 +494,14 @@ function renderGrid(){
         cell.appendChild(line);
       }
 
+      /* note label */
+      const noteText=notes[dStr]?.[key]||'';
+      if(catId&&noteText){
+        const nl=document.createElement('div');
+        nl.className='cell-note';nl.textContent=noteText;
+        cell.appendChild(nl);
+      }
+
       /* mouse paint */
       cell.addEventListener('mousedown',e=>{
         e.preventDefault();
@@ -413,6 +510,13 @@ function renderGrid(){
         paint(cell);
       });
       cell.addEventListener('mouseover',()=>{if(painting)paint(cell);});
+
+      /* double-click → note editor (painted cells only) */
+      cell.addEventListener('dblclick',e=>{
+        e.stopPropagation();
+        if(!data[dStr]?.[key])return;
+        openNote(cell,dStr,key);
+      });
 
       /* touch paint */
       cell.addEventListener('touchstart',e=>{
@@ -543,6 +647,72 @@ document.addEventListener('keydown',e=>{
   if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;
   const cat=CATS.find(c=>c.key===e.key);
   if(cat){selCat=cat.id;renderPalette();}
+});
+
+/* ── NOTE EDITOR ── */
+let activeNote=null;
+
+function openNote(cell,dStr,key){
+  activeNote={cell,dStr,key};
+  const catId=data[dStr]?.[key];
+  const cat=catId?CM[catId]:null;
+  const slotIdx=parseInt(cell.dataset.si||0);
+  const m=SH*60+slotIdx*30,h=Math.floor(m/60),mn=m%60;
+  const h12=h>12?h-12:(h===0?12:h),ap=h>=12?'pm':'am';
+  const timeStr=`${h12}:${mn.toString().padStart(2,'0')}${ap}`;
+
+  document.getElementById('npDot').style.background=cat?cat.color:'#888';
+  document.getElementById('npLabel').textContent=cat?cat.label:'Block';
+  document.getElementById('npTime').textContent=timeStr;
+  document.getElementById('noteIn').value=notes[dStr]?.[key]||'';
+
+  const pop=document.getElementById('notePop');
+  pop.style.display='block';
+  const rect=cell.getBoundingClientRect();
+  let left=rect.right+10,top=rect.top-4;
+  const pw=pop.offsetWidth,ph=pop.offsetHeight;
+  if(left+pw>window.innerWidth-8)left=rect.left-pw-10;
+  if(top+ph>window.innerHeight-8)top=window.innerHeight-ph-8;
+  pop.style.left=Math.max(8,left)+'px';
+  pop.style.top=Math.max(8,top)+'px';
+  document.getElementById('noteIn').focus();
+  document.getElementById('noteIn').select();
+}
+
+function saveNote(){
+  if(!activeNote)return;
+  const{cell,dStr,key}=activeNote;
+  const val=document.getElementById('noteIn').value.trim();
+  if(!notes[dStr])notes[dStr]={};
+  if(val)notes[dStr][key]=val;
+  else delete notes[dStr][key];
+  saveNotes();
+  closeNote();
+  renderGrid();
+}
+
+function clearNote(){
+  if(!activeNote)return;
+  const{dStr,key}=activeNote;
+  if(notes[dStr])delete notes[dStr][key];
+  saveNotes();
+  closeNote();
+  renderGrid();
+}
+
+function closeNote(){
+  document.getElementById('notePop').style.display='none';
+  activeNote=null;
+}
+
+document.getElementById('npSave').onclick=saveNote;
+document.getElementById('npClear').onclick=clearNote;
+document.getElementById('noteIn').addEventListener('keydown',e=>{
+  if(e.key==='Enter')saveNote();
+  if(e.key==='Escape')closeNote();
+});
+document.addEventListener('mousedown',e=>{
+  if(activeNote&&!document.getElementById('notePop').contains(e.target))closeNote();
 });
 
 /* ── BOOT ── */
