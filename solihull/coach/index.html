@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Solihull School Rugby — Coach Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --maroon:#6B1A2B;--maroon-l:#8B2236;--maroon-d:#4A1020;
+  --navy:#0D1B2A;--navy-m:#1A2E45;--navy-l:#243850;
+  --gold:#C9A84C;--white:#F5F1EB;--grey:#8A9BAE;--green:#2D6A4F;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--navy);color:var(--white);font-family:'Barlow',sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4{font-family:'Bebas Neue',sans-serif;letter-spacing:0.05em;}
+
+/* LOGIN */
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;
+  background:linear-gradient(160deg,var(--maroon-d) 0%,var(--navy) 55%);}
+.login-card{width:100%;max-width:380px;background:var(--navy-m);border:1px solid var(--navy-l);
+  border-radius:14px;padding:32px 24px;box-shadow:0 24px 60px rgba(0,0,0,.5);}
+.badge{width:60px;height:60px;background:var(--gold);border-radius:50%;display:flex;align-items:center;
+  justify-content:center;margin:0 auto 14px;font-family:'Bebas Neue';font-size:22px;color:var(--navy);}
+.login-card h2{font-size:28px;text-align:center;margin-bottom:2px;}
+.login-card .sub{text-align:center;color:var(--gold);font-family:'Barlow Condensed';font-size:11px;
+  letter-spacing:.15em;text-transform:uppercase;margin-bottom:24px;}
+.field label{display:block;font-family:'Barlow Condensed';font-size:11px;color:var(--grey);
+  text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
+.field{margin-bottom:16px;}
+.field input{width:100%;padding:13px 14px;border-radius:8px;border:1px solid var(--navy-l);
+  background:#0D1B2A;color:var(--white);font-size:16px;font-family:'Barlow',sans-serif;outline:none;}
+.field input:focus{border-color:var(--gold);}
+.login-btn{width:100%;margin-top:16px;padding:14px;border:none;border-radius:8px;cursor:pointer;
+  background:linear-gradient(180deg,var(--maroon-l),var(--maroon-d));color:var(--white);
+  font-family:'Bebas Neue';font-size:20px;letter-spacing:.08em;}
+.err{color:#f87171;font-family:'Barlow Condensed';font-size:12px;text-align:center;margin-top:12px;display:none;}
+
+/* HEADER */
+.app-header{background:linear-gradient(135deg,var(--maroon-d),var(--navy) 60%);
+  padding:20px;border-bottom:1px solid rgba(201,168,76,0.3);display:flex;align-items:center;gap:14px;}
+.app-header .badge{width:48px;height:48px;font-size:18px;margin:0;flex:0 0 auto;}
+.app-header h1{font-size:clamp(20px,4vw,32px);line-height:1;}
+.app-header .sub2{color:var(--gold);font-family:'Barlow Condensed';font-size:11px;letter-spacing:.15em;text-transform:uppercase;}
+.app-header .actions{margin-left:auto;display:flex;gap:8px;align-items:center;}
+.btn-sm{background:none;border:1px solid var(--navy-l);color:var(--grey);padding:7px 13px;border-radius:6px;
+  cursor:pointer;font-family:'Barlow Condensed';font-size:12px;text-transform:uppercase;letter-spacing:.06em;transition:all .15s;}
+.btn-sm:hover{border-color:var(--gold);color:var(--gold);}
+
+/* SUMMARY */
+.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:16px;max-width:900px;margin:0 auto;}
+@media(max-width:600px){.summary{grid-template-columns:1fr 1fr;}}
+.stat-card{background:var(--navy-m);border:1px solid var(--navy-l);border-radius:10px;padding:14px;text-align:center;}
+.stat-card .big{font-family:'Bebas Neue';font-size:36px;color:var(--gold);line-height:1;}
+.stat-card .lbl{font-family:'Barlow Condensed';font-size:11px;color:var(--grey);text-transform:uppercase;margin-top:2px;}
+
+/* SQUADS */
+.squads{padding:0 16px 12px;max-width:900px;margin:0 auto;display:flex;gap:8px;flex-wrap:wrap;}
+.sq-btn{background:var(--navy-m);border:1px solid var(--navy-l);color:var(--grey);padding:7px 14px;
+  border-radius:6px;cursor:pointer;font-family:'Barlow Condensed';font-size:13px;font-weight:600;
+  text-transform:uppercase;transition:all .15s;}
+.sq-btn.active{background:var(--maroon);color:var(--white);border-color:var(--maroon-l);}
+
+/* GRID */
+.grid{padding:0 16px 40px;max-width:900px;margin:0 auto;display:grid;
+  grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:580px){.grid{grid-template-columns:1fr;}}
+
+/* STUDENT CARD */
+.s-card{background:var(--navy-m);border:1px solid var(--navy-l);border-radius:10px;overflow:hidden;
+  cursor:pointer;transition:border-color .15s;}
+.s-card:hover{border-color:rgba(201,168,76,.4);}
+.s-card.open{border-color:rgba(201,168,76,.5);}
+.s-top{padding:14px 16px;}
+.s-name{font-family:'Bebas Neue';font-size:22px;line-height:1.1;}
+.s-squad{display:inline-block;margin-top:4px;background:rgba(201,168,76,.12);color:var(--gold);
+  border:1px solid rgba(201,168,76,.3);border-radius:4px;padding:2px 8px;
+  font-family:'Barlow Condensed';font-size:11px;text-transform:uppercase;}
+.s-meta{display:flex;gap:12px;margin-top:10px;flex-wrap:wrap;}
+.s-meta span{font-family:'Barlow Condensed';font-size:12px;color:var(--grey);}
+.s-meta span b{color:var(--white);}
+.s-lifts{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
+.lift-chip{background:#0D1B2A;border-radius:5px;padding:4px 9px;font-family:'Barlow Condensed';font-size:12px;}
+.lift-chip .lv{color:var(--gold);font-size:14px;display:block;font-weight:700;}
+.lift-chip .ln{color:var(--grey);font-size:10px;}
+.s-detail{border-top:1px solid var(--navy-l);padding:14px 16px;background:rgba(0,0,0,.2);display:none;}
+.s-card.open .s-detail{display:block;}
+.ex-row{margin-bottom:10px;}
+.ex-row .ex-n{font-family:'Barlow Condensed';font-size:13px;font-weight:700;color:var(--white);margin-bottom:4px;}
+.ex-hist{display:flex;gap:5px;flex-wrap:wrap;}
+.hist-chip{background:var(--navy);border-radius:4px;padding:3px 8px;font-size:11px;font-family:'Barlow Condensed';}
+.hist-chip .v{color:var(--gold);font-size:12px;display:block;}
+.hist-chip .d{color:var(--grey);font-size:10px;}
+.empty{padding:40px;text-align:center;color:var(--grey);font-size:14px;grid-column:1/-1;}
+.loading{padding:40px;text-align:center;color:var(--grey);font-size:14px;grid-column:1/-1;}
+.tag-active{background:rgba(45,106,79,.2);color:#4ade80;border:1px solid rgba(45,106,79,.4);
+  border-radius:4px;padding:1px 6px;font-family:'Barlow Condensed';font-size:11px;margin-left:6px;}
+.tag-inactive{background:rgba(138,155,174,.1);color:var(--grey);border:1px solid rgba(138,155,174,.2);
+  border-radius:4px;padding:1px 6px;font-family:'Barlow Condensed';font-size:11px;margin-left:6px;}
+.last-updated{padding:6px 16px;font-family:'Barlow Condensed';font-size:11px;color:var(--grey);
+  text-align:center;border-top:1px solid var(--navy-l);margin-top:16px;}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginWrap" class="login-wrap">
+  <div class="login-card">
+    <div class="badge">S</div>
+    <h2>COACH DASHBOARD</h2>
+    <p class="sub">Solihull School Rugby</p>
+    <div class="field">
+      <label for="pw">Coach password</label>
+      <input id="pw" type="password" placeholder="Enter password" autocomplete="current-password"/>
+    </div>
+    <button class="login-btn" id="loginBtn">View Dashboard →</button>
+    <p class="err" id="loginErr">Wrong password — try again.</p>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dash" style="display:none">
+  <div class="app-header">
+    <div class="badge">S</div>
+    <div>
+      <h1>COACH DASHBOARD</h1>
+      <div class="sub2">Solihull School Rugby · S&amp;C</div>
+    </div>
+    <div class="actions">
+      <button class="btn-sm" id="refreshBtn">↻ Refresh</button>
+      <button class="btn-sm" id="signOutBtn">Sign out</button>
+    </div>
+  </div>
+
+  <div class="summary">
+    <div class="stat-card"><div class="big" id="statStudents">—</div><div class="lbl">Students</div></div>
+    <div class="stat-card"><div class="big" id="statActive">—</div><div class="lbl">Active this week</div></div>
+    <div class="stat-card"><div class="big" id="statSessions">—</div><div class="lbl">Total sessions</div></div>
+    <div class="stat-card"><div class="big" id="statSets">—</div><div class="lbl">Sets logged</div></div>
+  </div>
+
+  <div class="squads" id="squadTabs"></div>
+  <div class="grid" id="studentGrid"></div>
+  <div class="last-updated" id="lastUpdated"></div>
+</div>
+
+<script>
+const KEY_LIFTS = ['Back Squat','Bench Press','Deadlift','Overhead Press','Romanian Deadlift','Trap Bar Deadlift','Push Press'];
+let password = '';
+let allStudents = [];
+let activeSquad = 'All';
+let openCard = null;
+
+// ── AUTH ──────────────────────────────────────────────────────────────
+document.getElementById('pw').addEventListener('keydown', e => { if(e.key==='Enter') login(); });
+document.getElementById('loginBtn').addEventListener('click', login);
+
+async function login() {
+  const pw = document.getElementById('pw').value.trim();
+  if (!pw) return;
+  document.getElementById('loginBtn').textContent = 'Loading…';
+  document.getElementById('loginErr').style.display = 'none';
+  try {
+    const res = await fetch(`/api/coach-data?password=${encodeURIComponent(pw)}`);
+    if (res.status === 401) {
+      document.getElementById('loginErr').style.display = 'block';
+      document.getElementById('loginBtn').textContent = 'View Dashboard →';
+      return;
+    }
+    if (!res.ok) throw new Error('Server error');
+    const { students } = await res.json();
+    password = pw;
+    allStudents = students;
+    sessionStorage.setItem('coach_pw', pw);
+    showDash();
+  } catch (e) {
+    document.getElementById('loginErr').textContent = 'Could not connect — try again.';
+    document.getElementById('loginErr').style.display = 'block';
+    document.getElementById('loginBtn').textContent = 'View Dashboard →';
+  }
+}
+
+// ── SESSION RESTORE ────────────────────────────────────────────────────
+window.addEventListener('load', async () => {
+  const saved = sessionStorage.getItem('coach_pw');
+  if (saved) {
+    document.getElementById('pw').value = saved;
+    await login();
+  }
+});
+
+// ── CONTROLS ──────────────────────────────────────────────────────────
+document.getElementById('signOutBtn').addEventListener('click', () => {
+  sessionStorage.removeItem('coach_pw');
+  password = '';
+  allStudents = [];
+  document.getElementById('dash').style.display = 'none';
+  document.getElementById('loginWrap').style.display = 'flex';
+  document.getElementById('loginBtn').textContent = 'View Dashboard →';
+  document.getElementById('pw').value = '';
+});
+
+document.getElementById('refreshBtn').addEventListener('click', async () => {
+  document.getElementById('refreshBtn').textContent = '↻ Loading…';
+  try {
+    const res = await fetch(`/api/coach-data?password=${encodeURIComponent(password)}`);
+    const { students } = await res.json();
+    allStudents = students;
+    renderGrid();
+  } catch {}
+  document.getElementById('refreshBtn').textContent = '↻ Refresh';
+});
+
+// ── SHOW DASHBOARD ────────────────────────────────────────────────────
+function showDash() {
+  document.getElementById('loginWrap').style.display = 'none';
+  document.getElementById('dash').style.display = 'block';
+  renderAll();
+}
+
+function renderAll() {
+  renderStats();
+  renderSquadTabs();
+  renderGrid();
+  document.getElementById('lastUpdated').textContent = 'Last loaded: ' + new Date().toLocaleTimeString('en-GB');
+}
+
+// ── STATS ─────────────────────────────────────────────────────────────
+function renderStats() {
+  const now = Date.now();
+  const weekAgo = now - 7 * 24 * 60 * 60 * 1000;
+  let totalSessions = 0, totalSets = 0, activeCount = 0;
+
+  allStudents.forEach(s => {
+    const lastSeen = s.lastSeen ? new Date(s.lastSeen).getTime() : 0;
+    if (lastSeen > weekAgo) activeCount++;
+    const { sessions, sets } = getStudentStats(s);
+    totalSessions += sessions;
+    totalSets += sets;
+  });
+
+  document.getElementById('statStudents').textContent = allStudents.length;
+  document.getElementById('statActive').textContent = activeCount;
+  document.getElementById('statSessions').textContent = totalSessions;
+  document.getElementById('statSets').textContent = totalSets;
+}
+
+// ── SQUAD TABS ────────────────────────────────────────────────────────
+function renderSquadTabs() {
+  const squads = ['All', ...new Set(allStudents.map(s => s.student.squad))].filter(Boolean);
+  const wrap = document.getElementById('squadTabs');
+  wrap.innerHTML = squads.map(sq =>
+    `<button class="sq-btn${sq===activeSquad?' active':''}" data-sq="${sq}">${sq}</button>`
+  ).join('');
+  wrap.querySelectorAll('.sq-btn').forEach(b => b.addEventListener('click', () => {
+    activeSquad = b.dataset.sq;
+    wrap.querySelectorAll('.sq-btn').forEach(x => x.classList.toggle('active', x===b));
+    renderGrid();
+  }));
+}
+
+// ── STUDENT GRID ──────────────────────────────────────────────────────
+function renderGrid() {
+  const filtered = activeSquad === 'All'
+    ? allStudents
+    : allStudents.filter(s => s.student.squad === activeSquad);
+
+  const grid = document.getElementById('studentGrid');
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div class="empty">No students logged yet for this squad.</div>';
+    return;
+  }
+
+  grid.innerHTML = filtered.map((s, i) => renderCard(s, i)).join('');
+  grid.querySelectorAll('.s-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const isOpen = card.classList.contains('open');
+      grid.querySelectorAll('.s-card').forEach(c => c.classList.remove('open'));
+      if (!isOpen) card.classList.add('open');
+    });
+  });
+}
+
+function renderCard(s, i) {
+  const { sessions, sets } = getStudentStats(s);
+  const prs = getKeyPRs(s);
+  const lastSeen = s.lastSeen ? new Date(s.lastSeen) : null;
+  const daysAgo = lastSeen ? Math.floor((Date.now() - lastSeen.getTime()) / 86400000) : null;
+  const activeTag = daysAgo !== null && daysAgo <= 7
+    ? `<span class="tag-active">Active</span>`
+    : (daysAgo !== null ? `<span class="tag-inactive">${daysAgo}d ago</span>` : '');
+
+  const prHtml = prs.map(p =>
+    `<div class="lift-chip"><span class="lv">${p.weight}kg</span><span class="ln">${p.name.replace('Core: ','')}</span></div>`
+  ).join('');
+
+  const detail = renderDetail(s);
+
+  return `<div class="s-card" id="card-${i}">
+    <div class="s-top">
+      <div class="s-name">${escHtml(s.student.name)}${activeTag}</div>
+      <span class="s-squad">${escHtml(s.student.squad)}</span>
+      <div class="s-meta">
+        <span><b>${sessions}</b> sessions</span>
+        <span><b>${sets}</b> sets</span>
+        ${lastSeen ? `<span>Last: <b>${formatDate(lastSeen)}</b></span>` : ''}
+      </div>
+      ${prHtml ? `<div class="s-lifts">${prHtml}</div>` : ''}
+    </div>
+    <div class="s-detail">${detail}</div>
+  </div>`;
+}
+
+function renderDetail(s) {
+  const exercises = Object.entries(s.logs || {});
+  if (exercises.length === 0) return '<p style="color:var(--grey);font-size:13px">No exercises logged yet.</p>';
+
+  return exercises.map(([name, entries]) => {
+    const chips = entries.map(e => {
+      if (e.cardio) {
+        return `<div class="hist-chip"><span class="v">${escHtml(e.note || 'Done')}</span><span class="d">${e.date}</span></div>`;
+      }
+      const top = (e.sets || []).reduce((a, b) => (parseFloat(b.weight)||0) > (parseFloat(a.weight)||0) ? b : a, e.sets?.[0] || {});
+      const label = top.weight ? `${top.weight}kg × ${top.reps}r` : (top.reps ? `${top.reps} reps` : '—');
+      return `<div class="hist-chip"><span class="v">${label}</span><span class="d">${e.date}</span></div>`;
+    }).join('');
+    return `<div class="ex-row"><div class="ex-n">${escHtml(name)}</div><div class="ex-hist">${chips}</div></div>`;
+  }).join('');
+}
+
+// ── HELPERS ───────────────────────────────────────────────────────────
+function getStudentStats(s) {
+  const dates = new Set();
+  let sets = 0;
+  Object.values(s.logs || {}).forEach(entries => {
+    entries.forEach(e => {
+      if (e.date) dates.add(e.date);
+      if (e.sets) sets += e.sets.length;
+    });
+  });
+  return { sessions: dates.size, sets };
+}
+
+function getKeyPRs(s) {
+  return KEY_LIFTS.flatMap(liftName => {
+    const entries = s.logs?.[liftName] || [];
+    let best = null;
+    entries.forEach(e => (e.sets||[]).forEach(set => {
+      const w = parseFloat(set.weight) || 0;
+      if (w > 0 && (!best || w > best.weight)) best = { weight: w, reps: set.reps };
+    }));
+    return best ? [{ name: liftName, ...best }] : [];
+  }).slice(0, 3);
+}
+
+function formatDate(d) {
+  return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+}
+
+function escHtml(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+</script>
+</body>
+</html>

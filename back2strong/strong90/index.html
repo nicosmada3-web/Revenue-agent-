@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Strong90 | Time Optimisation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0D0E17;
+  --s1:#131521;
+  --s2:#181A2A;
+  --s3:#1E2135;
+  --s4:#252843;
+  --bdr:rgba(255,255,255,0.07);
+  --bdr2:rgba(255,255,255,0.14);
+  --acc:#E07328;
+  --acc-g:rgba(224,115,40,0.30);
+  --acc2:rgba(224,115,40,0.15);
+  --grn:#00E87A;
+  --grn-g:rgba(0,232,122,0.22);
+  --tx:#E2E5F0;
+  --tx2:#858898;
+  --tx3:#454860;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;}
+body{
+  display:flex;flex-direction:column;height:100%;
+  background:var(--bg);color:var(--tx);
+  font-family:'Barlow',sans-serif;font-size:14px;
+  -webkit-font-smoothing:antialiased;overflow:hidden;
+}
+
+/* ── HEADER ── */
+.hdr{
+  background:var(--s1);
+  border-bottom:1px solid var(--bdr);
+  padding:0 20px;
+  display:flex;align-items:center;gap:16px;
+  flex-shrink:0;height:58px;
+  position:relative;overflow:hidden;
+}
+/* left accent stripe */
+.hdr::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(180deg,#F09050,var(--acc));
+}
+/* bottom fade line */
+.hdr::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,var(--acc) 0%,rgba(255,77,0,0.06) 45%,transparent 75%);
+}
+.hdr-glow{
+  position:absolute;left:-80px;top:-80px;
+  width:280px;height:280px;
+  background:radial-gradient(circle,rgba(224,115,40,0.08) 0%,transparent 65%);
+  pointer-events:none;
+}
+
+/* logo mark badge */
+.logo-mark{
+  width:38px;height:38px;flex-shrink:0;
+  background:linear-gradient(135deg,#F09050,var(--acc),#A84010);
+  border-radius:9px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font-family:'Bebas Neue',cursive;color:#fff;line-height:1;
+  box-shadow:0 0 18px var(--acc-g),0 2px 8px rgba(0,0,0,0.4);
+  font-size:17px;letter-spacing:.04em;
+}
+.logo-mark span{font-size:10px;opacity:.85;letter-spacing:.06em;}
+
+.brand-text{display:flex;flex-direction:column;line-height:1;}
+.logo{
+  font-family:'Bebas Neue',cursive;font-size:1.5rem;letter-spacing:.08em;
+  background:linear-gradient(135deg,#F09050 0%,#E07328 55%,#A84010 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 0 10px rgba(255,77,0,0.4));
+}
+.logo-sub{
+  font-family:'Barlow Condensed',sans-serif;font-size:.58rem;font-weight:700;
+  color:var(--tx3);letter-spacing:.22em;text-transform:uppercase;margin-top:2px;
+}
+
+.chip{
+  font-size:.67rem;font-family:'Barlow Condensed',sans-serif;font-weight:600;
+  color:var(--tx3);background:rgba(255,255,255,0.04);
+  border:1px solid var(--bdr);border-radius:20px;padding:4px 12px;
+  white-space:nowrap;letter-spacing:.08em;text-transform:uppercase;
+}
+.chip strong{color:var(--tx2);}
+
+.week-nav{
+  display:flex;align-items:center;gap:4px;
+  background:rgba(255,255,255,0.04);
+  border:1px solid var(--bdr);border-radius:8px;
+  padding:4px 6px;margin-left:auto;
+}
+.nbtn{
+  width:28px;height:28px;background:transparent;border:none;
+  color:var(--tx2);border-radius:5px;cursor:pointer;font-size:1.1rem;
+  display:flex;align-items:center;justify-content:center;transition:all .15s;
+  line-height:1;
+}
+.nbtn:hover{background:var(--acc2);color:var(--acc);}
+.nbtn.tw{
+  font-size:.7rem;font-weight:700;width:auto;padding:0 10px;
+  font-family:'Barlow Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase;
+}
+#wkLabel{
+  font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:600;
+  color:var(--tx);letter-spacing:.03em;min-width:168px;text-align:center;
+}
+
+/* ── STATS BAR ── */
+.stats{display:flex;border-bottom:1px solid var(--bdr);flex-shrink:0;background:var(--s1);}
+.stat{
+  flex:1;padding:12px 16px;border-right:1px solid var(--bdr);
+  position:relative;transition:background .15s;
+}
+.stat:last-child{border-right:none;}
+.stat:hover{background:rgba(255,255,255,0.02);}
+/* top accent bar per stat */
+.stat::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--bdr);}
+.stat.s-acc::after{background:var(--acc);box-shadow:0 0 8px var(--acc-g);}
+.stat.s-grn::after{background:var(--grn);box-shadow:0 0 8px var(--grn-g);}
+.sv{font-family:'Bebas Neue',cursive;font-size:1.8rem;line-height:1;letter-spacing:.04em;color:var(--tx);}
+.sv.hi{color:var(--grn);text-shadow:0 0 20px var(--grn-g);}
+.sl{font-family:'Barlow Condensed',sans-serif;font-size:.6rem;color:var(--tx3);text-transform:uppercase;letter-spacing:.13em;margin-top:3px;}
+
+/* ── PROGRESS BAR ── */
+.pb-wrap{height:2px;background:rgba(255,77,0,0.06);flex-shrink:0;}
+.pb{height:100%;background:linear-gradient(90deg,#F09050,var(--acc));width:0%;transition:width .5s;box-shadow:0 0 6px rgba(224,115,40,0.7);}
+
+/* ── APP BODY ── */
+.app{display:flex;flex:1;overflow:hidden;}
+
+/* ── SIDEBAR ── */
+.side{
+  width:160px;flex-shrink:0;background:var(--s1);
+  border-right:1px solid var(--bdr);
+  display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;
+}
+.ssec{padding:12px 10px 6px;}
+.shd{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.57rem;color:var(--tx3);text-transform:uppercase;
+  letter-spacing:.2em;padding:0 4px;margin-bottom:8px;font-weight:700;
+}
+.cbtn{
+  display:flex;align-items:center;gap:8px;
+  padding:7px 8px 7px 10px;border-radius:6px;
+  cursor:pointer;border:1px solid transparent;
+  background:transparent;color:var(--tx);width:100%;text-align:left;
+  transition:all .12s;margin-bottom:2px;
+  position:relative;overflow:hidden;
+}
+/* colour stripe left edge — set via --c inline */
+.cbtn::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:2px;
+  background:var(--c,#444);
+  opacity:0.45;transition:opacity .12s,width .12s;border-radius:2px 0 0 2px;
+}
+.cbtn:hover{background:rgba(255,255,255,0.04);}
+.cbtn:hover::before{opacity:.85;}
+.cbtn.on{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.09);}
+.cbtn.on::before{opacity:1;width:3px;}
+.cdot{display:none;}
+.clbl{font-size:.78rem;font-weight:500;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  font-family:'Barlow Condensed',sans-serif;letter-spacing:.02em;}
+.ckey{font-size:.58rem;color:var(--tx3);background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.07);border-radius:3px;padding:1px 5px;font-family:monospace;}
+.sdiv{border-top:1px solid var(--bdr);margin:6px 10px;}
+.trow{display:flex;align-items:center;gap:7px;padding:4px 4px;}
+.tdot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
+.tlbl{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;color:var(--tx2);
+  flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.tval{font-family:'Bebas Neue',cursive;font-size:.88rem;color:var(--tx);letter-spacing:.04em;}
+.abtn{
+  display:block;width:calc(100% - 16px);margin:3px 8px;
+  padding:7px;background:transparent;
+  border:1px solid rgba(255,255,255,0.07);
+  color:var(--tx3);border-radius:6px;cursor:pointer;
+  font-size:.68rem;font-family:'Barlow Condensed',sans-serif;
+  font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  transition:all .12s;text-align:center;
+}
+.abtn:hover{border-color:#DC2626;color:#DC2626;}
+
+/* ── GRID ── */
+.gc{flex:1;overflow:auto;background:var(--bg);position:relative;}
+.pg{
+  display:grid;
+  grid-template-columns:44px repeat(7,minmax(80px,1fr));
+  min-width:610px;
+  user-select:none;-webkit-user-select:none;
+}
+
+/* Day headers */
+.dh{
+  background:var(--s1);
+  border-bottom:1px solid var(--bdr);
+  border-right:1px solid var(--bdr);
+  padding:9px 4px;text-align:center;
+  position:sticky;top:0;z-index:20;
+}
+.dh.tc{position:sticky;top:0;left:0;z-index:30;}
+.dn{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:700;
+  color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;}
+.dd{font-family:'Bebas Neue',cursive;font-size:.9rem;color:var(--tx2);margin-top:2px;letter-spacing:.06em;}
+.dh.tod{border-bottom:2px solid var(--acc);}
+.dh.tod .dn{color:var(--acc);}
+.dh.tod .dd{color:var(--tx);}
+
+/* Time column */
+.tl{
+  text-align:right;padding:0 6px 0 0;
+  font-size:.57rem;color:var(--tx3);
+  font-family:'Barlow Condensed',sans-serif;letter-spacing:.04em;
+  border-right:1px solid var(--bdr);
+  display:flex;align-items:flex-start;justify-content:flex-end;
+  padding-top:2px;
+  position:sticky;left:0;background:var(--bg);z-index:10;
+}
+.tl.hr{color:rgba(120,134,153,.5);}
+
+/* Grid cells */
+.gc-cell{
+  height:26px;
+  border-bottom:1px solid rgba(255,255,255,.022);
+  border-right:1px solid rgba(255,255,255,.022);
+  cursor:crosshair;
+  position:relative;
+  transition:filter .07s;
+}
+.gc-cell.hs{border-bottom-color:rgba(255,255,255,.06);}
+.gc-cell.empty:hover{background:rgba(255,255,255,.042)!important;}
+.gc-cell:not(.empty){
+  background-image:linear-gradient(180deg,rgba(255,255,255,0.09) 0%,transparent 55%,rgba(0,0,0,0.08) 100%);
+}
+.gc-cell:not(.empty):hover{filter:brightness(1.18);}
+
+/* Current-time line — bright green */
+.now-line{
+  position:absolute;left:0;right:0;height:2px;
+  background:var(--grn);z-index:5;pointer-events:none;
+  box-shadow:0 0 8px var(--grn-g);
+}
+
+/* Note label */
+.cell-note{
+  position:absolute;bottom:1px;left:4px;right:3px;
+  font-size:9px;line-height:1;
+  color:rgba(255,255,255,0.92);
+  overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
+  pointer-events:none;
+  text-shadow:0 1px 3px rgba(0,0,0,0.55);
+  font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:.02em;
+}
+/* Pencil icon — appears on hover of painted cells */
+.cell-pen{
+  position:absolute;top:2px;right:2px;
+  width:15px;height:15px;
+  background:rgba(0,0,0,0.45);
+  border-radius:3px;border:none;
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;color:rgba(255,255,255,0.9);
+  opacity:0;transition:opacity .15s;
+  cursor:pointer;pointer-events:auto;line-height:1;
+  padding:0;
+}
+.gc-cell:not(.empty):hover .cell-pen{opacity:1;}
+.cell-pen:hover{background:rgba(0,0,0,0.7)!important;}
+/* Touch devices have no hover — always show pencil */
+@media(hover:none){
+  .gc-cell:not(.empty) .cell-pen{opacity:0.7;}
+}
+
+/* Note popover */
+#notePop{
+  position:fixed;z-index:500;
+  background:var(--s3);
+  border:1px solid var(--bdr2);
+  border-radius:10px;
+  box-shadow:0 20px 48px rgba(0,0,0,0.75),0 0 0 1px rgba(255,255,255,0.04);
+  padding:14px;width:230px;display:none;
+}
+.np-head{
+  font-family:'Barlow Condensed',sans-serif;font-size:.64rem;
+  color:var(--tx3);text-transform:uppercase;letter-spacing:.16em;
+  margin-bottom:9px;display:flex;align-items:center;gap:5px;
+}
+.np-cat{display:inline-block;width:7px;height:7px;border-radius:2px;flex-shrink:0;}
+#noteIn{
+  width:100%;background:var(--s2);
+  border:1px solid var(--bdr);border-radius:6px;
+  color:var(--tx);font-size:.85rem;font-family:'Barlow',sans-serif;
+  padding:8px 10px;outline:none;transition:border-color .15s,box-shadow .15s;
+}
+#noteIn:focus{border-color:rgba(255,77,0,0.45);box-shadow:0 0 0 3px rgba(255,77,0,0.08);}
+#noteIn::placeholder{color:var(--tx3);}
+.np-actions{display:flex;gap:6px;margin-top:9px;}
+.np-btn{
+  flex:1;padding:7px;border-radius:6px;
+  font-size:.7rem;font-family:'Barlow Condensed',sans-serif;
+  font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  cursor:pointer;border:none;transition:all .12s;
+}
+.np-save{background:var(--acc);color:#fff;}
+.np-save:hover{filter:brightness(1.12);}
+.np-clear{background:transparent;border:1px solid var(--bdr);color:var(--tx3);}
+.np-clear:hover{border-color:#DC2626;color:#DC2626;}
+
+/* ── FOOTER ── */
+.footer{
+  border-top:1px solid var(--bdr);
+  background:var(--s1);
+  padding:10px 20px;display:flex;align-items:center;
+  gap:18px;flex-shrink:0;flex-wrap:wrap;
+}
+.finsight{font-size:.78rem;color:var(--tx2);}
+.finsight strong{color:var(--tx);}
+.ftagline{
+  margin-left:auto;font-family:'Bebas Neue',cursive;
+  font-size:.95rem;letter-spacing:.18em;color:var(--tx3);
+}
+
+/* ── MOBILE ── */
+@media(max-width:600px){
+  .side{width:118px;}
+  .ckey,.logo-sub,.chip,.logo-mark{display:none;}
+  .sv{font-size:1.4rem;}
+  .stat{padding:9px 10px;}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-glow"></div>
+  <div class="brand">
+    <div class="logo-mark">S<span>90</span></div>
+    <div class="brand-text">
+      <div class="logo">Strong90</div>
+      <div class="logo-sub">Time Optimisation</div>
+    </div>
+  </div>
+  <div class="week-nav">
+    <button class="nbtn" id="prevW" title="Previous week">&#8249;</button>
+    <span id="wkLabel"></span>
+    <button class="nbtn" id="nextW" title="Next week">&#8250;</button>
+    <button class="nbtn tw" id="todayBtn">Today</button>
+  </div>
+  <div class="chip">For: <strong>Lee Thomas</strong></div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat"><div class="sv" id="sTotal">168</div><div class="sl">Hours / Week</div></div>
+  <div class="stat s-acc"><div class="sv" id="sPlanned">0</div><div class="sl">Planned</div></div>
+  <div class="stat s-grn"><div class="sv hi" id="sGrowth">0</div><div class="sl">Growth Hrs</div></div>
+  <div class="stat"><div class="sv" id="sLeft">168</div><div class="sl">Unaccounted</div></div>
+</div>
+<div class="pb-wrap"><div class="pb" id="pb"></div></div>
+
+<!-- APP -->
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <div class="side">
+    <div class="ssec">
+      <div class="shd">Paint (1–8)</div>
+      <div id="palette"></div>
+    </div>
+    <div class="sdiv"></div>
+    <div class="ssec">
+      <div class="shd">This Week</div>
+      <div id="totals"><div style="font-size:.7rem;color:var(--tx3);padding:0 6px;">No blocks yet</div></div>
+    </div>
+    <div class="sdiv"></div>
+    <div style="padding:8px 0 12px;">
+      <button class="abtn" id="clearToday">Clear Today</button>
+      <button class="abtn" id="clearWeek">Clear Week</button>
+    </div>
+  </div>
+
+  <!-- WEEKLY GRID -->
+  <div class="gc" id="gc">
+    <div class="pg" id="pg"></div>
+  </div>
+
+</div>
+
+<!-- NOTE POPOVER -->
+<div id="notePop">
+  <div class="np-head"><span class="np-cat" id="npDot"></span><span id="npLabel">Note</span> · <span id="npTime"></span></div>
+  <input id="noteIn" maxlength="60" placeholder="What are you doing here?"/>
+  <div class="np-actions">
+    <button class="np-btn np-save" id="npSave">Save</button>
+    <button class="np-btn np-clear" id="npClear">Clear</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="finsight" id="insight">Plan your week. Claim your time.</div>
+  <div class="finsight" style="color:var(--tx3)">Hover a block → click ✎ to label it</div>
+  <div class="ftagline">168 hours. No excuses.</div>
+</div>
+
+<script>
+/* ── DATA ── */
+const CATS=[
+  {id:'sleep', label:'Sleep',       color:'#3B82F6', key:'1', growth:false},
+  {id:'work',  label:'Work',        color:'#0EA5E9', key:'2', growth:false},
+  {id:'gym',   label:'Gym',         color:'#F97316', key:'3', growth:true },
+  {id:'griff', label:'Griff Stiff', color:'#EF4444', key:'4', growth:true },
+  {id:'admin', label:'Admin',       color:'#F59E0B', key:'5', growth:false},
+  {id:'drone', label:'Learn Drone', color:'#A855F7', key:'6', growth:true },
+  {id:'meals', label:'Meals',       color:'#22C55E', key:'7', growth:false},
+  {id:'other', label:'Other',       color:'#64748B', key:'8', growth:false},
+];
+const CM=Object.fromEntries(CATS.map(c=>[c.id,c]));
+
+const DAYS=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+const SH=5;   // 05:00
+const EH=23;  // 23:00
+const SLOTS=(EH-SH)*2; // 36 half-hour slots
+
+let selCat='gym';
+let painting=false;
+let pAction='set';
+let wOff=0;
+let data={};
+
+/* ── PERSISTENCE ── */
+let notes={};
+function load(){
+  try{const s=localStorage.getItem('s90v2');if(s)data=JSON.parse(s);}catch(e){}
+  try{const n=localStorage.getItem('s90notes');if(n)notes=JSON.parse(n);}catch(e){}
+}
+function save(){
+  try{localStorage.setItem('s90v2',JSON.stringify(data));}catch(e){}
+}
+function saveNotes(){
+  try{localStorage.setItem('s90notes',JSON.stringify(notes));}catch(e){}
+}
+
+/* ── DATES ── */
+function wDates(off){
+  const t=new Date(),dow=t.getDay();
+  const d2m=dow===0?-6:1-dow;
+  const mon=new Date(t);
+  mon.setDate(t.getDate()+d2m+off*7);
+  mon.setHours(0,0,0,0);
+  return Array.from({length:7},(_,i)=>{
+    const d=new Date(mon);d.setDate(mon.getDate()+i);return d;
+  });
+}
+function ds(d){return d.toISOString().slice(0,10);}
+
+/* slot index → "HHMM" key */
+function sk(i){
+  const m=SH*60+i*30,h=Math.floor(m/60),mn=m%60;
+  return `${h.toString().padStart(2,'0')}${mn.toString().padStart(2,'0')}`;
+}
+/* slot index → display label (only on the hour) */
+function slotLabel(i){
+  const m=SH*60+i*30,h=Math.floor(m/60),mn=m%60;
+  if(mn!==0)return'';
+  const h12=h>12?h-12:(h===0?12:h);
+  return`${h12}${h>=12?'pm':'am'}`;
+}
+
+/* ── PALETTE ── */
+function renderPalette(){
+  const p=document.getElementById('palette');
+  p.innerHTML='';
+  CATS.forEach(cat=>{
+    const b=document.createElement('button');
+    b.className='cbtn'+(cat.id===selCat?' on':'');
+    b.style.setProperty('--c',cat.color);
+    b.innerHTML=`<div class="cdot"style="background:${cat.color}"></div>`+
+                `<div class="clbl">${cat.label}</div>`+
+                `<div class="ckey">${cat.key}</div>`;
+    b.onclick=()=>{selCat=cat.id;renderPalette();};
+    p.appendChild(b);
+  });
+}
+
+/* ── GRID ── */
+function renderGrid(){
+  const pg=document.getElementById('pg');
+  pg.innerHTML='';
+  const dates=wDates(wOff);
+  const todayStr=ds(new Date());
+
+  /* week label */
+  const fmt={month:'short',day:'numeric'};
+  document.getElementById('wkLabel').textContent=
+    `${dates[0].toLocaleDateString('en-GB',fmt)} – `+
+    `${dates[6].toLocaleDateString('en-GB',{...fmt,year:'numeric'})}`;
+
+  /* ── header row ── */
+  const corner=document.createElement('div');
+  corner.className='dh tc';
+  pg.appendChild(corner);
+
+  dates.forEach((d,i)=>{
+    const el=document.createElement('div');
+    el.className='dh'+(ds(d)===todayStr?' tod':'');
+    el.innerHTML=`<div class="dn">${DAYS[i]}</div><div class="dd">${d.getDate()}</div>`;
+    pg.appendChild(el);
+  });
+
+  /* ── time rows ── */
+  const now=new Date();
+  const nowSlot=Math.floor((now.getHours()-SH)*2+(now.getMinutes()/30));
+
+  for(let s=0;s<SLOTS;s++){
+    const isHr=s%2===0;
+
+    /* time label */
+    const tl=document.createElement('div');
+    tl.className='tl'+(isHr?' hr':'');
+    tl.textContent=slotLabel(s);
+    pg.appendChild(tl);
+
+    /* day cells */
+    dates.forEach(d=>{
+      const dStr=ds(d);
+      const key=sk(s);
+      const catId=data[dStr]?.[key]||null;
+      const cat=catId?CM[catId]:null;
+
+      const cell=document.createElement('div');
+      cell.className='gc-cell'+(catId?'':' empty')+(isHr?' hs':'');
+      cell.style.background=cat?`${cat.color}BB`:'';
+      cell.dataset.d=dStr;
+      cell.dataset.k=key;
+      cell.dataset.si=s;
+
+      /* current-time line */
+      if(dStr===todayStr&&wOff===0&&s===nowSlot){
+        const pct=(now.getMinutes()%30)/30;
+        const line=document.createElement('div');
+        line.className='now-line';
+        line.style.top=`${Math.round(pct*22)}px`;
+        cell.appendChild(line);
+      }
+
+      /* note label */
+      const noteText=notes[dStr]?.[key]||'';
+      if(catId&&noteText){
+        const nl=document.createElement('div');
+        nl.className='cell-note';nl.textContent=noteText;
+        cell.appendChild(nl);
+      }
+
+      /* pencil edit button (painted cells only) */
+      if(catId){
+        const pen=document.createElement('button');
+        pen.className='cell-pen';pen.title='Label this block';pen.textContent='✎';
+        pen.addEventListener('mousedown',e=>{e.stopPropagation();e.preventDefault();});
+        pen.addEventListener('click',e=>{e.stopPropagation();openNote(cell,dStr,key);});
+        pen.addEventListener('touchstart',e=>{e.stopPropagation();e.preventDefault();openNote(cell,dStr,key);},{passive:false});
+        cell.appendChild(pen);
+      }
+
+      /* mouse paint */
+      cell.addEventListener('mousedown',e=>{
+        e.preventDefault();
+        painting=true;
+        pAction=(data[dStr]?.[key]===selCat)?'clear':'set';
+        paint(cell);
+      });
+      cell.addEventListener('mouseover',()=>{if(painting)paint(cell);});
+
+      /* touch paint */
+      cell.addEventListener('touchstart',e=>{
+        e.preventDefault();
+        painting=true;
+        pAction=(data[dStr]?.[key]===selCat)?'clear':'set';
+        paint(cell);
+      },{passive:false});
+
+      pg.appendChild(cell);
+    });
+  }
+
+  scrollToNow();
+  updateStats();
+}
+
+/* ── PAINT ── */
+function paint(cell){
+  const dStr=cell.dataset.d,key=cell.dataset.k;
+  if(!dStr||!key)return;
+  if(!data[dStr])data[dStr]={};
+  if(pAction==='clear'){
+    delete data[dStr][key];
+    cell.style.background='';
+    cell.classList.add('empty');
+  }else{
+    data[dStr][key]=selCat;
+    cell.style.background=`${CM[selCat].color}BB`;
+    cell.classList.remove('empty');
+  }
+  save();
+  updateStats();
+}
+
+/* touch move */
+document.addEventListener('touchmove',e=>{
+  if(!painting)return;
+  e.preventDefault();
+  const t=e.touches[0];
+  const el=document.elementFromPoint(t.clientX,t.clientY);
+  if(el&&el.classList.contains('gc-cell'))paint(el);
+},{passive:false});
+
+document.addEventListener('mouseup',()=>painting=false);
+document.addEventListener('touchend',()=>painting=false);
+
+/* ── STATS ── */
+function updateStats(){
+  const dates=wDates(wOff);
+  const cc={};CATS.forEach(c=>cc[c.id]=0);
+  let tot=0;
+  dates.forEach(d=>{
+    Object.values(data[ds(d)]||{}).forEach(cid=>{
+      if(cc[cid]!==undefined){cc[cid]++;tot++;}
+    });
+  });
+
+  const ph=(tot*.5).toFixed(1);
+  const growthSlots=CATS.filter(c=>c.growth).reduce((s,c)=>s+cc[c.id],0);
+  const gh=(growthSlots*.5).toFixed(1);
+  const uh=(168-parseFloat(ph)).toFixed(1);
+  const pct=Math.min(100,(parseFloat(ph)/168*100)).toFixed(1);
+
+  document.getElementById('sPlanned').textContent=ph;
+  document.getElementById('sGrowth').textContent=gh;
+  document.getElementById('sLeft').textContent=uh;
+  document.getElementById('pb').style.width=pct+'%';
+
+  /* sidebar totals */
+  const tEl=document.getElementById('totals');
+  tEl.innerHTML='';
+  let anyTot=false;
+  CATS.forEach(cat=>{
+    if(!cc[cat.id])return;
+    anyTot=true;
+    const r=document.createElement('div');r.className='trow';
+    r.innerHTML=`<div class="tdot"style="background:${cat.color}"></div>`+
+                `<div class="tlbl">${cat.label}</div>`+
+                `<div class="tval">${(cc[cat.id]*.5).toFixed(1)}h</div>`;
+    tEl.appendChild(r);
+  });
+  if(!anyTot)tEl.innerHTML='<div style="font-size:.7rem;color:var(--tx3);padding:0 6px;">No blocks yet</div>';
+
+  /* insight */
+  const gf=parseFloat(gh);
+  const ins=document.getElementById('insight');
+  if(gf>=10)
+    ins.innerHTML=`<strong>${gh} growth hours</strong> this week — you're stacking serious time. Keep going.`;
+  else if(gf>0)
+    ins.innerHTML=`You've claimed <strong>${gh} growth hours</strong> this week. Keep adding more.`;
+  else if(parseFloat(ph)>0)
+    ins.innerHTML=`${ph}h planned so far — add <strong>Gym</strong>, <strong>Griff Stiff</strong> or <strong>drone</strong> blocks to grow.`;
+  else
+    ins.innerHTML=`Click and drag to build your week. <strong>Every block counts.</strong>`;
+}
+
+/* ── SCROLL TO NOW ── */
+function scrollToNow(){
+  if(wOff!==0)return;
+  const now=new Date();
+  const h=now.getHours(),mn=now.getMinutes();
+  if(h<SH||h>=EH)return;
+  const slotIdx=(h-SH)*2+(mn>=30?1:0);
+  const gc=document.getElementById('gc');
+  gc.scrollTop=Math.max(0,slotIdx*22-120);
+}
+
+/* ── NAV ── */
+document.getElementById('prevW').onclick=()=>{wOff--;renderGrid();};
+document.getElementById('nextW').onclick=()=>{wOff++;renderGrid();};
+document.getElementById('todayBtn').onclick=()=>{wOff=0;renderGrid();};
+
+/* ── CLEAR ── */
+document.getElementById('clearToday').onclick=()=>{
+  const todayStr=ds(new Date());
+  delete data[todayStr];
+  save();renderGrid();
+};
+document.getElementById('clearWeek').onclick=()=>{
+  if(!confirm('Clear this entire week?'))return;
+  wDates(wOff).forEach(d=>delete data[ds(d)]);
+  save();renderGrid();
+};
+
+/* ── KEYBOARD ── */
+document.addEventListener('keydown',e=>{
+  if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;
+  const cat=CATS.find(c=>c.key===e.key);
+  if(cat){selCat=cat.id;renderPalette();}
+});
+
+/* ── NOTE EDITOR ── */
+let activeNote=null;
+
+function openNote(cell,dStr,key){
+  activeNote={cell,dStr,key};
+  const catId=data[dStr]?.[key];
+  const cat=catId?CM[catId]:null;
+  const slotIdx=parseInt(cell.dataset.si||0);
+  const m=SH*60+slotIdx*30,h=Math.floor(m/60),mn=m%60;
+  const h12=h>12?h-12:(h===0?12:h),ap=h>=12?'pm':'am';
+  const timeStr=`${h12}:${mn.toString().padStart(2,'0')}${ap}`;
+
+  document.getElementById('npDot').style.background=cat?cat.color:'#888';
+  document.getElementById('npLabel').textContent=cat?cat.label:'Block';
+  document.getElementById('npTime').textContent=timeStr;
+  document.getElementById('noteIn').value=notes[dStr]?.[key]||'';
+
+  const pop=document.getElementById('notePop');
+  pop.style.display='block';
+  const rect=cell.getBoundingClientRect();
+  let left=rect.right+10,top=rect.top-4;
+  const pw=pop.offsetWidth,ph=pop.offsetHeight;
+  if(left+pw>window.innerWidth-8)left=rect.left-pw-10;
+  if(top+ph>window.innerHeight-8)top=window.innerHeight-ph-8;
+  pop.style.left=Math.max(8,left)+'px';
+  pop.style.top=Math.max(8,top)+'px';
+  document.getElementById('noteIn').focus();
+  document.getElementById('noteIn').select();
+}
+
+function saveNote(){
+  if(!activeNote)return;
+  const{cell,dStr,key}=activeNote;
+  const val=document.getElementById('noteIn').value.trim();
+  if(!notes[dStr])notes[dStr]={};
+  if(val)notes[dStr][key]=val;
+  else delete notes[dStr][key];
+  saveNotes();
+  closeNote();
+  renderGrid();
+}
+
+function clearNote(){
+  if(!activeNote)return;
+  const{dStr,key}=activeNote;
+  if(notes[dStr])delete notes[dStr][key];
+  saveNotes();
+  closeNote();
+  renderGrid();
+}
+
+function closeNote(){
+  document.getElementById('notePop').style.display='none';
+  activeNote=null;
+}
+
+document.getElementById('npSave').onclick=saveNote;
+document.getElementById('npClear').onclick=clearNote;
+document.getElementById('noteIn').addEventListener('keydown',e=>{
+  if(e.key==='Enter')saveNote();
+  if(e.key==='Escape')closeNote();
+});
+document.addEventListener('mousedown',e=>{
+  if(activeNote&&!document.getElementById('notePop').contains(e.target))closeNote();
+});
+
+/* ── BOOT ── */
+load();
+renderPalette();
+renderGrid();
+</script>
+</body>
+</html>
