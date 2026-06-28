@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Coach Dashboard — Solihull School Rugby</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--maroon:#6B1A2B;--maroon-l:#8B2236;--maroon-d:#4A1020;--navy:#0D1B2A;--navy-m:#1A2E45;--navy-l:#243850;--gold:#C9A84C;--white:#F5F1EB;--grey:#8A9BAE;--green:#2D6A4F;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--navy);color:var(--white);font-family:'Barlow',sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4{font-family:'Bebas Neue',sans-serif;letter-spacing:0.05em;}
+
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(160deg,var(--maroon-d) 0%,var(--navy) 55%);}
+.login-card{width:100%;max-width:380px;background:var(--navy-m);border:1px solid var(--navy-l);border-radius:14px;padding:32px 24px;box-shadow:0 24px 60px rgba(0,0,0,.5);}
+.badge{width:60px;height:60px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-family:'Bebas Neue';font-size:22px;color:var(--navy);}
+.login-card h2{font-size:28px;text-align:center;margin-bottom:2px;}
+.login-card .sub{text-align:center;color:var(--gold);font-family:'Barlow Condensed';font-size:11px;letter-spacing:.15em;text-transform:uppercase;margin-bottom:24px;}
+.field label{display:block;font-family:'Barlow Condensed';font-size:11px;color:var(--grey);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
+.field{margin-bottom:16px;}
+.field input{width:100%;padding:13px 14px;border-radius:8px;border:1px solid var(--navy-l);background:#0D1B2A;color:var(--white);font-size:16px;font-family:'Barlow',sans-serif;outline:none;}
+.field input:focus{border-color:var(--gold);}
+.login-btn{width:100%;margin-top:16px;padding:14px;border:none;border-radius:8px;cursor:pointer;background:linear-gradient(180deg,var(--maroon-l),var(--maroon-d));color:var(--white);font-family:'Bebas Neue';font-size:20px;letter-spacing:.08em;}
+.err{color:#f87171;font-family:'Barlow Condensed';font-size:12px;text-align:center;margin-top:12px;display:none;}
+
+.app-header{background:linear-gradient(135deg,var(--maroon-d),var(--navy) 60%);padding:16px 20px;border-bottom:1px solid rgba(201,168,76,0.3);display:flex;align-items:center;gap:14px;}
+.app-header .badge{width:44px;height:44px;font-size:17px;margin:0;flex:0 0 auto;}
+.app-header h1{font-size:clamp(18px,4vw,28px);line-height:1;}
+.app-header .sub2{color:var(--gold);font-family:'Barlow Condensed';font-size:10px;letter-spacing:.15em;text-transform:uppercase;}
+.app-header .actions{margin-left:auto;display:flex;gap:8px;align-items:center;}
+.btn-sm{background:none;border:1px solid var(--navy-l);color:var(--grey);padding:6px 12px;border-radius:6px;cursor:pointer;font-family:'Barlow Condensed';font-size:11px;text-transform:uppercase;letter-spacing:.06em;transition:all .15s;}
+.btn-sm:hover{border-color:var(--gold);color:var(--gold);}
+
+main{max-width:900px;margin:0 auto;padding:24px 16px 80px;}
+.squad-filter{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+.squad-btn{padding:6px 14px;border-radius:20px;border:1px solid var(--navy-l);background:none;color:var(--grey);font-family:'Barlow Condensed';font-size:11px;text-transform:uppercase;letter-spacing:.08em;cursor:pointer;transition:all .15s;}
+.squad-btn.active,.squad-btn:hover{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,.08);}
+
+.student-card{background:var(--navy-m);border:1px solid var(--navy-l);border-radius:12px;margin-bottom:16px;overflow:hidden;}
+.student-header{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;border-bottom:1px solid transparent;transition:border-color .15s;}
+.student-header:hover{border-bottom-color:rgba(201,168,76,.2);}
+.student-avatar{width:40px;height:40px;background:linear-gradient(135deg,var(--maroon-l),var(--maroon-d));border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';font-size:16px;color:var(--gold);flex:0 0 auto;}
+.student-name{font-family:'Bebas Neue';font-size:18px;line-height:1;}
+.student-squad{font-family:'Barlow Condensed';font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-top:2px;}
+.student-meta{margin-left:auto;text-align:right;font-family:'Barlow Condensed';font-size:10px;color:var(--grey);text-transform:uppercase;}
+.student-body{display:none;padding:0 16px 16px;}
+.student-body.open{display:block;}
+
+.ex-section{margin-top:14px;}
+.ex-name{font-family:'Barlow Condensed';font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--grey);margin-bottom:6px;}
+.log-entry{background:rgba(255,255,255,.04);border-radius:8px;padding:10px 12px;margin-bottom:6px;}
+.log-date{font-family:'Barlow Condensed';font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;}
+.sets-row{display:flex;flex-wrap:wrap;gap:6px;}
+.set-chip{background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.25);border-radius:6px;padding:4px 8px;font-family:'Barlow Condensed';font-size:12px;color:var(--white);}
+.cardio-note{font-size:12px;color:var(--grey);font-style:italic;}
+
+.data-bar{background:rgba(255,255,255,.04);border-bottom:1px solid var(--navy-l);padding:8px 20px;font-family:'Barlow Condensed';font-size:10px;color:var(--grey);text-transform:uppercase;letter-spacing:.08em;display:flex;justify-content:space-between;align-items:center;}
+.data-bar .live{color:var(--green);}
+.data-bar .stale{color:var(--gold);}
+
+.empty{text-align:center;padding:48px 20px;color:var(--grey);font-family:'Barlow Condensed';font-size:13px;text-transform:uppercase;letter-spacing:.1em;}
+</style>
+</head>
+<body>
+
+<div id="loginWrap" class="login-wrap">
+  <div class="login-card">
+    <div class="badge">S</div>
+    <h2>Coach Dashboard</h2>
+    <p class="sub">Solihull School Rugby</p>
+    <div class="field">
+      <label for="pw">Coach password</label>
+      <input id="pw" type="password" placeholder="Enter password" autocomplete="current-password"/>
+    </div>
+    <button class="login-btn" id="loginBtn">View Dashboard →</button>
+    <p class="err" id="loginErr">Wrong password — try again.</p>
+  </div>
+</div>
+
+<div id="app" style="display:none">
+  <header class="app-header">
+    <div class="badge">S</div>
+    <div>
+      <h1>Coach Dashboard</h1>
+      <div class="sub2">Solihull School Rugby</div>
+    </div>
+    <div class="actions">
+      <button class="btn-sm" id="refreshBtn" onclick="refresh()">Refresh</button>
+      <button class="btn-sm" onclick="logout()">Sign Out</button>
+    </div>
+  </header>
+
+  <div class="data-bar">
+    <span id="dataStatus">Loading…</span>
+    <span id="dataCount"></span>
+  </div>
+
+  <main>
+    <div class="squad-filter" id="squadFilter"></div>
+    <div id="studentList"></div>
+  </main>
+</div>
+
+<script>
+const PW_HASH = 'a6b1d149f002e8832e2816da470bc902d5488db132bd6d24608a1b8e67efe6d0';
+const FORM_ID = '6a3303e2e9512500079738d7';
+const TOKEN = 'nfp_WYpKqiU89Ts3J3gBt3hnRqYwKyS6mukvcb00';
+
+const STATIC_STUDENTS = [
+  {student:{name:"Simeon Hughes",squad:"2nd XV"},lastSeen:"2026-06-26T19:52:15.007Z",logs:{"Back Squat":[{date:"26 Jun 26",sets:[{weight:"40",reps:"8"},{weight:"40",reps:"8"},{weight:"40",reps:"8"}]}],"Romanian Deadlift":[{date:"26 Jun 26",sets:[{weight:"40",reps:"8"},{weight:"40",reps:"8"},{weight:"40",reps:"8"}]}],"Nordic Hamstring Curl":[{date:"26 Jun 26",sets:[{weight:"0",reps:"6"}]}],"Leg Press":[{date:"26 Jun 26",sets:[{weight:"25",reps:"12"}]}]}},
+  {student:{name:"Patrick O'Brien",squad:"U15"},lastSeen:"2026-06-23T21:16:16.489Z",logs:{"Bench Press":[{date:"23 Jun 26",sets:[{weight:"50",reps:"10"},{weight:"60",reps:"5"},{weight:"60",reps:"5"},{weight:"70",reps:"3"}]}],"Bent-Over Row":[{date:"23 Jun 26",sets:[{weight:"60",reps:"8"},{weight:"60",reps:"8"},{weight:"60",reps:"8"},{weight:"60",reps:"5"}]}],"Incline DB Press":[{date:"23 Jun 26",sets:[{weight:"27.5",reps:"7"},{weight:"27.5",reps:"7"},{weight:"27.5",reps:"5"}]}]}},
+  {student:{name:"Tom C",squad:"Development"},lastSeen:"2026-06-23T11:16:25.687Z",logs:{"Bench Press":[{date:"23 Jun 26",sets:[{weight:"70",reps:"6"}]}]}},
+  {student:{name:"Tom Frost",squad:"U16A"},lastSeen:"2026-06-22T18:31:27.449Z",logs:{"Bench Press":[{date:"22 Jun 26",sets:[{weight:"30",reps:"12"},{weight:"35",reps:"12"},{weight:"35",reps:"12"},{weight:"35",reps:"12"}]}],"Incline DB Press":[{date:"22 Jun 26",sets:[{weight:"14",reps:"15"},{weight:"14",reps:"15"},{weight:"14",reps:"15"}]}]}},
+  {student:{name:"Matty Gardner",squad:"1st XV"},lastSeen:"2026-06-22T12:15:45.753Z",logs:{"Bench Press":[{date:"22 Jun 26",sets:[{weight:"60",reps:"12"},{weight:"80",reps:"6"},{weight:"80",reps:"6"}]}],"Incline DB Press":[{date:"22 Jun 26",sets:[{weight:"24",reps:"8"},{weight:"24",reps:"7"},{weight:"24",reps:"7"}]}]}}
+];
+
+let currentStudents = [];
+let currentSquad = 'all';
+let openCards = new Set();
+
+async function sha256(msg) {
+  const buf = new TextEncoder().encode(msg);
+  const hash = await crypto.subtle.digest('SHA-256', buf);
+  return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+document.getElementById('pw').addEventListener('keydown', e => { if(e.key==='Enter') login(); });
+document.getElementById('loginBtn').addEventListener('click', login);
+
+async function login() {
+  const pw = document.getElementById('pw').value.trim();
+  const btn = document.getElementById('loginBtn');
+  btn.textContent = 'Checking…';
+  const h = await sha256(pw);
+  if (h !== PW_HASH) {
+    document.getElementById('loginErr').style.display = 'block';
+    btn.textContent = 'View Dashboard →';
+    return;
+  }
+  document.getElementById('loginWrap').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  refresh();
+}
+
+function logout() {
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('loginWrap').style.display = 'flex';
+  document.getElementById('pw').value = '';
+}
+
+async function refresh() {
+  document.getElementById('dataStatus').textContent = 'Refreshing…';
+  document.getElementById('refreshBtn').textContent = 'Loading…';
+  document.getElementById('refreshBtn').disabled = true;
+  const live = await fetchLive();
+  if (live) {
+    currentStudents = live;
+    document.getElementById('dataStatus').innerHTML = '<span class="live">● Live data</span>';
+  } else {
+    currentStudents = STATIC_STUDENTS;
+    document.getElementById('dataStatus').innerHTML = '<span class="stale">● Cached — 28 Jun 2026</span>';
+  }
+  document.getElementById('dataCount').textContent = currentStudents.length + ' player' + (currentStudents.length !== 1 ? 's' : '');
+  document.getElementById('refreshBtn').textContent = 'Refresh';
+  document.getElementById('refreshBtn').disabled = false;
+  buildSquadFilter();
+  renderList();
+}
+
+async function fetchLive() {
+  try {
+    const res = await fetch(`https://api.netlify.com/api/v1/forms/${FORM_ID}/submissions?per_page=1000`, {
+      headers: { Authorization: `Bearer ${TOKEN}` }
+    });
+    if (!res.ok) return null;
+    const subs = await res.json();
+    return aggregate(subs);
+  } catch(e) {
+    return null;
+  }
+}
+
+function aggregate(submissions) {
+  const map = {};
+  for (const sub of submissions) {
+    const d = sub.data || {};
+    const key = `${(d.student||'').trim()}||${(d.squad||'').trim()}`;
+    if (key.startsWith('||')) continue;
+    if (!map[key]) map[key] = { student:{name:(d.student||'').trim(),squad:(d.squad||'').trim()}, logs:{}, lastSeen:sub.created_at };
+    const s = map[key];
+    if (sub.created_at > s.lastSeen) s.lastSeen = sub.created_at;
+    const ex = (d.exercise||'').trim();
+    if (!ex) continue;
+    if (!s.logs[ex]) s.logs[ex] = [];
+    const entry = { date: d.date || sub.created_at.slice(0,10) };
+    if (d.type === 'cardio') {
+      entry.cardio = true;
+      entry.note = d.detail || '';
+    } else {
+      const sets = (d.detail||'').split(',').map(p => {
+        const m = p.trim().match(/^([\d.]+)kg\s*[×x]\s*(\d+)/i);
+        return m ? {weight:m[1],reps:m[2]} : null;
+      }).filter(Boolean);
+      if (sets.length) entry.sets = sets;
+    }
+    s.logs[ex].push(entry);
+  }
+  return Object.values(map).sort((a,b) => new Date(b.lastSeen) - new Date(a.lastSeen));
+}
+
+function buildSquadFilter() {
+  const squads = ['all', ...new Set(currentStudents.map(s => s.student.squad).filter(Boolean))];
+  const el = document.getElementById('squadFilter');
+  el.innerHTML = squads.map(sq => `<button class="squad-btn${sq===currentSquad?' active':''}" onclick="setSquad('${sq}')">${sq==='all'?'All Squads':sq}</button>`).join('');
+}
+
+function setSquad(sq) {
+  currentSquad = sq;
+  buildSquadFilter();
+  renderList();
+}
+
+function renderList() {
+  const filtered = currentSquad === 'all' ? currentStudents : currentStudents.filter(s => s.student.squad === currentSquad);
+  const el = document.getElementById('studentList');
+  if (!filtered.length) { el.innerHTML = '<div class="empty">No players found</div>'; return; }
+  el.innerHTML = filtered.map((s,i) => {
+    const initials = s.student.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+    const isOpen = openCards.has(s.student.name);
+    const date = new Date(s.lastSeen);
+    const dStr = date.toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+    const exKeys = Object.keys(s.logs);
+    return `<div class="student-card">
+      <div class="student-header" onclick="toggleCard('${s.student.name.replace(/'/g,"\\'")}',${'card'+i})">
+        <div class="student-avatar">${initials}</div>
+        <div><div class="student-name">${s.student.name}</div><div class="student-squad">${s.student.squad||'Unknown'}</div></div>
+        <div class="student-meta">${exKeys.length} exercise${exKeys.length!==1?'s':''}<br>${dStr}</div>
+      </div>
+      <div class="student-body${isOpen?' open':''}" id="card${i}">
+        ${exKeys.map(ex => `<div class="ex-section">
+          <div class="ex-name">${ex}</div>
+          ${s.logs[ex].map(entry => `<div class="log-entry">
+            <div class="log-date">${entry.date}</div>
+            ${entry.cardio
+              ? `<div class="cardio-note">${entry.note||'Cardio session'}</div>`
+              : `<div class="sets-row">${(entry.sets||[]).map(set=>`<span class="set-chip">${set.weight}kg × ${set.reps}</span>`).join('')}</div>`}
+          </div>`).join('')}
+        </div>`).join('')}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleCard(name, id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const isOpen = el.classList.contains('open');
+  if (isOpen) { el.classList.remove('open'); openCards.delete(name); }
+  else { el.classList.add('open'); openCards.add(name); }
+}
+</script>
+</body>
+</html>
