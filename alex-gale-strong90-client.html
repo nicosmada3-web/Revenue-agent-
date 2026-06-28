@@ -6,16 +6,20 @@
 <title>Strong90 — Built for Alex Gale</title>
 <style>
 :root{
-  --bg:#0E1116;
-  --bg-2:#151A22;
-  --card:#1A212B;
-  --border:#2A3340;
-  --line:#222A35;
-  --text:#EDEFF2;
-  --muted:#9AA6B4;
-  --gold:#D8A838;
-  --gold-d:#B98A22;
-  --green:#3FB37F;
+  --bg:#0C0F14;
+  --bg-2:#11161E;
+  --card:#161D27;
+  --card-2:#1B232F;
+  --border:#28313F;
+  --line:#1E2632;
+  --text:#EEF1F5;
+  --muted:#94A1B2;
+  --muted-2:#6E7B8C;
+  --gold:#E0AE3C;
+  --gold-d:#B5841F;
+  --gold-soft:rgba(224,174,60,.12);
+  --green:#43BE86;
+  --green-soft:rgba(67,190,134,.12);
   --red:#E0654A;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -24,162 +28,214 @@ body{
   background:var(--bg);
   color:var(--text);
   font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
-  line-height:1.6;
+  line-height:1.62;
   -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
 }
-.wrap{max-width:760px;margin:0 auto;padding:0 20px;}
+.wrap{max-width:780px;margin:0 auto;padding:0 22px;}
+.narrow{max-width:680px;}
 
-/* HERO */
-.hero{
-  background:radial-gradient(120% 120% at 50% 0%,#1c2531 0%,#0E1116 60%);
-  padding:54px 0 44px;
-  text-align:center;
-  border-bottom:1px solid var(--line);
-}
-.eyebrow{
-  font-size:12px;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--gold);font-weight:700;margin-bottom:18px;
-}
-.hero h1{
-  font-size:clamp(30px,7vw,52px);
-  line-height:1.05;font-weight:800;letter-spacing:-0.02em;margin-bottom:16px;
-}
-.hero h1 .hl{color:var(--gold);}
-.hero p.lead{
-  font-size:clamp(16px,2.4vw,19px);color:var(--muted);max-width:560px;margin:0 auto;
-}
-
-/* SECTION */
-section{padding:40px 0;border-bottom:1px solid var(--line);}
+/* SHARED */
 .kicker{
-  font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);
-  font-weight:700;margin-bottom:10px;
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);
+  font-weight:700;margin-bottom:14px;
 }
-h2{font-size:clamp(22px,4vw,30px);line-height:1.15;font-weight:800;letter-spacing:-0.01em;margin-bottom:14px;}
-h3{font-size:18px;font-weight:700;margin-bottom:6px;}
-p{margin-bottom:14px;color:var(--text);}
+.kicker::before{content:"";width:22px;height:2px;background:var(--gold);border-radius:2px;}
+h2{font-size:clamp(24px,4.4vw,34px);line-height:1.12;font-weight:800;letter-spacing:-0.02em;margin-bottom:16px;}
+h3{font-size:19px;font-weight:700;margin-bottom:6px;letter-spacing:-0.01em;}
+p{margin-bottom:14px;}
 p:last-child{margin-bottom:0;}
 .muted{color:var(--muted);}
 strong{color:#fff;font-weight:700;}
+section{padding:46px 0;border-bottom:1px solid var(--line);}
 
-/* PULL QUOTE */
-.pull{
-  background:var(--bg-2);
-  border-left:3px solid var(--gold);
-  border-radius:0 10px 10px 0;
-  padding:20px 22px;
-  margin:8px 0 20px;
-  font-size:clamp(17px,2.6vw,21px);
-  line-height:1.45;font-weight:600;
+/* HERO */
+.hero{
+  position:relative;
+  background:
+    radial-gradient(90% 70% at 50% -10%,rgba(224,174,60,.10) 0%,transparent 55%),
+    linear-gradient(180deg,#141b25 0%,#0C0F14 70%);
+  padding:64px 0 52px;text-align:center;border-bottom:1px solid var(--line);
 }
-.pull .small{display:block;font-size:14px;font-weight:500;color:var(--muted);margin-top:10px;line-height:1.5;}
+.hero .badge{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid var(--border);background:rgba(255,255,255,.02);
+  padding:7px 16px;border-radius:999px;margin-bottom:26px;
+  font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;
+}
+.hero .badge b{color:var(--gold);letter-spacing:.16em;}
+.hero h1{
+  font-size:clamp(32px,7.4vw,56px);line-height:1.04;font-weight:800;letter-spacing:-0.03em;margin-bottom:18px;
+}
+.hero h1 .hl{color:var(--gold);}
+.hero p.lead{font-size:clamp(16px,2.5vw,20px);color:var(--muted);max-width:580px;margin:0 auto 28px;}
+.hero .scroll{
+  display:inline-flex;align-items:center;gap:8px;color:var(--muted-2);font-size:13px;
+  letter-spacing:.04em;text-transform:uppercase;
+}
 
-/* MATHS CARD */
+/* TRUTH */
 .maths{
-  display:flex;gap:16px;align-items:center;
-  background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-top:6px;
+  display:flex;gap:18px;align-items:center;
+  background:linear-gradient(135deg,var(--card-2),var(--card));
+  border:1px solid var(--border);border-radius:14px;padding:20px 22px;margin-top:18px;
 }
-.maths .big{font-size:40px;line-height:1;font-weight:800;color:var(--gold);flex:0 0 auto;}
-.maths .copy{font-size:15px;}
+.maths .big{font-size:46px;line-height:1;font-weight:800;color:var(--gold);flex:0 0 auto;}
+.maths .copy{font-size:15px;color:var(--text);}
+
+/* NOT A GYM PLAN — comparison */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px;}
+@media(max-width:560px){.compare{grid-template-columns:1fr;}}
+.col{border-radius:14px;padding:22px;border:1px solid var(--border);}
+.col.old{background:var(--bg-2);}
+.col.new{background:linear-gradient(165deg,rgba(224,174,60,.08),var(--card));border-color:var(--gold-d);}
+.col h4{font-size:13px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;font-weight:700;}
+.col.old h4{color:var(--muted-2);}
+.col.new h4{color:var(--gold);}
+.col ul{list-style:none;}
+.col li{position:relative;padding-left:26px;margin-bottom:11px;font-size:14.5px;line-height:1.45;}
+.col.old li{color:var(--muted);}
+.col.old li::before{content:"✕";position:absolute;left:0;top:0;color:var(--red);font-weight:700;}
+.col.new li::before{content:"✓";position:absolute;left:0;top:0;color:var(--green);font-weight:800;}
 
 /* LEVERS */
-.levers{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px;}
+.levers{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px;}
 @media(max-width:560px){.levers{grid-template-columns:1fr;}}
-.lever{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;}
-.lever .num{
-  width:34px;height:34px;border-radius:50%;background:rgba(216,168,56,.14);color:var(--gold);
-  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;margin-bottom:12px;
-  border:1px solid rgba(216,168,56,.3);
+.lever{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;}
+.lever .ic{
+  width:46px;height:46px;border-radius:12px;background:var(--gold-soft);border:1px solid rgba(224,174,60,.3);
+  display:flex;align-items:center;justify-content:center;margin-bottom:14px;
 }
+.lever .ic svg{width:24px;height:24px;stroke:var(--gold);fill:none;stroke-width:1.8;}
 .lever h3{margin-bottom:6px;}
 .lever p{font-size:14.5px;color:var(--muted);margin:0;}
 
-/* TARGET STRIP */
+/* TARGET */
 .target{
-  display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;
-  background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:18px;
+  display:flex;align-items:center;justify-content:center;gap:22px;flex-wrap:wrap;
+  background:linear-gradient(135deg,var(--card-2),var(--card));
+  border:1px solid var(--border);border-radius:14px;padding:26px;margin-bottom:20px;
 }
 .target .box{text-align:center;}
-.target .lbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
-.target .val{font-size:clamp(22px,5vw,30px);font-weight:800;}
+.target .lbl{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-2);margin-bottom:6px;}
+.target .val{font-size:clamp(24px,5.5vw,34px);font-weight:800;line-height:1;}
+.target .sub{font-size:12px;color:var(--muted);margin-top:4px;}
 .target .from .val{color:var(--muted);}
 .target .to .val{color:var(--green);}
-.target .arrow{font-size:26px;color:var(--gold);}
+.target .arrow svg{width:34px;height:22px;stroke:var(--gold);fill:none;stroke-width:2;}
 
-/* PHASES */
+/* PROGRESS BAR */
+.timeline-head{display:flex;gap:10px;margin:6px 0 22px;}
+.tl-seg{flex:1;text-align:center;}
+.tl-seg .bar{height:6px;border-radius:4px;background:var(--border);overflow:hidden;}
+.tl-seg .bar i{display:block;height:100%;background:var(--gold);border-radius:4px;}
+.tl-seg.p1 .bar i{width:100%;}
+.tl-seg.p2 .bar i{width:60%;background:rgba(224,174,60,.55);}
+.tl-seg.p3 .bar i{width:30%;background:rgba(224,174,60,.35);}
+.tl-seg .t{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-2);margin-top:7px;}
+
+/* PHASE 1 — detailed weekly */
 .phase{
-  position:relative;background:var(--card);border:1px solid var(--border);border-radius:12px;
-  padding:20px 20px 20px 22px;margin-bottom:14px;border-left:3px solid var(--gold);
+  background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:16px;
 }
-.phase .tag{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:700;}
-.phase h3{margin:4px 0 4px;font-size:19px;}
-.phase .goal{font-style:italic;color:var(--muted);font-size:14.5px;margin-bottom:12px;}
-.phase ul{list-style:none;}
-.phase li{position:relative;padding-left:22px;margin-bottom:8px;font-size:15px;color:var(--text);}
-.phase li::before{content:"";position:absolute;left:2px;top:9px;width:7px;height:7px;border-radius:50%;background:var(--gold);}
-.phase li b{color:#fff;}
-.phase .win{
-  margin-top:12px;padding:10px 12px;border-radius:8px;background:rgba(63,179,127,.1);
-  border:1px solid rgba(63,179,127,.25);font-size:14px;color:#cdebdc;
+.phase.feature{border-color:var(--gold-d);background:linear-gradient(180deg,rgba(224,174,60,.05),var(--card));}
+.phase-top{display:flex;align-items:center;gap:14px;margin-bottom:6px;}
+.phase-num{
+  flex:0 0 auto;width:44px;height:44px;border-radius:12px;
+  background:var(--gold-soft);border:1px solid rgba(224,174,60,.3);
+  display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--gold);font-size:15px;line-height:1.1;text-align:center;
 }
-.phase .win b{color:var(--green);}
+.phase-top .meta .tag{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-weight:700;}
+.phase-top .meta h3{margin:2px 0 0;font-size:21px;}
+.phase .goal{font-style:italic;color:var(--muted);font-size:14.5px;margin:8px 0 18px;}
+
+/* week rows */
+.weeks{position:relative;margin-left:6px;padding-left:24px;border-left:2px solid var(--border);}
+.wk{position:relative;padding-bottom:18px;}
+.wk:last-child{padding-bottom:0;}
+.wk::before{
+  content:"";position:absolute;left:-31px;top:3px;width:12px;height:12px;border-radius:50%;
+  background:var(--gold);border:3px solid var(--card);box-shadow:0 0 0 1px var(--gold-d);
+}
+.phase.feature .wk::before{border-color:#1a1f22;}
+.wk .wlbl{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:2px;}
+.wk .wtitle{font-weight:700;font-size:16px;margin-bottom:5px;color:#fff;}
+.wk p{font-size:14.5px;color:var(--muted);margin:0;}
+.wk p b{color:var(--text);}
+
+/* simple list phases */
+.phase ul.plain{list-style:none;margin-top:4px;}
+.phase ul.plain li{position:relative;padding-left:22px;margin-bottom:9px;font-size:15px;color:var(--text);}
+.phase ul.plain li::before{content:"";position:absolute;left:2px;top:9px;width:7px;height:7px;border-radius:50%;background:var(--gold);}
+.phase ul.plain li b{color:#fff;}
+.win{
+  margin-top:16px;padding:12px 14px;border-radius:10px;background:var(--green-soft);
+  border:1px solid rgba(67,190,134,.25);font-size:14px;color:#c8ecdb;display:flex;gap:10px;align-items:flex-start;
+}
+.win svg{width:18px;height:18px;stroke:var(--green);fill:none;stroke-width:2;flex:0 0 auto;margin-top:2px;}
+.win b{color:var(--green);}
 
 /* HEALTH */
-.health{background:rgba(224,101,74,.08);border:1px solid rgba(224,101,74,.3);border-radius:12px;padding:22px;}
+.health{background:linear-gradient(165deg,rgba(224,101,74,.09),var(--card));border:1px solid rgba(224,101,74,.32);border-radius:16px;padding:26px;}
+.health .tag{display:inline-flex;align-items:center;gap:8px;color:var(--red);font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:12px;margin-bottom:10px;}
 .health h2{color:#fff;}
-.health .tag{color:var(--red);font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:12px;margin-bottom:8px;}
 
 /* OFFER */
 .offer{
-  background:linear-gradient(165deg,#1f2937 0%,#141a22 70%);
-  border:1px solid var(--gold-d);border-radius:16px;padding:30px 26px;text-align:center;
-  box-shadow:0 18px 50px rgba(0,0,0,.45);
+  background:linear-gradient(165deg,#202a38 0%,#10151d 72%);
+  border:1px solid var(--gold-d);border-radius:18px;padding:34px 28px;text-align:center;
+  box-shadow:0 24px 60px rgba(0,0,0,.5);position:relative;overflow:hidden;
 }
+.offer::before{content:"";position:absolute;inset:0;background:radial-gradient(80% 50% at 50% 0%,rgba(224,174,60,.14),transparent 60%);pointer-events:none;}
 .offer .ribbon{
-  display:inline-block;background:rgba(216,168,56,.16);color:var(--gold);border:1px solid rgba(216,168,56,.4);
-  padding:5px 14px;border-radius:999px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:16px;
+  position:relative;display:inline-block;background:var(--gold-soft);color:var(--gold);border:1px solid rgba(224,174,60,.45);
+  padding:6px 16px;border-radius:999px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:18px;
 }
-.offer .price{font-size:clamp(40px,9vw,60px);font-weight:800;line-height:1;color:#fff;}
-.offer .price .cur{color:var(--gold);}
-.offer .price-sub{color:var(--muted);font-size:14px;margin:6px 0 18px;}
-.offer ul{list-style:none;text-align:left;max-width:420px;margin:0 auto 22px;}
-.offer li{position:relative;padding-left:28px;margin-bottom:9px;font-size:15px;}
-.offer li::before{content:"✓";position:absolute;left:0;top:0;color:var(--green);font-weight:800;}
+.offer .price{position:relative;font-size:clamp(46px,10vw,66px);font-weight:800;line-height:1;color:#fff;}
+.offer .price .cur{color:var(--gold);font-size:.6em;vertical-align:top;line-height:1.4;}
+.offer .price-sub{position:relative;color:var(--muted);font-size:14px;margin:8px 0 22px;}
+.offer ul{position:relative;list-style:none;text-align:left;max-width:440px;margin:0 auto 26px;}
+.offer li{position:relative;padding-left:30px;margin-bottom:11px;font-size:15px;}
+.offer li::before{content:"✓";position:absolute;left:0;top:0;color:var(--green);font-weight:800;font-size:16px;}
 .cta{
-  display:inline-block;background:linear-gradient(180deg,var(--gold),var(--gold-d));color:#1a130a;
-  font-weight:800;font-size:18px;letter-spacing:.01em;padding:16px 40px;border-radius:10px;text-decoration:none;
-  box-shadow:0 8px 24px rgba(216,168,56,.3);transition:transform .12s;
+  position:relative;display:inline-block;background:linear-gradient(180deg,var(--gold),var(--gold-d));color:#1a130a;
+  font-weight:800;font-size:18px;letter-spacing:.01em;padding:17px 46px;border-radius:12px;text-decoration:none;
+  box-shadow:0 10px 28px rgba(224,174,60,.32);transition:transform .12s,box-shadow .12s;
 }
+.cta:hover{transform:translateY(-1px);box-shadow:0 14px 34px rgba(224,174,60,.4);}
 .cta:active{transform:translateY(1px);}
-.offer .scarcity{color:var(--muted);font-size:13px;margin-top:14px;}
+.offer .scarcity{position:relative;color:var(--muted);font-size:13px;margin-top:16px;}
 
 /* CLOSING */
-.closing{text-align:center;padding:46px 0;}
-.closing h2{margin-bottom:10px;}
-.closing p{color:var(--muted);max-width:520px;margin:0 auto 8px;}
+.closing{text-align:center;padding:54px 0;border-bottom:1px solid var(--line);}
+.closing h2{margin-bottom:12px;}
+.closing p{color:var(--muted);max-width:540px;margin:0 auto 8px;font-size:17px;}
 
-footer{padding:26px 0 40px;text-align:center;color:var(--muted);font-size:13px;}
-footer .brand{color:var(--gold);font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:12px;}
+footer{padding:30px 0 46px;text-align:center;color:var(--muted-2);font-size:13px;}
+footer .brand{color:var(--gold);font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:12px;}
 </style>
 </head>
 <body>
 
+<!-- HERO -->
 <div class="hero">
   <div class="wrap">
-    <div class="eyebrow">Strong90 · Built for Alex Gale</div>
+    <div class="badge"><b>Strong90</b> · Built for Alex Gale</div>
     <h1>You don't have a<br><span class="hl">fitness problem.</span></h1>
-    <p class="lead">You played a full season of 80-minute rugby at the wrong side of 24 stone. That's not a man who lacks graft. So let's stop fixing the wrong thing.</p>
+    <p class="lead">You played a full season of 80-minute rugby at the wrong side of 24 stone. That's not a man who lacks graft. So let's stop fixing the wrong thing — and fix the right one, properly, once.</p>
+    <span class="scroll">↓ &nbsp;Here's the plan</span>
   </div>
 </div>
 
+<!-- TRUTH -->
 <section>
-  <div class="wrap">
+  <div class="wrap narrow">
     <div class="kicker">The honest truth</div>
     <h2>You've never had a fitness problem</h2>
     <p>Most blokes couldn't walk a mile at your weight. You were scrummaging for 80 minutes, most weeks, all season. Do you know how strong you have to be to do that? That's the bit everyone misses — including you.</p>
     <p>And that's exactly <strong>why nothing's ever stuck.</strong> Every diet, every CrossFit phase — you were trying to fix a problem you don't have. The weight isn't coming from a lack of effort. It's coming from your knife, your fork, and your glass.</p>
     <p>And those three things are the easiest in the world to fix once someone shows you how. <strong>That's why, this time, it actually stays off.</strong></p>
-
     <div class="maths">
       <div class="big">+1</div>
       <div class="copy">A few pints of cider on a weekend is the same as eating <strong>a full extra day of food, every week.</strong> You'd never sit down and eat that — but you'll drink it without noticing. That's not willpower. That's just maths nobody's shown you.</div>
@@ -187,86 +243,158 @@ footer .brand{color:var(--gold);font-weight:700;letter-spacing:.12em;text-transf
   </div>
 </section>
 
+<!-- NOT A GYM PLAN -->
 <section>
-  <div class="wrap">
+  <div class="wrap narrow">
+    <div class="kicker">Why this is different</div>
+    <h2>This is more than a gym plan</h2>
+    <p class="muted">A gym plan tells you to train harder. You already train harder than most people ever will. The work isn't the missing piece — so this isn't about adding more of it.</p>
+    <div class="compare">
+      <div class="col old">
+        <h4>Every plan you've tried</h4>
+        <ul>
+          <li>More training piled on a body already working flat out</li>
+          <li>Cut everything, white-knuckle it, burn out</li>
+          <li>A 30-day number, then straight back to square one</li>
+          <li>Generic — never built around farm and rugby</li>
+        </ul>
+      </div>
+      <div class="col new">
+        <h4>Strong90</h4>
+        <ul>
+          <li>Fixes the actual cause: food and drink, done properly</li>
+          <li>No deprivation — meals you like, drink you can live with</li>
+          <li>Habits engineered to survive a bad week, not just a good one</li>
+          <li>Built around your week — harvest, games and all</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TWO LEVERS -->
+<section>
+  <div class="wrap narrow">
     <div class="kicker">What we're actually fixing</div>
     <h2>Two levers. That's the whole job.</h2>
-    <p class="muted">You're strong as a bull. We don't need to build you — we need to lighten you. So this is <strong>not a lifting programme.</strong> It comes down to two things:</p>
+    <p class="muted">You're strong as a bull. We don't need to build you — we need to lighten you. It comes down to two things:</p>
     <div class="levers">
       <div class="lever">
-        <div class="num">1</div>
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M5 3v7a3 3 0 0 0 3 3v8M8 3v7M11 3v7M19 3c-1.5 0-2.5 2-2.5 5s1 4 2.5 4v9"/></svg></div>
         <h3>Food</h3>
         <p>Too much, and too much of the wrong stuff. We sort what's on the plate — without starving you to do it.</p>
       </div>
       <div class="lever">
-        <div class="num">2</div>
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M6 4h12l-1.5 8.5a3 3 0 0 1-3 2.5h-3a3 3 0 0 1-3-2.5L6 4zM9 19h6M12 15v4"/></svg></div>
         <h3>Beer &amp; cider</h3>
         <p>No cold turkey. Just an honest look at how much, when — and a simpler way to handle it.</p>
       </div>
     </div>
-    <p class="muted" style="margin-top:16px;">Get those two right and the weight comes off and <strong>stays</strong> off — because we never crash-dieted you to get there.</p>
+    <p class="muted" style="margin-top:18px;">Get those two right and the weight comes off and <strong>stays</strong> off — because we never crash-dieted you to get there.</p>
   </div>
 </section>
 
+<!-- TARGET -->
 <section>
-  <div class="wrap">
+  <div class="wrap narrow">
     <div class="kicker">The target &amp; the honest timeline</div>
     <h2>Where we're going</h2>
     <div class="target">
-      <div class="box from"><div class="lbl">From</div><div class="val">~24–25 st</div></div>
-      <div class="arrow">→</div>
-      <div class="box to"><div class="lbl">To</div><div class="val">~20 st</div></div>
+      <div class="box from"><div class="lbl">From</div><div class="val">~24–25 st</div><div class="sub">≈ 150–160 kg</div></div>
+      <div class="arrow"><svg viewBox="0 0 34 22"><path d="M2 11h28M22 3l9 8-9 8"/></svg></div>
+      <div class="box to"><div class="lbl">To</div><div class="val">~20 st</div><div class="sub">≈ 125–130 kg</div></div>
     </div>
     <p>That's the <strong>destination, not the 90 days.</strong> I'll be straight with you: losing it properly is a 12–18 month job, not a quick fix. Anyone selling you a number in 90 days is selling you the same thing that's failed you before.</p>
-    <p><strong>What the first 90 days actually does:</strong> it proves the system works, gets the first stone or two off (the early weeks move fastest at your size), and builds habits that survive a bad week, a harvest, and a rugby season. Ninety days is where you go from <em>"trying"</em> to <em>"this is just how I live now."</em></p>
+    <p><strong>What the first 90 days actually does:</strong> it proves the system works, gets the first stone or two off (the early weeks move fastest at your size), and builds the habits underneath it. Ninety days is where you go from <em>"trying"</em> to <em>"this is just how I live now."</em></p>
   </div>
 </section>
 
+<!-- THE 90 DAYS -->
 <section>
-  <div class="wrap">
+  <div class="wrap narrow">
     <div class="kicker">The 90 days</div>
     <h2>How it runs</h2>
-
-    <div class="phase">
-      <div class="tag">Phase 1 · Weeks 1–4</div>
-      <h3>Clear the runway</h3>
-      <div class="goal">Easy early wins, zero sense of deprivation, build momentum.</div>
-      <ul>
-        <li><b>Health check first</b> — the green light before anything changes (more below).</li>
-        <li><b>Nutrition:</b> protein at every meal — fills you up, protects the muscle you've got. Sort breakfast and lunch first. No banned foods, no calorie counting.</li>
-        <li><b>Drink:</b> no cold turkey. An honest audit, then one simple rule.</li>
-        <li><b>Movement:</b> nothing new and heavy — just daily walking on top of farm work and rugby.</li>
-      </ul>
-      <div class="win"><b>The win:</b> the scale moves in week 1–2. You feel it. You're in.</div>
+    <div class="timeline-head">
+      <div class="tl-seg p1"><div class="bar"><i></i></div><div class="t">Wk 1–4</div></div>
+      <div class="tl-seg p2"><div class="bar"><i></i></div><div class="t">Wk 5–8</div></div>
+      <div class="tl-seg p3"><div class="bar"><i></i></div><div class="t">Wk 9–12</div></div>
     </div>
 
-    <div class="phase">
-      <div class="tag">Phase 2 · Weeks 5–8</div>
-      <h3>Tighten the inputs</h3>
-      <div class="goal">Turn the easy wins into real fat loss.</div>
-      <ul>
-        <li><b>Nutrition:</b> build your "hero meals" — 5–6 go-to dinners you actually like, repeatable, no thinking required. Tackle the evening meal and the post-work grazing.</li>
-        <li><b>Drink:</b> a number and a cap. Swap the highest-calorie stuff for lower-cal options on the days you do drink.</li>
-        <li><b>Movement:</b> a bit of easy conditioning you enjoy — to keep you burning, not to break you.</li>
-      </ul>
-      <div class="win"><b>The win:</b> clothes fitting better, moving better on the pitch, recovering quicker after games.</div>
+    <!-- PHASE 1 -->
+    <div class="phase feature">
+      <div class="phase-top">
+        <div class="phase-num">01</div>
+        <div class="meta">
+          <div class="tag">Phase 1 · Weeks 1–4</div>
+          <h3>Clear the runway</h3>
+        </div>
+      </div>
+      <div class="goal">Goal: get the foundations right, bank early wins, and build momentum — with zero sense of being on a "diet."</div>
+      <div class="weeks">
+        <div class="wk">
+          <div class="wlbl">Week 1</div>
+          <div class="wtitle">Baseline &amp; the honest picture</div>
+          <p>GP health check and your starting numbers (see below). We do an honest audit of food and drink — <b>no changes yet</b>, just an accurate picture of a normal week. The only thing we add: <b>protein at breakfast</b>, and a short daily walk on top of farm work.</p>
+        </div>
+        <div class="wk">
+          <div class="wlbl">Week 2</div>
+          <div class="wtitle">Protein locked, drink rule in</div>
+          <p>Protein at <b>every</b> meal now — it fills you up and protects the muscle you've got, so we're never running on empty. We bring in <b>one simple drinking rule</b> (no cold turkey — just structure). This is usually where the <b>scale first moves</b> and it starts to feel real.</p>
+        </div>
+        <div class="wk">
+          <div class="wtitle">Your first hero meals</div>
+          <div class="wlbl">Week 3</div>
+          <p>We start building your <b>"hero meals"</b> early — 2–3 go-to dinners you actually enjoy, that fill you up, are easy to cook after a long day, and need zero thinking. We also tackle the <b>post-work grazing</b> — the bit that quietly undoes a good day on the farm.</p>
+        </div>
+        <div class="wk">
+          <div class="wlbl">Week 4</div>
+          <div class="wtitle">Lock it in &amp; review</div>
+          <p>Round the hero meals out to <b>5–6 you can rotate</b> so you never stare at the fridge. We review your numbers against week 1, see what's working, smooth out what isn't, and set the runway for Phase 2.</p>
+        </div>
+      </div>
+      <div class="win"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div><b>The win:</b> the scale moves inside the first fortnight, you've got real meals you like on repeat, and it already feels less like a diet and more like a routine.</div></div>
     </div>
 
+    <!-- PHASE 2 -->
     <div class="phase">
-      <div class="tag">Phase 3 · Weeks 9–12</div>
-      <h3>Make it stick</h3>
-      <div class="goal">Lock it in so it survives without me watching.</div>
-      <ul>
+      <div class="phase-top">
+        <div class="phase-num">02</div>
+        <div class="meta">
+          <div class="tag">Phase 2 · Weeks 5–8</div>
+          <h3>Tighten the inputs</h3>
+        </div>
+      </div>
+      <div class="goal">Goal: turn the early wins into steady, real fat loss.</div>
+      <ul class="plain">
+        <li><b>Nutrition:</b> refine portions and timing around the hero meals you've already settled into — small dials, not big sacrifices.</li>
+        <li><b>Drink:</b> put a number and a cap on it, and swap the highest-calorie stuff (cider) for lower-cal options on the days you do drink.</li>
+        <li><b>Movement:</b> add a bit of easy conditioning you enjoy — to keep you burning, not to break you.</li>
+      </ul>
+      <div class="win"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div><b>The win:</b> clothes fitting better, moving better on the pitch, recovering quicker after games.</div></div>
+    </div>
+
+    <!-- PHASE 3 -->
+    <div class="phase">
+      <div class="phase-top">
+        <div class="phase-num">03</div>
+        <div class="meta">
+          <div class="tag">Phase 3 · Weeks 9–12</div>
+          <h3>Make it stick</h3>
+        </div>
+      </div>
+      <div class="goal">Goal: lock it in so it survives without me watching.</div>
+      <ul class="plain">
         <li><b>Nutrition &amp; drink:</b> by now it's habit, not effort. We stress-test it — a bad week, a piss-up, a harvest crunch — and prove you can get back on without spiralling.</li>
         <li><b>Movement:</b> map the rugby off-season as the big fat-loss window — when you can push hardest without juggling games.</li>
       </ul>
-      <div class="win"><b>The win:</b> you're down a meaningful chunk, you know exactly how you did it, and for the first time you can see it staying gone.</div>
+      <div class="win"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div><b>The win:</b> you're down a meaningful chunk, you know exactly how you did it, and for the first time you can see it staying gone.</div></div>
     </div>
   </div>
 </section>
 
+<!-- TRAINING PHILOSOPHY -->
 <section>
-  <div class="wrap">
+  <div class="wrap narrow">
     <div class="kicker">Why it's light on the gym</div>
     <h2>This makes rugby better</h2>
     <p>You're already active — 80-minute rugby plus physical farm work. Piling a heavy gym split on top adds injury risk and load to a heart that's already working hard, for very little extra fat loss. The lever is the kitchen, not the gym.</p>
@@ -274,10 +402,11 @@ footer .brand{color:var(--gold);font-weight:700;letter-spacing:.12em;text-transf
   </div>
 </section>
 
+<!-- HEALTH -->
 <section>
-  <div class="wrap">
+  <div class="wrap narrow">
     <div class="health">
-      <div class="tag">Non-negotiable</div>
+      <div class="tag">● Non-negotiable</div>
       <h2>Health check, first</h2>
       <p>Before we change anything about your activity, you get a GP check and the green light. At your weight, with rugby on top, this isn't admin — it's the responsible move, and it protects us both.</p>
       <p class="muted">Your baseline numbers — blood pressure, cholesterol, blood sugar — also give us a "before" to beat. This is part of doing it <strong>properly</strong>. It's not a hurdle. It's the starting line.</p>
@@ -285,8 +414,9 @@ footer .brand{color:var(--gold);font-weight:700;letter-spacing:.12em;text-transf
   </div>
 </section>
 
+<!-- OFFER -->
 <section>
-  <div class="wrap">
+  <div class="wrap narrow">
     <div class="offer">
       <div class="ribbon">Founding rate · Limited spots</div>
       <div class="price"><span class="cur">£</span>799</div>
@@ -294,21 +424,22 @@ footer .brand{color:var(--gold);font-weight:700;letter-spacing:.12em;text-transf
       <ul>
         <li>A plan built around your life — farm, rugby, the lot</li>
         <li>Your two levers handled: food and drink, done properly</li>
-        <li>Hero meals you'll actually eat, no calorie counting</li>
+        <li>Hero meals you'll actually eat, from week three</li>
         <li>Habits that survive a bad week, not a 30-day crash</li>
         <li>Coaching that carries the ball with you, start to finish</li>
       </ul>
       <a class="cta" href="#">I'm in — let's go</a>
-      <div class="scarcity">Founding rate is for a handful of people only. You're one of them.</div>
+      <div class="scarcity">The founding rate is for a handful of people only. You're one of them.</div>
     </div>
   </div>
 </section>
 
+<!-- CLOSING -->
 <div class="closing">
-  <div class="wrap">
-    <h2>You're 32.</h2>
-    <p>This is the easiest it'll ever be to sort. Deal with it now, while it's a choice — or wait, and one day it's a doctor telling you, not me asking you.</p>
-    <p class="muted">Let's do it properly, and do it once.</p>
+  <div class="wrap narrow">
+    <h2>Do it properly. Do it once.</h2>
+    <p>The best time to sort this was years ago. The next best time is right now — while it's still a choice you're making, not an order someone's giving you.</p>
+    <p class="muted">Let's get the first stone off and show you exactly how it stays off.</p>
   </div>
 </div>
 
