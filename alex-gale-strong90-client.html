@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Strong90 — Built for Alex Gale</title>
+<style>
+:root{
+  --bg:#0E1116;
+  --bg-2:#151A22;
+  --card:#1A212B;
+  --border:#2A3340;
+  --line:#222A35;
+  --text:#EDEFF2;
+  --muted:#9AA6B4;
+  --gold:#D8A838;
+  --gold-d:#B98A22;
+  --green:#3FB37F;
+  --red:#E0654A;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px;}
+
+/* HERO */
+.hero{
+  background:radial-gradient(120% 120% at 50% 0%,#1c2531 0%,#0E1116 60%);
+  padding:54px 0 44px;
+  text-align:center;
+  border-bottom:1px solid var(--line);
+}
+.eyebrow{
+  font-size:12px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--gold);font-weight:700;margin-bottom:18px;
+}
+.hero h1{
+  font-size:clamp(30px,7vw,52px);
+  line-height:1.05;font-weight:800;letter-spacing:-0.02em;margin-bottom:16px;
+}
+.hero h1 .hl{color:var(--gold);}
+.hero p.lead{
+  font-size:clamp(16px,2.4vw,19px);color:var(--muted);max-width:560px;margin:0 auto;
+}
+
+/* SECTION */
+section{padding:40px 0;border-bottom:1px solid var(--line);}
+.kicker{
+  font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);
+  font-weight:700;margin-bottom:10px;
+}
+h2{font-size:clamp(22px,4vw,30px);line-height:1.15;font-weight:800;letter-spacing:-0.01em;margin-bottom:14px;}
+h3{font-size:18px;font-weight:700;margin-bottom:6px;}
+p{margin-bottom:14px;color:var(--text);}
+p:last-child{margin-bottom:0;}
+.muted{color:var(--muted);}
+strong{color:#fff;font-weight:700;}
+
+/* PULL QUOTE */
+.pull{
+  background:var(--bg-2);
+  border-left:3px solid var(--gold);
+  border-radius:0 10px 10px 0;
+  padding:20px 22px;
+  margin:8px 0 20px;
+  font-size:clamp(17px,2.6vw,21px);
+  line-height:1.45;font-weight:600;
+}
+.pull .small{display:block;font-size:14px;font-weight:500;color:var(--muted);margin-top:10px;line-height:1.5;}
+
+/* MATHS CARD */
+.maths{
+  display:flex;gap:16px;align-items:center;
+  background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-top:6px;
+}
+.maths .big{font-size:40px;line-height:1;font-weight:800;color:var(--gold);flex:0 0 auto;}
+.maths .copy{font-size:15px;}
+
+/* LEVERS */
+.levers{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px;}
+@media(max-width:560px){.levers{grid-template-columns:1fr;}}
+.lever{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;}
+.lever .num{
+  width:34px;height:34px;border-radius:50%;background:rgba(216,168,56,.14);color:var(--gold);
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;margin-bottom:12px;
+  border:1px solid rgba(216,168,56,.3);
+}
+.lever h3{margin-bottom:6px;}
+.lever p{font-size:14.5px;color:var(--muted);margin:0;}
+
+/* TARGET STRIP */
+.target{
+  display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;
+  background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:18px;
+}
+.target .box{text-align:center;}
+.target .lbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.target .val{font-size:clamp(22px,5vw,30px);font-weight:800;}
+.target .from .val{color:var(--muted);}
+.target .to .val{color:var(--green);}
+.target .arrow{font-size:26px;color:var(--gold);}
+
+/* PHASES */
+.phase{
+  position:relative;background:var(--card);border:1px solid var(--border);border-radius:12px;
+  padding:20px 20px 20px 22px;margin-bottom:14px;border-left:3px solid var(--gold);
+}
+.phase .tag{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:700;}
+.phase h3{margin:4px 0 4px;font-size:19px;}
+.phase .goal{font-style:italic;color:var(--muted);font-size:14.5px;margin-bottom:12px;}
+.phase ul{list-style:none;}
+.phase li{position:relative;padding-left:22px;margin-bottom:8px;font-size:15px;color:var(--text);}
+.phase li::before{content:"";position:absolute;left:2px;top:9px;width:7px;height:7px;border-radius:50%;background:var(--gold);}
+.phase li b{color:#fff;}
+.phase .win{
+  margin-top:12px;padding:10px 12px;border-radius:8px;background:rgba(63,179,127,.1);
+  border:1px solid rgba(63,179,127,.25);font-size:14px;color:#cdebdc;
+}
+.phase .win b{color:var(--green);}
+
+/* HEALTH */
+.health{background:rgba(224,101,74,.08);border:1px solid rgba(224,101,74,.3);border-radius:12px;padding:22px;}
+.health h2{color:#fff;}
+.health .tag{color:var(--red);font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:12px;margin-bottom:8px;}
+
+/* OFFER */
+.offer{
+  background:linear-gradient(165deg,#1f2937 0%,#141a22 70%);
+  border:1px solid var(--gold-d);border-radius:16px;padding:30px 26px;text-align:center;
+  box-shadow:0 18px 50px rgba(0,0,0,.45);
+}
+.offer .ribbon{
+  display:inline-block;background:rgba(216,168,56,.16);color:var(--gold);border:1px solid rgba(216,168,56,.4);
+  padding:5px 14px;border-radius:999px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:16px;
+}
+.offer .price{font-size:clamp(40px,9vw,60px);font-weight:800;line-height:1;color:#fff;}
+.offer .price .cur{color:var(--gold);}
+.offer .price-sub{color:var(--muted);font-size:14px;margin:6px 0 18px;}
+.offer ul{list-style:none;text-align:left;max-width:420px;margin:0 auto 22px;}
+.offer li{position:relative;padding-left:28px;margin-bottom:9px;font-size:15px;}
+.offer li::before{content:"✓";position:absolute;left:0;top:0;color:var(--green);font-weight:800;}
+.cta{
+  display:inline-block;background:linear-gradient(180deg,var(--gold),var(--gold-d));color:#1a130a;
+  font-weight:800;font-size:18px;letter-spacing:.01em;padding:16px 40px;border-radius:10px;text-decoration:none;
+  box-shadow:0 8px 24px rgba(216,168,56,.3);transition:transform .12s;
+}
+.cta:active{transform:translateY(1px);}
+.offer .scarcity{color:var(--muted);font-size:13px;margin-top:14px;}
+
+/* CLOSING */
+.closing{text-align:center;padding:46px 0;}
+.closing h2{margin-bottom:10px;}
+.closing p{color:var(--muted);max-width:520px;margin:0 auto 8px;}
+
+footer{padding:26px 0 40px;text-align:center;color:var(--muted);font-size:13px;}
+footer .brand{color:var(--gold);font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:12px;}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Strong90 · Built for Alex Gale</div>
+    <h1>You don't have a<br><span class="hl">fitness problem.</span></h1>
+    <p class="lead">You played a full season of 80-minute rugby at the wrong side of 24 stone. That's not a man who lacks graft. So let's stop fixing the wrong thing.</p>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">The honest truth</div>
+    <h2>You've never had a fitness problem</h2>
+    <p>Most blokes couldn't walk a mile at your weight. You were scrummaging for 80 minutes, most weeks, all season. Do you know how strong you have to be to do that? That's the bit everyone misses — including you.</p>
+    <p>And that's exactly <strong>why nothing's ever stuck.</strong> Every diet, every CrossFit phase — you were trying to fix a problem you don't have. The weight isn't coming from a lack of effort. It's coming from your knife, your fork, and your glass.</p>
+    <p>And those three things are the easiest in the world to fix once someone shows you how. <strong>That's why, this time, it actually stays off.</strong></p>
+
+    <div class="maths">
+      <div class="big">+1</div>
+      <div class="copy">A few pints of cider on a weekend is the same as eating <strong>a full extra day of food, every week.</strong> You'd never sit down and eat that — but you'll drink it without noticing. That's not willpower. That's just maths nobody's shown you.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">What we're actually fixing</div>
+    <h2>Two levers. That's the whole job.</h2>
+    <p class="muted">You're strong as a bull. We don't need to build you — we need to lighten you. So this is <strong>not a lifting programme.</strong> It comes down to two things:</p>
+    <div class="levers">
+      <div class="lever">
+        <div class="num">1</div>
+        <h3>Food</h3>
+        <p>Too much, and too much of the wrong stuff. We sort what's on the plate — without starving you to do it.</p>
+      </div>
+      <div class="lever">
+        <div class="num">2</div>
+        <h3>Beer &amp; cider</h3>
+        <p>No cold turkey. Just an honest look at how much, when — and a simpler way to handle it.</p>
+      </div>
+    </div>
+    <p class="muted" style="margin-top:16px;">Get those two right and the weight comes off and <strong>stays</strong> off — because we never crash-dieted you to get there.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">The target &amp; the honest timeline</div>
+    <h2>Where we're going</h2>
+    <div class="target">
+      <div class="box from"><div class="lbl">From</div><div class="val">~24–25 st</div></div>
+      <div class="arrow">→</div>
+      <div class="box to"><div class="lbl">To</div><div class="val">~20 st</div></div>
+    </div>
+    <p>That's the <strong>destination, not the 90 days.</strong> I'll be straight with you: losing it properly is a 12–18 month job, not a quick fix. Anyone selling you a number in 90 days is selling you the same thing that's failed you before.</p>
+    <p><strong>What the first 90 days actually does:</strong> it proves the system works, gets the first stone or two off (the early weeks move fastest at your size), and builds habits that survive a bad week, a harvest, and a rugby season. Ninety days is where you go from <em>"trying"</em> to <em>"this is just how I live now."</em></p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">The 90 days</div>
+    <h2>How it runs</h2>
+
+    <div class="phase">
+      <div class="tag">Phase 1 · Weeks 1–4</div>
+      <h3>Clear the runway</h3>
+      <div class="goal">Easy early wins, zero sense of deprivation, build momentum.</div>
+      <ul>
+        <li><b>Health check first</b> — the green light before anything changes (more below).</li>
+        <li><b>Nutrition:</b> protein at every meal — fills you up, protects the muscle you've got. Sort breakfast and lunch first. No banned foods, no calorie counting.</li>
+        <li><b>Drink:</b> no cold turkey. An honest audit, then one simple rule.</li>
+        <li><b>Movement:</b> nothing new and heavy — just daily walking on top of farm work and rugby.</li>
+      </ul>
+      <div class="win"><b>The win:</b> the scale moves in week 1–2. You feel it. You're in.</div>
+    </div>
+
+    <div class="phase">
+      <div class="tag">Phase 2 · Weeks 5–8</div>
+      <h3>Tighten the inputs</h3>
+      <div class="goal">Turn the easy wins into real fat loss.</div>
+      <ul>
+        <li><b>Nutrition:</b> build your "hero meals" — 5–6 go-to dinners you actually like, repeatable, no thinking required. Tackle the evening meal and the post-work grazing.</li>
+        <li><b>Drink:</b> a number and a cap. Swap the highest-calorie stuff for lower-cal options on the days you do drink.</li>
+        <li><b>Movement:</b> a bit of easy conditioning you enjoy — to keep you burning, not to break you.</li>
+      </ul>
+      <div class="win"><b>The win:</b> clothes fitting better, moving better on the pitch, recovering quicker after games.</div>
+    </div>
+
+    <div class="phase">
+      <div class="tag">Phase 3 · Weeks 9–12</div>
+      <h3>Make it stick</h3>
+      <div class="goal">Lock it in so it survives without me watching.</div>
+      <ul>
+        <li><b>Nutrition &amp; drink:</b> by now it's habit, not effort. We stress-test it — a bad week, a piss-up, a harvest crunch — and prove you can get back on without spiralling.</li>
+        <li><b>Movement:</b> map the rugby off-season as the big fat-loss window — when you can push hardest without juggling games.</li>
+      </ul>
+      <div class="win"><b>The win:</b> you're down a meaningful chunk, you know exactly how you did it, and for the first time you can see it staying gone.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">Why it's light on the gym</div>
+    <h2>This makes rugby better</h2>
+    <p>You're already active — 80-minute rugby plus physical farm work. Piling a heavy gym split on top adds injury risk and load to a heart that's already working hard, for very little extra fat loss. The lever is the kitchen, not the gym.</p>
+    <p>Movement's job here is to <strong>keep you moving and burning</strong> — not to break you. We keep rugby as the thing you love, and the whole point of this is to make it better: <strong>lighter, faster, lasting the full 80 with something left in the tank.</strong></p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="health">
+      <div class="tag">Non-negotiable</div>
+      <h2>Health check, first</h2>
+      <p>Before we change anything about your activity, you get a GP check and the green light. At your weight, with rugby on top, this isn't admin — it's the responsible move, and it protects us both.</p>
+      <p class="muted">Your baseline numbers — blood pressure, cholesterol, blood sugar — also give us a "before" to beat. This is part of doing it <strong>properly</strong>. It's not a hurdle. It's the starting line.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="offer">
+      <div class="ribbon">Founding rate · Limited spots</div>
+      <div class="price"><span class="cur">£</span>799</div>
+      <div class="price-sub">Strong90 — the full 90-day programme</div>
+      <ul>
+        <li>A plan built around your life — farm, rugby, the lot</li>
+        <li>Your two levers handled: food and drink, done properly</li>
+        <li>Hero meals you'll actually eat, no calorie counting</li>
+        <li>Habits that survive a bad week, not a 30-day crash</li>
+        <li>Coaching that carries the ball with you, start to finish</li>
+      </ul>
+      <a class="cta" href="#">I'm in — let's go</a>
+      <div class="scarcity">Founding rate is for a handful of people only. You're one of them.</div>
+    </div>
+  </div>
+</section>
+
+<div class="closing">
+  <div class="wrap">
+    <h2>You're 32.</h2>
+    <p>This is the easiest it'll ever be to sort. Deal with it now, while it's a choice — or wait, and one day it's a doctor telling you, not me asking you.</p>
+    <p class="muted">Let's do it properly, and do it once.</p>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="brand">Back2Strong · Strong90</div>
+    <p style="margin-top:8px;">Built for Alex Gale.</p>
+  </div>
+</footer>
+
+</body>
+</html>
