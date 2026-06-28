@@ -4,6 +4,30 @@ _Running log so any future session starts with full context. Newest first._
 
 ---
 
+## 2026-06-28 — Edge app access unblocked + change-spec written
+
+### Edge app repo access — RESOLVED ✅
+- Closed blocker #1 (open since 2026-06-17). `nicosmada3-web` added as a **collaborator
+  (Write)** on `Jeevesbot-work/edge-app`; invite sent to `nicosmada3@googlemail.com` and
+  accepted. The Edge app is now reachable from the main account.
+- **Account-recovery saga (so it's never repeated):** the `Jeevesbot-work` account email was
+  `nick@therevenueagent.co.uk` — no longer accessible — which blocked both password reset and
+  GitHub's sudo "Confirm access" gate on the Collaborators page. Resolved by adding + verifying
+  a reachable email (`n.adams3…`) on the account, then resetting through that. The dead address
+  should be removed and a controlled email made primary; this is exactly the pain the
+  consolidation work is meant to end.
+- **Next session:** the actual Edge work (RLS, notifications) must run in a **new session
+  pointed at `edge-app`** — a session scoped to `Revenue-agent-` still can't see it.
+
+### Spec docs added (this repo, branch `claude/edge-app-client-onboarding-ep8hlr`)
+- `docs/EDGE-APP-CHANGE-SPEC.md` — per-client data isolation (RLS) + privacy proof test,
+  session/food-shot notifications (event-driven + scheduled gap-check), account/host
+  consolidation, and the access request.
+- `docs/ACCESS-SETUP-RUNBOOK.md` — the collaborator-invite path that unblocked access above.
+- Solihull app code left untouched — Edge spec kept in `docs/` to keep the two systems separate.
+
+---
+
 ## 2026-06-17 — Phase 1 inventory + Solihull blank-screen fix
 
 ### Solihull blank screen — FIXED (in code), awaiting deploy

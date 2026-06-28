@@ -92,7 +92,15 @@ I could not yet read the actual env var names (Vercel env + Supabase need access
 
 ## Open blockers (need founder action)
 
-1. **Edge app repo access.** To verify Barry's data privacy (Supabase Row-Level Security) and debug his experience, I need to read `Jeevesbot-work/edge-app`. This session is currently locked to `nicosmada3-web/Revenue-agent-`. → Need that repo added to my access.
+1. ~~**Edge app repo access.**~~ ✅ **RESOLVED 2026-06-28.** `nicosmada3-web` was added as a
+   collaborator (Write) on `Jeevesbot-work/edge-app` and the invite accepted. The Edge app is
+   now visible to the main account. **Note for next session:** the Edge work must run in a
+   *new* session pointed at `edge-app` — a session locked to `Revenue-agent-` still can't see it.
+   - **Account-recovery footnote:** the `Jeevesbot-work` GitHub account's email was
+     `nick@therevenueagent.co.uk` (no longer accessible), which blocked password reset and the
+     sudo "Confirm access" gate. Fixed by adding + verifying a reachable email (`n.adams3…`) on
+     the account so resets land somewhere we can open. The dead email should be removed and a
+     controlled address set as primary when convenient.
 2. **Supabase access.** To confirm one client can't see another's data at the database level, I need either Supabase dashboard access or the project URL + keys.
 3. **Command-centre source.** Need to know which repo `b2s-command-center` deploys from.
 
