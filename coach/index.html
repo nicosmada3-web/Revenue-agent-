@@ -64,10 +64,8 @@ main{max-width:860px;margin:0 auto;padding:20px 14px 80px;}
 .empty{text-align:center;padding:48px 20px;color:var(--grey);font-family:'Barlow Condensed';font-size:13px;text-transform:uppercase;letter-spacing:.1em;}
 
 /* PROFILE VIEW */
-#profileView{display:none;}
+#profileView{display:none;padding-bottom:90px;}
 .profile-header{background:linear-gradient(135deg,var(--maroon-d),var(--navy-m) 70%);padding:0;border-bottom:1px solid rgba(201,168,76,0.3);}
-.profile-back{display:flex;align-items:center;gap:8px;padding:12px 18px 0;cursor:pointer;border:none;background:none;color:var(--gold);font-family:'Barlow Condensed';font-size:12px;text-transform:uppercase;letter-spacing:.1em;}
-.profile-back:hover{color:var(--white);}
 .profile-hero{display:flex;align-items:center;gap:16px;padding:14px 18px 18px;}
 .profile-avatar{width:64px;height:64px;background:linear-gradient(135deg,var(--maroon-l),var(--maroon-d));border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';font-size:26px;color:var(--gold);flex:0 0 auto;border:2px solid rgba(201,168,76,.3);}
 .profile-name{font-family:'Bebas Neue';font-size:clamp(24px,6vw,36px);line-height:1;}
@@ -77,8 +75,7 @@ main{max-width:860px;margin:0 auto;padding:20px 14px 80px;}
 .stat-num{font-family:'Bebas Neue';font-size:22px;color:var(--white);line-height:1;}
 .stat-lbl{font-family:'Barlow Condensed';font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--grey);}
 
-profile-body{display:block;}
-.profile-main{max-width:860px;margin:0 auto;padding:20px 14px 80px;}
+.profile-main{max-width:860px;margin:0 auto;padding:20px 14px 20px;}
 .ex-card{background:var(--navy-m);border:1px solid var(--navy-l);border-radius:12px;margin-bottom:14px;overflow:hidden;}
 .ex-card-header{padding:14px 16px 10px;border-bottom:1px solid var(--navy-l);}
 .ex-card-name{font-family:'Bebas Neue';font-size:20px;letter-spacing:.05em;line-height:1;}
@@ -91,6 +88,11 @@ profile-body{display:block;}
 .set-chip .reps{color:var(--grey);font-size:11px;margin-left:2px;}
 .cardio-chip{background:rgba(45,106,79,.2);border:1px solid rgba(45,106,79,.4);border-radius:6px;padding:5px 10px;font-family:'Barlow Condensed';font-size:12px;color:#6ee7b7;}
 .best-tag{font-family:'Barlow Condensed';font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);margin-top:6px;}
+
+/* FIXED BACK BUTTON */
+.back-bar{position:fixed;bottom:0;left:0;right:0;padding:14px 20px;background:linear-gradient(0deg,var(--navy) 70%,transparent);z-index:50;display:none;}
+.back-bar button{width:100%;max-width:500px;display:block;margin:0 auto;padding:15px;border:2px solid var(--gold);border-radius:12px;background:var(--navy-m);color:var(--gold);font-family:'Bebas Neue';font-size:20px;letter-spacing:.1em;cursor:pointer;transition:background .15s;}
+.back-bar button:active{background:var(--maroon-d);}
 </style>
 </head>
 <body>
@@ -105,8 +107,8 @@ profile-body{display:block;}
       <label for="pw">Coach password</label>
       <input id="pw" type="password" placeholder="Enter password" autocomplete="current-password"/>
     </div>
-    <button class="login-btn" id="loginBtn">View Dashboard →</button>
-    <p class="err" id="loginErr">Wrong password — try again.</p>
+    <button class="login-btn" id="loginBtn">View Dashboard &rarr;</button>
+    <p class="err" id="loginErr">Wrong password &mdash; try again.</p>
   </div>
 </div>
 
@@ -121,7 +123,7 @@ profile-body{display:block;}
     </div>
   </header>
   <div class="data-bar">
-    <span id="dataStatus">Loading…</span>
+    <span id="dataStatus">Loading&hellip;</span>
     <span id="dataCount"></span>
   </div>
   <main>
@@ -133,7 +135,6 @@ profile-body{display:block;}
 <!-- PROFILE VIEW -->
 <div id="profileView">
   <div class="profile-header">
-    <button class="profile-back" onclick="showList()">← Back to squad</button>
     <div class="profile-hero">
       <div class="profile-avatar" id="pAvatar"></div>
       <div>
@@ -144,6 +145,11 @@ profile-body{display:block;}
     </div>
   </div>
   <div class="profile-main" id="pBody"></div>
+</div>
+
+<!-- FIXED BACK BUTTON (shown only on profile) -->
+<div class="back-bar" id="backBar">
+  <button onclick="showList()">&#8592; Back to Squad</button>
 </div>
 
 <script>
@@ -188,13 +194,16 @@ async function login() {
 function logout() {
   document.getElementById('listView').style.display = 'none';
   document.getElementById('profileView').style.display = 'none';
+  document.getElementById('backBar').style.display = 'none';
   document.getElementById('loginWrap').style.display = 'flex';
   document.getElementById('pw').value = '';
 }
 
 function showList() {
   document.getElementById('profileView').style.display = 'none';
+  document.getElementById('backBar').style.display = 'none';
   document.getElementById('listView').style.display = 'block';
+  window.scrollTo(0,0);
 }
 
 async function doRefresh() {
@@ -312,8 +321,7 @@ function openProfile(idx) {
           const topSet = sets.reduce((b,s)=>parseFloat(s.weight)>parseFloat(b.weight)?s:b, sets[0]||{weight:'0',reps:'0'});
           return `<div class="session-row">
             <div class="session-date">${entry.date}</div>
-            <div class="sets-row">${sets.map((set,i)=>{
-              const isTop = parseFloat(set.weight)===parseFloat(topSet.weight) && set===topSet;
+            <div class="sets-row">${sets.map(set=>{
               return `<span class="set-chip">${set.weight}kg<span class="reps">×${set.reps}</span></span>`;
             }).join('')}</div>
             ${sets.length>1&&parseFloat(topSet.weight)>0?`<div class="best-tag">★ Top set: ${topSet.weight}kg × ${topSet.reps}</div>`:''}
@@ -325,6 +333,7 @@ function openProfile(idx) {
 
   document.getElementById('listView').style.display = 'none';
   document.getElementById('profileView').style.display = 'block';
+  document.getElementById('backBar').style.display = 'block';
   window.scrollTo(0,0);
 }
 </script>
