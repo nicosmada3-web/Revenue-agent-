@@ -10,64 +10,95 @@
 :root{--bg:#0A0C10;--surface:#13161C;--border:#2A2F3A;--accent:#F0B429;--accent3:#10B981;--tx1:#F0F2F5;--tx2:#8A94A8;--tx3:#545E72;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{background:var(--bg);color:var(--tx1);font-family:'Barlow',sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased;}
-h1,h2,h3{font-family:'Bebas Neue',sans-serif;letter-spacing:.06em;}
-header{padding:36px 32px 28px;border-bottom:1px solid var(--border);display:flex;align-items:flex-end;gap:20px;background:linear-gradient(135deg,#0F1318 0%,#1A1F2A 100%);}
-.logo-mark{width:52px;height:52px;background:var(--accent);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';font-size:26px;color:#0A0C10;flex:0 0 auto;}
-.header-text h1{font-size:clamp(26px,5vw,40px);line-height:1;}
-.header-text p{color:var(--tx3);font-family:'Barlow Condensed';font-size:12px;letter-spacing:.15em;text-transform:uppercase;margin-top:3px;}
-main{max-width:960px;margin:0 auto;padding:40px 24px 80px;}
-.section-label{font-family:'Barlow Condensed';font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--tx3);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border);}
-.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-bottom:48px;}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px 20px;text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:8px;transition:border-color .15s,transform .1s;position:relative;overflow:hidden;}
+h1{font-family:'Bebas Neue',sans-serif;letter-spacing:.06em;}
+header{padding:32px 28px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:16px;background:linear-gradient(135deg,#0F1318 0%,#1A1F2A 100%);}
+.logo-mark{width:48px;height:48px;background:var(--accent);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';font-size:24px;color:#0A0C10;flex:0 0 auto;}
+.header-text h1{font-size:clamp(24px,5vw,36px);line-height:1;}
+.header-text p{color:var(--tx3);font-family:'Barlow Condensed';font-size:11px;letter-spacing:.15em;text-transform:uppercase;margin-top:3px;}
+main{max-width:960px;margin:0 auto;padding:36px 20px 80px;}
+.section-label{font-family:'Barlow Condensed';font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--tx3);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-bottom:40px;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 18px;text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:7px;transition:border-color .15s,transform .1s;position:relative;overflow:hidden;}
 .card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--card-accent,var(--accent));border-radius:12px 12px 0 0;}
 .card:hover{border-color:var(--card-accent,var(--accent));transform:translateY(-2px);}
-.card-icon{font-size:22px;margin-bottom:4px;}
-.card-title{font-family:'Bebas Neue';font-size:20px;letter-spacing:.05em;line-height:1;}
-.card-sub{font-family:'Barlow Condensed';font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--tx3);margin-top:-4px;}
-.card-desc{font-size:13px;color:var(--tx2);line-height:1.5;margin-top:4px;}
-.card-arrow{margin-top:auto;padding-top:12px;font-size:11px;font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.1em;color:var(--card-accent,var(--accent));display:flex;align-items:center;gap:5px;}
-.cat-b2s{--card-accent:var(--accent);}.cat-sol{--card-accent:#C9A84C;}.cat-exp{--card-accent:var(--accent3);}
+.card-icon{font-size:20px;margin-bottom:2px;}
+.card-title{font-family:'Bebas Neue';font-size:19px;letter-spacing:.05em;line-height:1;}
+.card-sub{font-family:'Barlow Condensed';font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--tx3);margin-top:-3px;}
+.card-desc{font-size:12px;color:var(--tx2);line-height:1.5;margin-top:3px;}
+.card-arrow{margin-top:auto;padding-top:10px;font-size:10px;font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.1em;color:var(--card-accent,var(--accent));}
+.cat-b2s{--card-accent:var(--accent);}
+.cat-sol{--card-accent:#C9A84C;}
+.cat-exp{--card-accent:var(--accent3);}
 </style>
 </head>
 <body>
 <header>
   <div class="logo-mark">N</div>
-  <div class="header-text"><h1>App Hub</h1><p>Nick's Projects — All apps in one place</p></div>
+  <div class="header-text"><h1>App Hub</h1><p>All projects — one place</p></div>
 </header>
 <main>
+
   <p class="section-label">Back2Strong</p>
   <div class="card-grid">
-    <a href="strong90/" class="card cat-b2s">
-      <div class="card-icon">⚡</div><div class="card-title">Strong90</div>
+    <a href="https://back2strong.online" target="_blank" rel="noopener" class="card cat-b2s">
+      <div class="card-icon">💪</div>
+      <div class="card-title">Back2Strong</div>
+      <div class="card-sub">Marketing Site</div>
+      <div class="card-desc">The main Back2Strong website.</div>
+      <div class="card-arrow">Open site →</div>
+    </a>
+    <a href="https://app.back2strong.online" target="_blank" rel="noopener" class="card cat-b2s">
+      <div class="card-icon">⚡</div>
+      <div class="card-title">Edge App</div>
+      <div class="card-sub">Back2Strong Platform</div>
+      <div class="card-desc">The main Back2Strong web application.</div>
+      <div class="card-arrow">Open app →</div>
+    </a>
+    <a href="https://b2s-command-center.vercel.app" target="_blank" rel="noopener" class="card cat-b2s">
+      <div class="card-icon">🎛️</div>
+      <div class="card-title">Command Centre</div>
+      <div class="card-sub">Operations Dashboard</div>
+      <div class="card-desc">Internal operations and management tools.</div>
+      <div class="card-arrow">Open →</div>
+    </a>
+    <a href="strong90/" target="_blank" rel="noopener" class="card cat-b2s">
+      <div class="card-icon">📅</div>
+      <div class="card-title">Strong90</div>
       <div class="card-sub">Time Optimization</div>
       <div class="card-desc">90-day block planner. Paint your schedule, label every block, track your training focus.</div>
       <div class="card-arrow">Open app →</div>
     </a>
   </div>
+
   <p class="section-label">Solihull School Rugby</p>
   <div class="card-grid">
-    <a href="https://solihull-rugby.netlify.app" class="card cat-sol">
-      <div class="card-icon">🏉</div><div class="card-title">Performance</div>
+    <a href="https://solihull-rugby.netlify.app" target="_blank" rel="noopener" class="card cat-sol">
+      <div class="card-icon">🏉</div>
+      <div class="card-title">Performance</div>
       <div class="card-sub">Player Training Log</div>
-      <div class="card-desc">Log gym sessions, track lifts and cardio, submit training data to the coaching team.</div>
+      <div class="card-desc">Log gym sessions, track lifts and cardio, submit data to the coaching team.</div>
       <div class="card-arrow">Open app →</div>
     </a>
-    <a href="https://solihull-rugby.netlify.app/coach.html" class="card cat-sol">
-      <div class="card-icon">📋</div><div class="card-title">Coach Dashboard</div>
+    <a href="https://solihull-rugby.netlify.app/coach.html" target="_blank" rel="noopener" class="card cat-sol">
+      <div class="card-icon">📋</div>
+      <div class="card-title">Coach Dashboard</div>
       <div class="card-sub">Staff Only</div>
       <div class="card-desc">Aggregate view of all player submissions by squad. Password protected.</div>
       <div class="card-arrow">Open dashboard →</div>
     </a>
   </div>
+
   <p class="section-label">Experimental</p>
   <div class="card-grid">
-    <a href="uksa/" class="card cat-exp">
-      <div class="card-icon">🌿</div><div class="card-title">UKSA Pricing</div>
+    <a href="uksa/" target="_blank" rel="noopener" class="card cat-exp">
+      <div class="card-icon">🌿</div>
+      <div class="card-title">UKSA Pricing</div>
       <div class="card-sub">Stratford Spraying Solutions</div>
       <div class="card-desc">Field-by-field spraying cost calculator. Area, product rates, and margin tools.</div>
       <div class="card-arrow">Open calculator →</div>
     </a>
   </div>
+
 </main>
 </body>
 </html>
