@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>🏏 Cricket Scorer</title>
+<style>
+  :root {
+    --bg: #0b3d2e;
+    --card: #11543f;
+    --accent: #f5c542;
+    --light: #e8f5e9;
+    --danger: #e74c3c;
+    --ok: #2ecc71;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: linear-gradient(160deg, #062b20, #0b3d2e);
+    color: var(--light);
+    min-height: 100vh;
+    padding: 16px;
+  }
+  .wrap { max-width: 560px; margin: 0 auto; }
+  h1 { text-align: center; font-size: 1.6rem; margin: 8px 0 16px; }
+  h1 small { display: block; font-weight: 400; font-size: .8rem; opacity: .7; }
+  .scoreboard {
+    background: var(--card);
+    border-radius: 18px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(0,0,0,.3);
+    margin-bottom: 16px;
+  }
+  .runs { font-size: 3.4rem; font-weight: 800; line-height: 1; }
+  .runs span { color: var(--accent); }
+  .meta { font-size: 1rem; opacity: .9; margin-top: 6px; }
+  .stats {
+    display: flex; justify-content: space-around;
+    margin-top: 14px; font-size: .85rem;
+  }
+  .stats div span { display: block; font-size: 1.3rem; font-weight: 700; color: var(--accent); }
+  .over {
+    margin-top: 14px; min-height: 34px;
+    display: flex; gap: 6px; flex-wrap: wrap; justify-content: center;
+  }
+  .ball {
+    width: 30px; height: 30px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: .8rem; background: #0b3d2e;
+    border: 1px solid rgba(255,255,255,.2);
+  }
+  .ball.w { background: var(--danger); }
+  .ball.boundary { background: var(--accent); color: #062b20; }
+  .ball.extra { background: #3498db; }
+  .grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 10px; margin-bottom: 12px;
+  }
+  button {
+    border: none; border-radius: 12px; padding: 16px 0;
+    font-size: 1.1rem; font-weight: 700; cursor: pointer;
+    background: #1a6b50; color: var(--light);
+    transition: transform .05s, background .15s;
+  }
+  button:active { transform: scale(.95); }
+  button.run { background: #1a6b50; }
+  button.boundary { background: var(--accent); color: #062b20; }
+  button.extra { background: #2c6b8a; }
+  button.wicket { background: var(--danger); }
+  .row { display: flex; gap: 10px; margin-bottom: 12px; }
+  .row button { flex: 1; }
+  button.util { background: #444f4a; font-size: .9rem; padding: 12px 0; }
+  .log {
+    background: rgba(0,0,0,.25); border-radius: 12px; padding: 10px 14px;
+    font-size: .82rem; max-height: 140px; overflow-y: auto;
+  }
+  .log div { padding: 3px 0; border-bottom: 1px solid rgba(255,255,255,.07); }
+  .toss { text-align: center; opacity: .75; font-size: .85rem; margin-top: 8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🏏 Cricket Scorer<small>tap to score · limited overs</small></h1>
+
+  <div class="scoreboard">
+    <div class="runs"><span id="runs">0</span> / <span id="wickets">0</span></div>
+    <div class="meta">Overs <span id="overs">0.0</span> / <span id="maxOvers">20</span></div>
+    <div class="stats">
+      <div>RUN RATE<span id="rr">0.00</span></div>
+      <div>BALLS<span id="balls">0</span></div>
+      <div>EXTRAS<span id="extras">0</span></div>
+    </div>
+    <div class="over" id="thisOver"></div>
+  </div>
+
+  <div class="grid">
+    <button class="run" onclick="addRuns(0)">0</button>
+    <button class="run" onclick="addRuns(1)">1</button>
+    <button class="run" onclick="addRuns(2)">2</button>
+    <button class="run" onclick="addRuns(3)">3</button>
+    <button class="boundary" onclick="addRuns(4)">4</button>
+    <button class="boundary" onclick="addRuns(6)">6</button>
+  </div>
+
+  <div class="row">
+    <button class="extra" onclick="addExtra('Wd')">Wide</button>
+    <button class="extra" onclick="addExtra('Nb')">No Ball</button>
+    <button class="wicket" onclick="wicket()">WICKET</button>
+  </div>
+
+  <div class="row">
+    <button class="util" onclick="undo()">↩ Undo</button>
+    <button class="util" onclick="newGame()">🔄 New Game</button>
+  </div>
+
+  <div class="log" id="log"></div>
+  <div class="toss" id="toss"></div>
+</div>
+
+<script>
+const MAX_OVERS = 20;
+let state, history;
+
+function fresh() {
+  return { runs: 0, wickets: 0, balls: 0, extras: 0, over: [], log: [] };
+}
+
+function load() {
+  const saved = localStorage.getItem("cricketScore");
+  state = saved ? JSON.parse(saved) : fresh();
+  history = [];
+  render();
+}
+
+function save() { localStorage.setItem("cricketScore", JSON.stringify(state)); }
+
+function snapshot() {
+  history.push(JSON.stringify(state));
+  if (history.length > 50) history.shift();
+}
+
+function gameOver() {
+  return state.wickets >= 10 || state.balls >= MAX_OVERS * 6;
+}
+
+function addRuns(r) {
+  if (gameOver()) return;
+  snapshot();
+  state.runs += r;
+  state.balls += 1;
+  state.over.push({ label: r === 0 ? "•" : String(r), type: r >= 4 ? "boundary" : "" });
+  state.log.unshift(ballText() + ": " + (r === 0 ? "dot ball" : r + " run" + (r > 1 ? "s" : "")));
+  endOfOverCheck();
+  render();
+}
+
+function addExtra(kind) {
+  if (gameOver()) return;
+  snapshot();
+  state.runs += 1;
+  state.extras += 1;
+  // wides and no-balls don't count as a legal ball
+  state.over.push({ label: kind, type: "extra" });
+  state.log.unshift(ballText(true) + ": " + (kind === "Wd" ? "wide" : "no ball") + " (+1)");
+  render();
+}
+
+function wicket() {
+  if (gameOver()) return;
+  snapshot();
+  state.wickets += 1;
+  state.balls += 1;
+  state.over.push({ label: "W", type: "w" });
+  state.log.unshift(ballText() + ": WICKET! 🎯");
+  endOfOverCheck();
+  render();
+}
+
+function endOfOverCheck() {
+  if (state.balls % 6 === 0 && state.balls > 0) {
+    state.log.unshift("— end of over " + (state.balls / 6) + " —");
+    state.over = [];
+  }
+}
+
+function undo() {
+  if (!history.length) return;
+  state = JSON.parse(history.pop());
+  render();
+}
+
+function newGame() {
+  if (!confirm("Start a new game? Current score will be cleared.")) return;
+  state = fresh();
+  history = [];
+  render();
+}
+
+function ballText(extra) {
+  const legal = state.balls;
+  const ov = Math.floor(legal / 6);
+  const b = legal % 6;
+  return "Over " + ov + "." + (extra ? b + "+" : b);
+}
+
+function render() {
+  document.getElementById("runs").textContent = state.runs;
+  document.getElementById("wickets").textContent = state.wickets;
+  document.getElementById("extras").textContent = state.extras;
+  document.getElementById("balls").textContent = state.balls;
+  document.getElementById("maxOvers").textContent = MAX_OVERS;
+
+  const completedOvers = Math.floor(state.balls / 6);
+  const ballsInOver = state.balls % 6;
+  document.getElementById("overs").textContent = completedOvers + "." + ballsInOver;
+
+  const oversDecimal = state.balls / 6;
+  const rr = oversDecimal > 0 ? (state.runs / oversDecimal).toFixed(2) : "0.00";
+  document.getElementById("rr").textContent = rr;
+
+  const overEl = document.getElementById("thisOver");
+  overEl.innerHTML = "";
+  state.over.forEach(ball => {
+    const d = document.createElement("div");
+    d.className = "ball " + ball.type;
+    d.textContent = ball.label;
+    overEl.appendChild(d);
+  });
+
+  const logEl = document.getElementById("log");
+  logEl.innerHTML = state.log.slice(0, 30).map(l => "<div>" + l + "</div>").join("");
+
+  const toss = document.getElementById("toss");
+  if (gameOver()) {
+    toss.textContent = "🏆 Innings over — " + state.runs + "/" + state.wickets +
+      " in " + completedOvers + "." + ballsInOver + " overs";
+  } else {
+    toss.textContent = "";
+  }
+
+  save();
+}
+
+load();
+</script>
+</body>
+</html>
